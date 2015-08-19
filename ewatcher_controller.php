@@ -24,11 +24,21 @@
         $panel = "P" . $i;
         if(($route->action == $panel) && ($ewatcherconfig->panels[$panel])) {
           $active = true;
-          $result = view("Modules/ewatcher/panels/" . $panel . ".php", array());
+          require_once("Modules/ewatcher/panels/_EWatcherPanel.php");
+          require_once("Modules/ewatcher/panels/" . $panel . ".php");
+          $className = "EWatcher" . $panel;
+          $panelObject = new $className((int)$session['userid'], $mysqli);
+          // Start capturing echo's
+          ob_start();
+          // Render panel
+          $panelObject->view();
+          // Get echo's
+          $result = ob_get_contents();
+          ob_end_clean();
         }
       }
       if(($active === false) || (!$session["write"])) {
-        $result = view("Modules/ewatcher/panels/default.php", array());
+        $result = view("Modules/ewatcher/panels/_default.php", array());
       }
     }
     // Get/Set settings petition
