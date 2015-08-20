@@ -11,16 +11,14 @@
 
   // Panels available
   $dropdown = array();
-  $anyoneActive = false;
   for($i = 1; $i <= $ewatcherconfig->numPanels; $i++) {
     $panel = "P" . $i;
     if($ewatcherconfig->panels[$panel]) {
       $dropdown[] = array(ewatcher_translate($ewatcherconfig->panelsNames[$panel]), "ewatcher/" . $panel);
-      $anyoneActive = true;
     }
   }
   // If no panel is active, hide menu
-  if($anyoneActive === true) {
+  if(count($dropdown) > 0) {
     $menu_left[] = array(
         "name"=>"EWatcher",
         "path"=>"",
