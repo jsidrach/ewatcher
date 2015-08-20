@@ -16,7 +16,7 @@
 
       // Value: sPLoad, sPPv, iGridToLoad
       // Graphic: sPLoad, sPPv, iGridToLoad (last 7 days + interactivity)
-      // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet
+      // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet, eDLoad
       // Value: dPLoadFromPv, dPSelf
       echo "TODO P3";
     }
