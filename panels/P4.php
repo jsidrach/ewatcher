@@ -6,12 +6,14 @@
   // PV - Queries
   class EWatcherP4 extends EWatcherPanel {
     // Constructor
-    function __construct($userid, $mysqli) {
-      parent::__construct($userid, $mysqli);
+    function __construct($userid, $mysqli, $path) {
+      parent::__construct($userid, $mysqli, $path);
     }
 
     // Panel 4 View
     public function view() {
+      parent::view();
+
       // (Optional) set: cIn, cOut, units
       // Form: two dates (default to all)
         // Value: tLoad, tPv, tPvToLoad, tPvToNet, tLoadFromNet, 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad

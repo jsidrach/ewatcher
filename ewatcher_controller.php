@@ -6,7 +6,7 @@
   function ewatcher_controller()
   {
     // Global variables
-    global $session,$route,$mysqli;
+    global $session,$route,$mysqli,$path;
 
     // Output for the call
     $result = false;
@@ -27,7 +27,7 @@
           require_once("Modules/ewatcher/panels/_EWatcherPanel.php");
           require_once("Modules/ewatcher/panels/" . $panel . ".php");
           $className = "EWatcher" . $panel;
-          $panelObject = new $className((int)$session['userid'], $mysqli);
+          $panelObject = new $className((int)$session['userid'], $mysqli, $path);
           // Start capturing echo's
           ob_start();
           // Render panel

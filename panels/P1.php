@@ -6,17 +6,21 @@
   // Consumption
   class EWatcherP1 extends EWatcherPanel {
     // Constructor
-    function __construct($userid, $mysqli) {
-      parent::__construct($userid, $mysqli);
+    function __construct($userid, $mysqli, $path) {
+      parent::__construct($userid, $mysqli, $path);
     }
 
     // Panel 1 View
     public function view() {
+      parent::view();
+
       // Value: sPLoad, sVoltage
       // Graphic: sPLoad (last 7 values + interactivity)
       // Value: eDLoad
       // Graphic: eDLoad (last 7 values + interactivity)
-      echo "TODO P1";
+      echo "TODO P1";?>
+      <span class="instant-feed" data-feedid="357">Test</span>
+      <?php
     }
   }
 ?>

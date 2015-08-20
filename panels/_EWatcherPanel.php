@@ -11,6 +11,9 @@
     // Database connection
     protected $mysqli;
 
+    // Server path
+    protected $path;
+
     // Read API key
     protected $apikey_read;
 
@@ -21,9 +24,10 @@
     protected $feeds;
 
     // Class constructor
-    public function __construct($userid, $mysqli) {
+    public function __construct($userid, $mysqli, $path) {
       $this->userid = $userid;
       $this->mysqli = $mysqli;
+      $this->path = $path;
 
       // Get API keys
       $userid = intval($userid);
@@ -41,6 +45,15 @@
     }
 
     // Panel View
-    abstract public function view();
+    public function view() {
+      // Print global variables, include scripts
+      ?>
+      <script>
+        window.apikey_read = <?php echo "'" . $this->apikey_read . "'"; ?>;
+        window.emoncms_path = <?php echo "'" . $this->path . "'"; ?>;
+      </script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/instant-feed.js"></script>
+      <?php
+    }
   }
 ?>
