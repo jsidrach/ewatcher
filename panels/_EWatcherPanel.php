@@ -52,7 +52,13 @@
         window.apikey_read = <?php echo "'" . $this->apikey_read . "'"; ?>;
         window.emoncms_path = <?php echo "'" . $this->path . "'"; ?>;
       </script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.min.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.time.min.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.selection.min.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/date.format.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/instant-feed.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/chart-view.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-chart.js"></script>
       <?php
     }
   }
