@@ -8,7 +8,7 @@ Paneles de Autoconsumo FV y Consumo Eléctrico
 * Visitar `http://IP/emoncms/admin/db` y actualizar la base de datos en caso de ser necesario
 
 ### Utilización
-Crear usuarios y asignarles paneles mediante el [sistema automático de creación de usuarios](https://bitbucket.org/ismsolar/creacion-usuarios/). Una vez un usuario tenga al menos un panel asignado, al entrar en la plataforma *emoncms* verá un menú de *EWatcher* con todos los paneles disponibles.
+Crear usuarios y asignarles paneles mediante el [sistema de gestión de usuarios](https://bitbucket.org/ismsolar/gestion-usuarios/). Una vez un usuario tenga al menos un panel asignado, al entrar en la plataforma *emoncms* verá un menú de *EWatcher* con todos los paneles disponibles.
 
 ### Actualización
 * Situarse en la carpeta `/var/www/html/emoncms/ewatcher/` y ejecutar `git pull`
