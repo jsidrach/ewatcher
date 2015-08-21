@@ -58,7 +58,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/date.format.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/instant-feed.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/chart-view.js"></script>
-      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-chart.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-line-chart.js"></script>
       <?php
     }
   }

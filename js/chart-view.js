@@ -36,7 +36,7 @@ function ChartView() {
     this.end -= shift;
   };
 
-  // Sets the timewindow, aligned to the end
+  // Sets the timewindow, aligned to the end (in days)
   this.timewindow = function(time) {
     var now = (new Date()).getTime();
     // Get start time

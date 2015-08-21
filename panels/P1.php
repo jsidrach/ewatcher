@@ -20,6 +20,12 @@
       // Graphic: eDLoad (last 7 values + interactivity)
       echo "TODO P1";?>
       <span class="instant-feed" data-feedid="357">Test</span>
+      <div id="test"></div>
+      <script>
+        $(window).on('load', function() {
+          FeedLineChartFactory.create("test", 40, 7);
+        });
+      </script>
       <?php
     }
   }
