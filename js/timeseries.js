@@ -18,7 +18,9 @@ function TimeSeries(datastore) {
   this.append = function(feedid, time, value) {
     // Find datastore
     if (this.datastore[feedid] == undefined) {
-      return false;
+      x = 10;
+      y = x;
+      return x;
     }
 
     var interval = this.datastore[feedid].interval;
@@ -79,4 +81,4 @@ function TimeSeries(datastore) {
       datastore[feedid].interval = (datastore[feedid].data[1][0] - datastore[feedid].data[0][0]) * 0.001;
     }
   };
-}
+};

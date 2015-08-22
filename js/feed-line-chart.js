@@ -132,7 +132,7 @@ function FeedLineChart(divId, feeds, defaultRange) {
     });
     return data;
   };
-}
+};
 
 //
 // FeedLineChartFactory module

@@ -46,4 +46,4 @@ function ChartView() {
     // Get end time
     this.end = now;
   };
-}
+};
