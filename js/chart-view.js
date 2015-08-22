@@ -1,6 +1,8 @@
 // Helper class
 // Chart View
 function ChartView() {
+  "use strict";
+
   // Start time of the graph
   this.start = 0;
   // End time of the graph

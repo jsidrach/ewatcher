@@ -10,6 +10,8 @@ $(document).ready(function () {
 // Variables needed: window.apikey_read, window.emoncms_path
 // Libraries needed: jQuery
 (function (InstantFeed, $, undefined) {
+  "use strict";
+
   // Number of seconds between updates
   var interval;
 
