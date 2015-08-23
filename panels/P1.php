@@ -18,12 +18,23 @@
       // Graphic: sPLoad (last 7 values + interactivity)
       // Value: eDLoad
       // Graphic: eDLoad (last 7 values + interactivity)
-      echo "TODO P1";?>
+      echo "TODO P1";
+      echo strval($this->feeds['sPLoad']['id']);
+      ?>
       <span class="instant-feed" data-feedid="357">Test</span>
       <div id="test"></div>
+      <div id="test2"></div>
       <script>
         $(window).on('load', function() {
-          FeedLineChartFactory.create("test", 40, 7);
+          var feeds = [
+            {
+              id: 601,
+              color: "#123123",
+              legend: "Test legend 1"
+            }
+          ];
+          FeedChartFactory.create("test", feeds);
+          FeedChartFactory.create("test2", feeds);
         });
       </script>
       <?php

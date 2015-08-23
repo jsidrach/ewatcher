@@ -12,7 +12,7 @@ function ChartView() {
   this.zoomout = function() {
     var time_window = this.end - this.start;
     this.start -= time_window / 2;
-    this.end -= time_window / 2;
+    this.end += time_window / 2;
   };
 
   // Zoom in (half the interval)

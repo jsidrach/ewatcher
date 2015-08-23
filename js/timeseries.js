@@ -34,7 +34,6 @@ function TimeSeries(datastore) {
     // If the datapoint is newer than the last:
     if (pos > last_pos) {
       var npadding = (pos - last_pos) - 1;
-
       // Padding
       if ((npadding > 0) && (npadding < 12)) {
         for (var padd = 0; padd < npadding; padd++) {
@@ -66,13 +65,13 @@ function TimeSeries(datastore) {
       for (var p = pos; p < datastore[feedid].data.length; p++) {
         if (datastore[feedid].data[p] == undefined) {
             console.log("undefined: "+p);
-            console.log(interval)
-            console.log(start)
-        } else {
-          var t = datastore[feedid].data[p][0];
-          var v = datastore[feedid].data[p][1];
-          tmpdata.push([t,v]);
+            console.log(interval);
+            console.log(start);
+            datastore[feedid].data[p] = [];
         }
+        var t = datastore[feedid].data[p][0];
+        var v = datastore[feedid].data[p][1];
+        tmpdata.push([t,v]);
       }
       datastore[feedid].data = tmpdata;
       datastore[feedid].start = datastore[feedid].data[0][0] * 0.001;

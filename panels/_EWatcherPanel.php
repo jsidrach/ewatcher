@@ -40,7 +40,7 @@
       $this->feeds = array();
       $result = $this->mysqli->query("SELECT * FROM feeds WHERE `userid`='$this->userid'");
       while($feedData = $result->fetch_object()) {
-        $this->feeds[$feedData->name] = array("id"=>$feedData->id, "value"=>$feedData->value);
+        $this->feeds[$feedData->name] = array("id"=>strval($feedData->id), "value"=>$feedData->value);
       }
     }
 
@@ -59,7 +59,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/instant-feed.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/timeseries.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/chart-view.js"></script>
-      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-line-chart.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-chart.js"></script>
       <?php
     }
   }
