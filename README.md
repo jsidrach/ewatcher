@@ -29,5 +29,5 @@ Se utilizan las siguientes librerías de terceros:
 * [TODO]
 
 ### Tareas pendientes
-* Investigar cómo se recuperan datos de *feeds* mediante llamadas *AJAX*
+* Bargraphs: dibujar bargraphs
 * Crear paneles

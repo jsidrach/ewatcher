@@ -9,6 +9,7 @@
 //     color (optional): color of the feed
 //     legend (optional): legend of the feed
 //   options: object of configuration options
+//     chartType: type of the graph ("instant"/"daily")
 //     defaultRange: default interval for the visualization (in days)
 //     pWidth: percentaje of screen width (from 0 to 1)
 //     pHeight: percentaje of screen height (from 0 to 1)
@@ -29,6 +30,8 @@ function FeedChart(divId, feeds, options) {
   this.pHeight = options.pHeight;
   // Time between updates in live mode (in ms)
   this.updateinterval = options.updateinterval;
+  // Type of chart
+  this.chartType = options.chartType;
   // Chart can be selected and zoomed in
   this.selectable = options.selectable;
   // Feed ids, colors and legends
@@ -69,6 +72,14 @@ function FeedChart(divId, feeds, options) {
 
   // Set default range
   this.view.timewindow(this.defaultRange);
+  // Instant graph (1 minute min range)
+  if(this.chartType == "instant") {
+    this.view.minimum_time_window = 60000;
+  }
+  // Daily graph (7 days min range)
+  else if(this.chartType == "daily") {
+    this.view.minimum_time_window = 60000*60*24*7;
+  }
 
   // Placeholder bound
   this.placeholder_bound = $("#" + divId);
@@ -83,12 +94,22 @@ function FeedChart(divId, feeds, options) {
       self.view.start = ranges.xaxis.from;
       self.view.end = ranges.xaxis.to;
 
+      // Minimum window
+      if((self.view.end - self.view.start) < self.view.minimum_time_window) {
+        var time_window = self.view.minimum_time_window;
+        var middle = (self.view.end + self.view.start) / 2;
+        self.view.start = middle - time_window / 2;
+        self.view.end = middle + time_window / 2;
+      }
+
       self.autoupdate = false;
       self.reload = true;
 
       var now = +new Date();
       if (Math.abs(self.view.end - now) < 30000) {
-        self.autoupdate = true;
+        if(self.chartType == "instant") {
+          self.autoupdate = false;
+        }
       }
 
       self.draw();
@@ -105,11 +126,13 @@ function FeedChart(divId, feeds, options) {
   // Show graph
   this.show = function() {
     this.resize();
-    this.livefn();
-    var self = this;
-    this.live = setInterval(function() {
-      self.livefn();
-    }, this.updateinterval);
+    if(this.chartType == "instant") {
+      this.livefn();
+      var self = this;
+      this.live = setInterval(function() {
+        self.livefn();
+      }, this.updateinterval);
+    }
     this.draw();
   };
 
@@ -146,14 +169,14 @@ function FeedChart(divId, feeds, options) {
 
     // If autoupdate active
     if(this.autoupdate) {
-
       // Declare feed here so if the for loop has only 1 iteration we keep the feed index
       var feed;
       // Requests array
       var requests = [];
       for(var feedid in this.feeds) {
         feed = this.feeds[feedid];
-        requests.push(this.getData(feed, now, now + 1000, 1));
+        // Let atleast have 11sec, since the data is pushed every 10 seconds
+        requests.push(this.getData(feed, now - 1.5*this.updateinterval, now + 1000, 1));
       }
       // Save context before jQuery calls
       var self = this;
@@ -161,32 +184,41 @@ function FeedChart(divId, feeds, options) {
       $.when.apply($, requests).done(function() {
         // Special case if there is only one request
         if (requests.length == 1) {
-          var feedData = arguments[0];
-          // Fix single data exception
-          if(feedData.length == 1) {
-            feedData[1] = feedData[0];
+          // Get only the data that is not null
+          var filteredFeedData = [];
+          $.map(arguments[0], function(eachFeedData) {
+            if(eachFeedData[1] != null) {
+              filteredFeedData.push(eachFeedData);
+            }
+          });
+          // If any data to append, append it
+          if(filteredFeedData.length >= 1) {
+            var feedData = filteredFeedData.pop();
+            self.timeseries.append("f" + feed, feedData[0], parseInt(feedData[1]));
+            self.timeseries.trimstart("f" + feed, self.view.start * 0.001);
           }
-          self.timeseries.append("f" + feed, feedData[0][0], parseInt(feedData[0][1]));
-          self.timeseries.trimstart("f" + feed, self.view.start * 0.001);
         }
         // For each request
         else {
           $.each(arguments, function(index, responseData) {
-            var feedData = responseData[0];
-            if(feedData.length >= 1) {
-              var feedId = self.feeds[index];
-              // Fix single data exception
-              if(feedData.length == 1) {
-                feedData[1] = feedData[0];
+            // Get only the data that is not null
+            var filteredFeedData = [];
+            $.map(responseData[0], function(eachFeedData) {
+              if(eachFeedData[1] != null) {
+                filteredFeedData.push(eachFeedData);
               }
-              self.timeseries.append("f" + feedId, feedData[0][0], parseInt(feedData[0][1]));
-              self.timeseries.trimstart("f" + feedId, self.view.start * 0.001);
+            });
+            // If any data to append, append it
+            if(filteredFeedData.length >= 1) {
+              var feedData = filteredFeedData.pop();
+              self.timeseries.append("f" + feed, feedData[0], parseInt(feedData[1]));
+              self.timeseries.trimstart("f" + feed, self.view.start * 0.001 + 10);
             }
           });
-          var timerange = self.view.end - self.view.start;
-          self.view.end = now;
-          self.view.start = self.view.end - timerange;
         }
+        var timerange = self.view.end - self.view.start;
+        self.view.end = now;
+        self.view.start = self.view.end - timerange;
         // Draw
         self.draw();
       });
@@ -259,13 +291,15 @@ function FeedChart(divId, feeds, options) {
     // flot options
     var options = {
       lines: {
-        fill: false
+        fill: false,
+        steps: true
       },
       xaxis: {
         mode: "time",
         timezone: "browser",
         min: this.view.start,
-        max: this.view.end
+        max: this.view.end,
+        minTickSize: [1, "second"]
       },
       yaxes: [
         {
@@ -291,10 +325,9 @@ function FeedChart(divId, feeds, options) {
 
     // Data start
     var datastart = this.view.start;
-    // ?
     for(var z in this.datastore) {
-      datastart = this.datastore[z].data[0][0];
-      npoints = this.datastore[z].data.length;
+      datastart = Math.min(datastart, this.datastore[z].data[0][0]);
+      npoints = Math.max(this.datastore[z].data.length);
     }
 
     // Push data
@@ -308,14 +341,14 @@ function FeedChart(divId, feeds, options) {
           if(plot_data["f" + feed] == undefined) {
             plot_data["f" + feed] = [];
           }
-          plot_data["f" + feed].push([time, this.datastore["f" + feed].data[z][1]]);
+          plot_data["f" + feed].push([this.datastore["f" + feed].data[z][0], this.datastore["f" + feed].data[z][1]]);
         }
       }
     }
 
     // Axis options
-    options.xaxis.min = this.view.start;
-    options.xaxis.max = this.view.end;
+    options.xaxis.min = datastart + 10000;
+    options.xaxis.max = this.view.end - 10000;
 
     // Data for the plot
     var series = [];
@@ -325,7 +358,7 @@ function FeedChart(divId, feeds, options) {
         data: feed_data,
         color: this.feed_colors[i],
         lines: {
-          lineWidth: 0.2,
+          lineWidth: 0,
           fill: 0.7
         },
         label: this.feed_legends[i]
@@ -370,6 +403,7 @@ function FeedChart(divId, feeds, options) {
   //     color (optional): color of the feed
   //     legend (optional): legend of the feed
   //   options: object of configuration options
+  //     chartType: chart type ("instant"/"daily")
   //     defaultRange: default interval for the visualization (in days)
   //     pWidth: percentaje of screen width (from 0 to 1)
   //     pHeight: percentaje of screen height (from 0 to 1)
@@ -379,6 +413,7 @@ function FeedChart(divId, feeds, options) {
   FeedChartFactory.create = function (containerId, feeds, options) {
     // Default options
     var defaultOptions = {
+      chartType: "instant",
       defaultRange: 7,
       pWidth: 1,
       pHeight: 0.5,
@@ -405,27 +440,29 @@ function FeedChart(divId, feeds, options) {
     // Append controls
     if(chartOptions.controls === true) {
       // Chart controls
-      // 1h
-      $("<span/>", {text: "1h", click: function() {
-        fchart.view.timewindow(1/24.0);
-        fchart.reload = true;
-        fchart.autoupdate = true;
-        fchart.draw();
-      }}).appendTo(controlbar);
-      // 8h
-      $("<span/>", {text: "8h", click: function() {
-        fchart.view.timewindow(8/24.0);
-        fchart.reload = true;
-        fchart.autoupdate = true;
-        fchart.draw();
-      }}).appendTo(controlbar);
-      // D
-      $("<span/>", {text: "D", click: function() {
-        fchart.view.timewindow(1);
-        fchart.reload = true;
-        fchart.autoupdate = true;
-        fchart.draw();
-      }}).appendTo(controlbar);
+      if(chartOptions.chartType == "instant") {
+        // 1h
+        $("<span/>", {text: "1h", click: function() {
+          fchart.view.timewindow(1/24.0);
+          fchart.reload = true;
+          fchart.autoupdate = true;
+          fchart.draw();
+        }}).appendTo(controlbar);
+        // 8h
+        $("<span/>", {text: "8h", click: function() {
+          fchart.view.timewindow(8/24.0);
+          fchart.reload = true;
+          fchart.autoupdate = true;
+          fchart.draw();
+        }}).appendTo(controlbar);
+        // D
+        $("<span/>", {text: "D", click: function() {
+          fchart.view.timewindow(1);
+          fchart.reload = true;
+          fchart.autoupdate = true;
+          fchart.draw();
+        }}).appendTo(controlbar);
+      }
       // W
       $("<span/>", {text: "W", click: function() {
         fchart.view.timewindow(7);
@@ -437,42 +474,54 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "M", click: function() {
         fchart.view.timewindow(30);
         fchart.reload = true;
-        fchart.autoupdate = true;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
       // Y
       $("<span/>", {text: "Y", click: function() {
         fchart.view.timewindow(365);
         fchart.reload = true;
-        fchart.autoupdate = true;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
       // Zoom in
       $("<span/>", {text: "+", click: function() {
         fchart.view.zoomin();
         fchart.reload = true;
-        fchart.autoupdate = false;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
       // Zoom out
       $("<span/>", {text: "-", click: function() {
         fchart.view.zoomout();
         fchart.reload = true;
-        fchart.autoupdate = false;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
       // Pan left
       $("<span/>", {text: "<", click: function() {
         fchart.view.panleft();
         fchart.reload = true;
-        fchart.autoupdate = false;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
       // Pan right
       $("<span/>", {text: ">", click: function() {
         fchart.view.panright();
         fchart.reload = true;
-        fchart.autoupdate = false;
+        if(chartOptions.chartTypefchart == "instant") {
+          fchart.autoupdate = true;
+        }
         fchart.draw();
       }}).appendTo(controlbar);
     }

@@ -29,7 +29,7 @@ function TimeSeries(datastore) {
     // Calculate new data point position
     var pos = (time - start) / interval;
     // Get last position from data length
-    var last_pos = datastore[feedid].data.length - 1;
+    var last_pos = this.datastore[feedid].data.length - 1;
 
     // If the datapoint is newer than the last:
     if (pos > last_pos) {
@@ -38,44 +38,44 @@ function TimeSeries(datastore) {
       if ((npadding > 0) && (npadding < 12)) {
         for (var padd = 0; padd < npadding; padd++) {
           var padd_time = start + ((last_pos + padd + 1) * interval);
-          datastore[feedid].data.push([padd_time * 1000, null]);
+          this.datastore[feedid].data.push([padd_time, null]);
         }
       }
 
       // Insert datapoint
-      datastore[feedid].data.push([time * 1000, value]);
+      this.datastore[feedid].data.push([time, value]);
     }
   };
 
   // Trim the start of the graphic
   this.trimstart = function(feedid, newstart) {
-    // Find datastore
-    if (datastore[feedid] == undefined) {
+    // Find this.datastore
+    if (this.datastore[feedid] == undefined) {
       return false;
     }
 
-    var interval = datastore[feedid].interval;
-    var start = datastore[feedid].start;
+    var interval = this.datastore[feedid].interval;
+    var start = this.datastore[feedid].start;
 
     newstart = Math.floor(newstart / interval) * interval;
     var pos = (newstart - start) / interval;
     var tmpdata = [];
 
     if (pos >= 0) {
-      for (var p = pos; p < datastore[feedid].data.length; p++) {
-        if (datastore[feedid].data[p] == undefined) {
+      for (var p = pos; p < this.datastore[feedid].data.length; p++) {
+        if (this.datastore[feedid].data[p] == undefined) {
             console.log("undefined: "+p);
             console.log(interval);
             console.log(start);
-            datastore[feedid].data[p] = [];
+            this.datastore[feedid].data[p] = [];
         }
-        var t = datastore[feedid].data[p][0];
-        var v = datastore[feedid].data[p][1];
+        var t = this.datastore[feedid].data[p][0];
+        var v = this.datastore[feedid].data[p][1];
         tmpdata.push([t,v]);
       }
-      datastore[feedid].data = tmpdata;
-      datastore[feedid].start = datastore[feedid].data[0][0] * 0.001;
-      datastore[feedid].interval = (datastore[feedid].data[1][0] - datastore[feedid].data[0][0]) * 0.001;
+      this.datastore[feedid].data = tmpdata;
+      this.datastore[feedid].start = this.datastore[feedid].data[0][0] * 0.001;
+      this.datastore[feedid].interval = (this.datastore[feedid].data[1][0] - this.datastore[feedid].data[0][0]) * 0.001;
     }
   };
 };
