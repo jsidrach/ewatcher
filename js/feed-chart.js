@@ -146,26 +146,117 @@ function FeedChart(divId, feeds, options) {
 
     // If autoupdate active
     if(this.autoupdate) {
-      for(var feedid in this.feeds) {
-        var feed = this.feeds[feedid];
-        var feedData = this.getData(feed, now, now + 1000, 1);
-        if(feedData.length >= 1) {
-          this.timeseries.append("f" + feed, feedData[0][0], parseInt(feedData[0][1]));
-          this.timeseries.trimstart("f" + feed, this.view.start * 0.001);
-        }
-      }
-      var timerange = this.view.end - this.view.start;
-      this.view.end = now;
-      this.view.start = this.view.end - timerange;
-    }
 
-    // Draw the graph
-    this.draw();
+      // Declare feed here so if the for loop has only 1 iteration we keep the feed index
+      var feed;
+      // Requests array
+      var requests = [];
+      for(var feedid in this.feeds) {
+        feed = this.feeds[feedid];
+        requests.push(this.getData(feed, now, now + 1000, 1));
+      }
+      // Save context before jQuery calls
+      var self = this;
+      // When all requests finish
+      $.when.apply($, requests).done(function() {
+        // Special case if there is only one request
+        if (requests.length == 1) {
+          var feedData = arguments[0];
+          // Fix single data exception
+          if(feedData.length == 1) {
+            feedData[1] = feedData[0];
+          }
+          self.timeseries.append("f" + feed, feedData[0][0], parseInt(feedData[0][1]));
+          self.timeseries.trimstart("f" + feed, self.view.start * 0.001);
+        }
+        // For each request
+        else {
+          $.each(arguments, function(index, responseData) {
+            var feedData = responseData[0];
+            if(feedData.length >= 1) {
+              var feedId = self.feeds[index];
+              // Fix single data exception
+              if(feedData.length == 1) {
+                feedData[1] = feedData[0];
+              }
+              self.timeseries.append("f" + feedId, feedData[0][0], parseInt(feedData[0][1]));
+              self.timeseries.trimstart("f" + feedId, self.view.start * 0.001);
+            }
+          });
+          var timerange = self.view.end - self.view.start;
+          self.view.end = now;
+          self.view.start = self.view.end - timerange;
+        }
+        // Draw
+        self.draw();
+      });
+    } else {
+      // Draw the graph
+      this.draw();
+    }
   };
 
   // Draw graph
   this.draw = function() {
-    // fplot options
+    // Number of datapoints
+    var npoints = 1500;
+    var interval = Math.round(((this.view.end - this.view.start) / npoints) / 1000);
+    if(interval < 1) {
+      interval = 1;
+    }
+    npoints = parseInt((this.view.end - this.view.start) / (interval * 1000));
+
+    // Load data on init or reload
+    if(this.reload) {
+      this.reload = false;
+      this.view.start = 1000 * Math.floor((this.view.start / 1000) / interval) * interval;
+      this.view.end = 1000 * Math.ceil((this.view.end / 1000) / interval) * interval;
+
+      // Declare feed here so if the for loop has only 1 iteration we keep the feed index
+      var feed;
+      // Requests array
+      var requests = [];
+      for(var i in this.feeds) {
+        feed = this.feeds[i];
+        requests.push(this.getData(feed, this.view.start, this.view.end, interval));
+      }
+      // Save context before jQuery calls
+      var self = this;
+      // When all requests finish
+      $.when.apply($, requests).done(function() {
+        // Special case if there is only one request
+        if (requests.length == 1) {
+          var feedData = arguments[0];
+          // Fix single data exception
+          if(feedData.length == 1) {
+            feedData[1] = feedData[0];
+          }
+          self.timeseries.load("f" + feed, feedData);
+        }
+        // For each request
+        else {
+          $.each(arguments, function(index, responseData) {
+            var feedData = responseData[0];
+            var feedId = self.feeds[index];
+            // Fix single data exception
+            if(feedData.length == 1) {
+              feedData[1] = feedData[0];
+            }
+            self.timeseries.load("f" + feedId, feedData);
+          });
+        }
+        // Self call, now this.reload is false so it will the retrieval of data
+        self.draw();
+      });
+      return;
+    }
+
+    // No data yet (ajax calls in progress)
+    if(Object.getOwnPropertyNames(this.datastore).length === 0) {
+      return;
+    }
+
+    // flot options
     var options = {
       lines: {
         fill: false
@@ -192,34 +283,8 @@ function FeedChart(divId, feeds, options) {
         show: true,
         pos: "ne",
         backgroundOpacity: 0.5,
-
       }
     };
-
-    // Number of datapoints
-    var npoints = 1500;
-    var interval = Math.round(((this.view.end - this.view.start) / npoints) / 1000);
-    if(interval < 1) {
-      interval = 1;
-    }
-    npoints = parseInt((this.view.end - this.view.start) / (interval * 1000));
-
-    // Load data on init or reload
-    if(this.reload) {
-      this.reload = false;
-      this.view.start = 1000 * Math.floor((this.view.start / 1000) / interval) * interval;
-      this.view.end = 1000 * Math.ceil((this.view.end / 1000) / interval) * interval;
-
-      for(var i in this.feeds) {
-        var feed = this.feeds[i];
-        var feedData = this.getData(feed, this.view.start, this.view.end, interval);
-        // Fix single data exception
-        if(feedData.length == 1) {
-          feedData[1] = feedData[0];
-        }
-        this.timeseries.load("f" + feed, feedData);
-      }
-    }
 
     // Initialize plot data
     var plot_data = [];
@@ -273,23 +338,20 @@ function FeedChart(divId, feeds, options) {
       return;
     }
 
-    // Call fplot
+    // Call flot
     $.plot(this.placeholder, series, options);
   };
 
-  // Get feed data
+  // Get feed data (async)
   this.getData = function(id, start, end, interval) {
-    var data = [];
-    $.ajax({
+    return $.ajax({
       url: window.emoncms_path + "/feed/data.json?apikey=" + window.apikey_read,
       data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=0",
       dataType: "json",
-      async: false,
-      success: function(data_in) {
-        data = data_in;
+      success: function(data) {
+        return data;
       }
     });
-    return data;
   };
 };
 

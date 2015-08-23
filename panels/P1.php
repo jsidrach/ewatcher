@@ -31,6 +31,11 @@
               id: 601,
               color: "#123123",
               legend: "Test legend 1"
+            },
+            {
+              id: 589,
+              color: "#122223",
+              legend: "Test legend 2"
             }
           ];
           FeedChartFactory.create("test", feeds);
