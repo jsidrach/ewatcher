@@ -64,9 +64,6 @@ function TimeSeries(datastore) {
     if (pos >= 0) {
       for (var p = pos; p < this.datastore[feedid].data.length; p++) {
         if (this.datastore[feedid].data[p] == undefined) {
-            console.log("undefined: "+p);
-            console.log(interval);
-            console.log(start);
             this.datastore[feedid].data[p] = [];
         }
         var t = this.datastore[feedid].data[p][0];
