@@ -332,7 +332,6 @@ function FeedChart(divId, feeds, options) {
 
     // Push data
     for(var z = 0; z < npoints; z++) {
-      var time = datastart + (1000 * interval * z);
       for(var i in this.feeds) {
         var feed = this.feeds[i];
         if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
