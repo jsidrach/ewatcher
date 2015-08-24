@@ -6,7 +6,11 @@
   require_once("Modules/ewatcher/ewatcher_translations.php");
 
   // Default generic page (error, no panel available for this user)
-  echo 'TODO - Default';
+  $error_string = ewatcher_translate("There has been an error. The page is not accessible.");
+  $panels_string = ewatcher_translate("Please contact the administrator to enable/disable the eWatcher panels.");
 
-  echo ewatcher_translate('Hola');
+
+
+  echo "<p> ".$error_string."\n </p>";
+  echo "<p> ".$panels_string."\n </p>";
 ?>
