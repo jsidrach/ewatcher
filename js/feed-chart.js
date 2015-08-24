@@ -1,6 +1,6 @@
 // FeedChart class
 // Variables needed: window.apikey_read, window.emoncms_path
-// Libraries needed: jQuery, flot, flot.time, flot.selection, date.format, chart-view, timeseries
+// Libraries needed: jQuery, flot, flot.touch, flot.time, flot.selection, date.format, chart-view, timeseries
 //
 // Parameters:
 //   divId: id of the graph container
@@ -78,22 +78,21 @@ function FeedChart(divId, feeds, options) {
   this.lastupdate = 0;
   // View
   this.view = new ChartView();
-  this.view.timewindow(this.defaultRange);
   // Data store
   this.datastore = {};
   // Timeseries
   this.timeseries = new TimeSeries(this.datastore);
 
-  // Set default range
-  this.view.timewindow(this.defaultRange);
   // Instant graph (1 minute min range)
   if(this.chartType == "instant") {
     this.view.minimum_time_window = 60000;
   }
   // Daily graph (7 days min range)
   else if(this.chartType == "daily") {
-    this.view.minimum_time_window = 60000*60*24*7;
+    this.view.minimum_time_window = 60000 * 60 * 24 * 7;
   }
+  // Set default range
+  this.view.timewindow(this.defaultRange);
 
   // Placeholder bound
   this.placeholder_bound = $("#" + divId);
@@ -185,7 +184,7 @@ function FeedChart(divId, feeds, options) {
       for(var feedid in this.feeds) {
         feed = this.feeds[feedid];
         // Let atleast have 11sec, since the data is pushed every 10 seconds
-        requests.push(this.getData(feed, now - 1.5*this.updateinterval, now + 1000, 1));
+        requests.push(this.getData(feed, now - 1.5*this.updateinterval, now + 1000, 1, 0));
       }
       // Save context before jQuery calls
       var self = this;
@@ -239,6 +238,12 @@ function FeedChart(divId, feeds, options) {
 
   // Draw graph
   this.draw = function() {
+    // If daily graph, draw a bar graph with a interval of 1 day
+    if(this.chartType === "daily") {
+      this.drawBargraph(60 * 60 * 24);
+      return;
+    }
+
     // Number of datapoints
     var npoints = 1500;
     var interval = Math.round(((this.view.end - this.view.start) / npoints) / 1000);
@@ -259,7 +264,7 @@ function FeedChart(divId, feeds, options) {
       var requests = [];
       for(var i in this.feeds) {
         feed = this.feeds[i];
-        requests.push(this.getData(feed, this.view.start, this.view.end, interval));
+        requests.push(this.getData(feed, this.view.start, this.view.end, interval, 0));
       }
       // Save context before jQuery calls
       var self = this;
@@ -383,11 +388,123 @@ function FeedChart(divId, feeds, options) {
     $.plot(this.placeholder, series, options);
   };
 
+  // Draw a bar graph
+  this.drawBargraph = function() {
+    // Get timezone offset in hours
+    var offset = ((new Date()).getTimezoneOffset()) / (-60);
+    var intervalms = 60 * 60 * 24 * 1000;
+    var datastart = Math.floor(this.view.start / intervalms) * intervalms;
+    // Minus one day if you don't want to plot the day in progress
+    // var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*24*1000;
+    var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*24*1000;
+
+    // Start of the day (date - offset in hours)
+    datastart -= offset * 3600000;
+    dataend -= offset * 3600000;
+    this.view.start = datastart;
+    this.view.end = dataend;
+
+    // Get data
+    // Plot data
+    var plot_data = [];
+    // Declare feed here so if the for loop has only 1 iteration we keep the feed index
+    var feed;
+    // Requests array
+    var requests = [];
+    for(var i in this.feeds) {
+      feed = this.feeds[i];
+      requests.push(this.getData(feed, this.view.start, this.view.end, 60 * 60 * 24, 1));
+    }
+    // Save context before jQuery calls
+    var self = this;
+    // When all requests finish
+    $.when.apply($, requests).done(function() {
+      // Special case if there is only one request
+      if (requests.length == 1) {
+        var feedData = arguments[0];
+        plot_data["f" + feed] = [];
+        for(var z = 0; z < feedData.length; z++) {
+          if(feedData[z][1] != null) {
+            plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
+          }
+        }
+      }
+      // For each request
+      else {
+        $.each(arguments, function(index, responseData) {
+          var feedData = responseData[0];
+          var feedId = self.feeds[index];
+          plot_data["f" + feedId] = [];
+          for(var z = 0; z < feedData.length; z++) {
+            if(feedData[z][1] != null) {
+              plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
+            }
+          }
+        });
+      }
+
+      // Plot data
+      // Plot options
+      var options = {
+        bars: {
+          show: true,
+          align: "center",
+          barWidth: 0.7 * 60 * 60 * 24 * 1000,
+          fill: true
+        },
+        xaxis: {
+          mode: "time",
+          timezone: "browser",
+          min: self.view.start,
+          max: self.view.end,
+          minTickSize: [1, "day"]
+        },
+        yaxes: [
+          {
+            min: 0
+          }
+        ],
+        grid: {
+          hoverable: self.selectable,
+          clickable: self.selectable
+        },
+        selection: {
+          mode: "x"
+        },
+        legend: {
+          show: true,
+          position: "nw",
+          backgroundOpacity: 0.5,
+        },
+      };
+
+      // Data for the plot
+      var series = [];
+      for(var i in plot_data) {
+        var feed_data = plot_data[i];
+        var seriesData = {
+          data: feed_data,
+          color: self.feed_colors[i],
+          label: self.feed_legends[i]
+        };
+        series.push(seriesData);
+      }
+
+      // If no data retrieved, return
+      if(series.length == 0) {
+        return;
+      }
+
+      // Call flot
+      $.plot(self.placeholder, series, options);
+    });
+  };
+
   // Get feed data (async)
-  this.getData = function(id, start, end, interval) {
+  this.getData = function(id, start, end, interval, limitinterval) {
     return $.ajax({
       url: window.emoncms_path + "/feed/data.json?apikey=" + window.apikey_read,
-      data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=0",
+      data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval="+limitinterval,
       dataType: "json",
       success: function(data) {
         return data;
@@ -481,7 +598,7 @@ function FeedChart(divId, feeds, options) {
       }}).appendTo(controlbar);
       // M
       $("<span/>", {text: "M", click: function() {
-        fchart.view.timewindow(30);
+        fchart.view.timewindow(31);
         fchart.reload = true;
         if(chartOptions.chartTypefchart == "instant") {
           fchart.autoupdate = true;

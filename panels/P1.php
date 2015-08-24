@@ -28,12 +28,15 @@
         $(window).on('load', function() {
           var feeds = [
             {
-              id: 589,
+              id: 598,
               color: "#122223",
               legend: "Test legend 2"
+            },
+            {
+              id: 602
             }
           ];
-          FeedChartFactory.create("test", feeds);
+          FeedChartFactory.create("test", feeds, {chartType: "daily"});
         });
       </script>
       <?php
