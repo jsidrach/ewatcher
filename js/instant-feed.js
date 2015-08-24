@@ -32,7 +32,7 @@ $(document).ready(function () {
           if((typeof value === 'object') && ("success" in value) && (value.success == false)) {
             feedElement.text("--");
           } else {
-            feedElement.text(value);
+            feedElement.text(value).trigger('change');
           }
         });
       }, interval));
