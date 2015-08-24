@@ -13,13 +13,13 @@ $(document).ready(function () {
   "use strict";
 
   // Number of seconds between updates
-  var interval;
+  var interval = 10000;
+
+  // Intervals (return of setInterval)
+  var intervals = [];
 
   // Initializes the module
   InstantFeed.init = function () {
-    // Set the internal variables
-    interval = 10000;
-
     // Refresh feed
     // Feed label/span must have:
     //   instant-feed class
@@ -27,7 +27,7 @@ $(document).ready(function () {
     // Example: <span class="instant-feed" data-feedid="0"></span>
     $(".instant-feed").each(function() {
       var feedElement = $(this);
-      setInterval(function() {
+      intervals.push(setInterval(function() {
         InstantFeed.getVal(feedElement.data("feedid"), function(value) {
           if((typeof value === 'object') && ("success" in value) && (value.success == false)) {
             feedElement.text("--");
@@ -35,7 +35,7 @@ $(document).ready(function () {
             feedElement.text(value);
           }
         });
-      }, interval);
+      }, interval));
     });
   };
 
@@ -48,6 +48,18 @@ $(document).ready(function () {
         callback(result);
       }
     });
+  };
+
+  // Set interval
+  InstantFeed.setInterval = function(newInterval) {
+    interval = newInterval;
+    // Stop all callbacks
+    intervals.forEach(function(refreshInterval) {
+      clearInterval(refreshInterval);
+    });
+    // Set new intervals
+    intervals = [];
+    InstantFeed.init();
   };
 
 }(window.InstantFeed = window.InstantFeed || {}, jQuery));

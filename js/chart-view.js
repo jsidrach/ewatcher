@@ -51,8 +51,12 @@ function ChartView() {
   // Sets the timewindow, aligned to the end (in days)
   this.timewindow = function(time) {
     var now = (new Date()).getTime();
+    var time_window = (36000000 * 24 * time);
+    if(time_window < this.minimum_time_window) {
+      time_window = this.minimum_time_window;
+    }
     // Get start time
-    this.start = now - (3600000 * 24 * time);
+    this.start = now - time_window;
     // Get end time
     this.end = now;
   };

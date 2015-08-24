@@ -8,6 +8,8 @@
 //     id: id of the feed
 //     color (optional): color of the feed
 //     legend (optional): legend of the feed
+//     line (optional): line width (from 0 to 1)
+//     fill (optional): line fill (from 0 to 1)
 //   options: object of configuration options
 //     chartType: type of the graph ("instant"/"daily")
 //     defaultRange: default interval for the visualization (in days)
@@ -34,10 +36,12 @@ function FeedChart(divId, feeds, options) {
   this.chartType = options.chartType;
   // Chart can be selected and zoomed in
   this.selectable = options.selectable;
-  // Feed ids, colors and legends
+  // Feed ids, colors, legends, lines and fills
   this.feeds = [];
   this.feed_colors = [];
   this.feed_legends = [];
+  this.feed_lines = [];
+  this.feed_fills = [];
   for(var feedid in feeds) {
     var feed = feeds[feedid];
     this.feeds.push(feed.id);
@@ -50,6 +54,16 @@ function FeedChart(divId, feeds, options) {
       this.feed_legends["f" + feed.id] = feed.legend;
     } else {
       this.feed_legends["f" + feed.id] = null;
+    }
+    if (typeof feed.line !== "undefined") {
+      this.feed_lines["f" + feed.id] = feed.line;
+    } else {
+      this.feed_lines["f" + feed.id] = 0.2;
+    }
+    if (typeof feed.fill !== "undefined") {
+      this.feed_fills["f" + feed.id] = feed.fill;
+    } else {
+      this.feed_fills["f" + feed.id] = 0.7;
     }
   }
 
@@ -149,11 +163,6 @@ function FeedChart(divId, feeds, options) {
     this.placeholder.width(width);
     this.placeholder_bound.height(height);
     this.placeholder.height(height);
-  };
-
-  // Hide graph
-  this.hide = function() {
-    clearInterval(this.live);
   };
 
   // Update graph
@@ -277,7 +286,7 @@ function FeedChart(divId, feeds, options) {
             self.timeseries.load("f" + feedId, feedData);
           });
         }
-        // Self call, now this.reload is false so it will the retrieval of data
+        // Self call, now this.reload is false so it won't retrieve the data again
         self.draw();
       });
       return;
@@ -307,15 +316,15 @@ function FeedChart(divId, feeds, options) {
         }
       ],
       grid: {
-        hoverable: true,
-        clickable: true
+        hoverable: this.selectable,
+        clickable: this.selectable
       },
       selection: {
         mode: "x"
       },
       legend: {
         show: true,
-        pos: "ne",
+        position: "nw",
         backgroundOpacity: 0.5,
       }
     };
@@ -346,8 +355,8 @@ function FeedChart(divId, feeds, options) {
     }
 
     // Axis options
-    options.xaxis.min = datastart + 10000;
-    options.xaxis.max = this.view.end - 10000;
+    options.xaxis.min = datastart + this.updateinterval;
+    options.xaxis.max = this.view.end - this.updateinterval;
 
     // Data for the plot
     var series = [];
@@ -357,8 +366,8 @@ function FeedChart(divId, feeds, options) {
         data: feed_data,
         color: this.feed_colors[i],
         lines: {
-          lineWidth: 0,
-          fill: 0.7
+          lineWidth: this.feed_lines[i],
+          fill: this.feed_fills[i]
         },
         label: this.feed_legends[i]
       };
@@ -401,6 +410,8 @@ function FeedChart(divId, feeds, options) {
   //     id: id of the feed
   //     color (optional): color of the feed
   //     legend (optional): legend of the feed
+  //     line (optional): line width (from 0 to 1)
+  //     fill (optional): line fill (from 0 to 1)
   //   options: object of configuration options
   //     chartType: chart type ("instant"/"daily")
   //     defaultRange: default interval for the visualization (in days)
@@ -418,8 +429,7 @@ function FeedChart(divId, feeds, options) {
       pHeight: 0.5,
       updateinterval: 10000,
       selectable: true,
-      controls: true,
-      feedsStyle: []
+      controls: true
     };
     // Merge defaultOptions and options, without modifying defaultOptions
     var chartOptions = $.extend({}, defaultOptions, options);
@@ -525,7 +535,7 @@ function FeedChart(divId, feeds, options) {
       }}).appendTo(controlbar);
     }
 
-    // Show fchart
+    // Show chart
     fchart.show();
 
     // Return chart
