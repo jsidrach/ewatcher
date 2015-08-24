@@ -19,6 +19,9 @@
         // Table: eDLoad daily between the dates
         // Option to download table as CSV
       echo "TODO P2";
+      ?>
+      <input type="date" value="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d'); ?>" />
+      <?php
     }
   }
 ?>
