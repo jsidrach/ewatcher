@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-08-19 12:06+0100\n"
-"PO-Revision-Date: 2015-08-19 12:06+0100\n"
+"POT-Creation-Date: 2015-08-24 12:26+0100\n"
+"PO-Revision-Date: 2015-08-24 12:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -12,25 +12,26 @@ msgstr ""
 "X-Generator: Poedit 1.7.5\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: gettext;_\n"
+"X-Poedit-KeywordsList: gettext;_;ewatcher_translate\n"
 "X-Poedit-SearchPath-0: ../../..\n"
+"X-Poedit-SearchPath-1: ../../../panels\n"
 
-#: ../../../EWatcherConfig_model.php:29
+#: ../../../EWatcherConfig_model.php:28
 msgid "Consumption"
 msgstr "Consumo"
 
-#: ../../../EWatcherConfig_model.php:30
+#: ../../../EWatcherConfig_model.php:29
 msgid "Consumption - Queries"
 msgstr "Consumo - Consultas"
 
-#: ../../../EWatcherConfig_model.php:31
+#: ../../../EWatcherConfig_model.php:30
 msgid "PV"
 msgstr "FV"
 
-#: ../../../EWatcherConfig_model.php:32
+#: ../../../EWatcherConfig_model.php:31
 msgid "PV - Queries"
 msgstr "FV - Consultas"
 
-#: ../../../EWatcherConfig_model.php:33
+#: ../../../EWatcherConfig_model.php:32
 msgid "PV - Daily values"
 msgstr "FV - Valores diarios"

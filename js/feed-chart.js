@@ -391,18 +391,25 @@ function FeedChart(divId, feeds, options) {
   // Draw a bar graph
   this.drawBargraph = function() {
     // Get timezone offset in hours
+    var now = +new Date();
     var offset = ((new Date()).getTimezoneOffset()) / (-60);
     var intervalms = 60 * 60 * 24 * 1000;
-    var datastart = Math.floor(this.view.start / intervalms) * intervalms;
-    // Minus one day if you don't want to plot the day in progress
-    // var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*24*1000;
-    var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*24*1000;
 
-    // Start of the day (date - offset in hours)
-    datastart -= offset * 3600000;
-    dataend -= offset * 3600000;
-    this.view.start = datastart;
-    this.view.end = dataend;
+    // Data adjustment required
+    if(((this.view.start + offset * 3600000) % intervalms) != 0) {
+      var datastart = Math.floor(this.view.start / intervalms) * intervalms;
+
+      // Minus one and a half day if you don't want to plot the day in progress
+      // var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*36*1000;
+      // Minus half a day if you don't want to plot the next day
+      var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*12*1000;
+
+      // Start of the day (date - offset in hours)
+      datastart -= offset * 3600000;
+      dataend -= offset * 3600000;
+      this.view.start = datastart;
+      this.view.end = dataend;
+    }
 
     // Get data
     // Plot data
@@ -424,7 +431,8 @@ function FeedChart(divId, feeds, options) {
         var feedData = arguments[0];
         plot_data["f" + feed] = [];
         for(var z = 0; z < feedData.length; z++) {
-          if(feedData[z][1] != null) {
+          // Do not plot null or future data
+          if((feedData[z][1] != null) && (feedData[z][0] <= now)) {
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
           }
         }
@@ -436,7 +444,8 @@ function FeedChart(divId, feeds, options) {
           var feedId = self.feeds[index];
           plot_data["f" + feedId] = [];
           for(var z = 0; z < feedData.length; z++) {
-            if(feedData[z][1] != null) {
+            // Do not plot null or future data
+            if((feedData[z][1] != null) && (feedData[z][0] <= now)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
             }
           }

@@ -1,6 +1,6 @@
 <?php
   // No direct access
-  defined('EMONCMS_EXEC') or die('Restricted access');
+  defined("EMONCMS_EXEC") or die("Restricted access");
 
   // EWatcher module configuration
   class EWatcherConfig
