@@ -30,7 +30,8 @@ $(document).ready(function () {
       intervals.push(setInterval(function() {
         InstantFeed.getVal(feedElement.data("feedid"), function(value) {
           if((typeof value === 'object') && ("success" in value) && (value.success == false)) {
-            feedElement.text("--");
+            //feedElement.text("--");
+            // Don't set the text
           } else {
             feedElement.text(value).trigger('change');
           }

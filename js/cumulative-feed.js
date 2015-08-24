@@ -40,17 +40,14 @@ function CumulativeFeed(divId, startDateId, endDateId) {
     }
     var now = +new Date();
     if(startDate >= endDate) {
-      $(startDateId).addClass("error");
-      $(endDateId).addClass("error");
+      $(this.startDateId + ", " + this.endDateId).addClass("error");
       return;
     }
     if((startDate >= now) || (endDate >= now)) {
-      $(startDateId).addClass("error");
-      $(endDateId).addClass("error");
+      $(this.startDateId + ", " + this.endDateId).addClass("error");
       return;
     }
-    $(startDateId).removeClass("error");
-    $(endDateId).removeClass("error");
+    $(this.startDateId + ", " + this.endDateId).removeClass("error");
     this.refreshData(startDate, endDate);
   };
 
