@@ -61,6 +61,9 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/timeseries.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/chart-view.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-chart.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/cumulative-feed.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min.js"></script>
+      <link href="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
       <?php
     }
   }
