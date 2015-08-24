@@ -348,9 +348,9 @@ function FeedChart(divId, feeds, options) {
     for(var z = 0; z < npoints; z++) {
       for(var i in this.feeds) {
         var feed = this.feeds[i];
-        if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
+        // if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
         // Append even null data if no fill option is wanted
-        // if(this.datastore["f" + feed].data[z] != undefined) {
+        if(this.datastore["f" + feed].data[z] != undefined) {
           if(plot_data["f" + feed] == undefined) {
             plot_data["f" + feed] = [];
           }
