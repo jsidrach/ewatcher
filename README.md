@@ -29,5 +29,7 @@ Se utilizan las siguientes librerías de terceros:
 * [TODO]
 
 ### Tareas pendientes
-* Bargraphs: dibujar bargraphs
+* Tabla valores diarios
+* Documentar javascripts (doc o readme)
+* Estilo css
 * Crear paneles
