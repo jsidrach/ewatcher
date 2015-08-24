@@ -22,11 +22,11 @@
       ?>
       <div data-feedid="603" id="test">
       </div>
-                <div id="startDate" class="input-append date">
+                <div id="startDate" class="input-append date control-group">
                     <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y", strtotime('-7 days')); ?>" type="text" />
                     <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
                 </div>
-                <div id="endDate" class="input-append date">
+                <div id="endDate" class="input-append date control-group">
                     <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y"); ?>" type="text" />
                     <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
                 </div>

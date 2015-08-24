@@ -34,17 +34,23 @@ function CumulativeFeed(divId, startDateId, endDateId) {
     var startDate = this.getTimestamp($(this.startDateId + " :input").val(), false);
     var endDate = this.getTimestamp($(this.endDateId + " :input").val(), true);
     if((startDate === false) || (endDate === false)) {
+      $(startDateId).addClass("error");
+      $(endDateId).addClass("error");
       return;
     }
     var now = +new Date();
     if(startDate >= endDate) {
-      alert('Invalid date range');
+      $(startDateId).addClass("error");
+      $(endDateId).addClass("error");
       return;
     }
     if((startDate >= now) || (endDate >= now)) {
-      alert('Invalid date range (future dates)');
+      $(startDateId).addClass("error");
+      $(endDateId).addClass("error");
       return;
     }
+    $(startDateId).removeClass("error");
+    $(endDateId).removeClass("error");
     this.refreshData(startDate, endDate);
   };
 
