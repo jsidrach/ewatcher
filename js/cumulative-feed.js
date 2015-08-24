@@ -10,11 +10,15 @@ function CumulativeFeed(divId, startDateId, endDateId) {
   "use strict";
 
   // Parameter properties
+  // Container id
   this.divId = divId;
+  // Id of the start date of the cumulative feed
   this.startDateId = startDateId;
+  // Id of the end date of the cumulative feed
   this.endDateId = endDateId;
 
   // Object properties
+  // Number of feed (id)
   this.feedId = $(divId).data("feedid");
 
   // Save context
