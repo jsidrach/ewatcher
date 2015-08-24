@@ -3,7 +3,7 @@ Paneles de Autoconsumo FV y Consumo Eléctrico
 
 ### Instalación y Configuración
 * **NOTA**: es necesario haber instalado *emoncms* previamente
-* Situarse en la carpeta de *emoncms* (`/var/www/html/emoncms/`)
+* Situarse en la carpeta de *emoncms* (`/var/www/html/emoncms/Modules/`)
 * Clonar el repositorio mediante `git clone https://USUARIO@bitbucket.org/ismsolar/ewatcher.git`, sustituyendo `USUARIO` por tu nombre de usuario
 * Visitar `http://IP/emoncms/admin/db` y actualizar la base de datos en caso de ser necesario
 
@@ -11,7 +11,7 @@ Paneles de Autoconsumo FV y Consumo Eléctrico
 Crear usuarios y asignarles paneles mediante el [sistema de gestión de usuarios](https://bitbucket.org/ismsolar/gestion-usuarios/). Una vez un usuario tenga al menos un panel asignado, al entrar en la plataforma *emoncms* verá un menú de *EWatcher* con todos los paneles disponibles.
 
 ### Actualización
-* Situarse en la carpeta `/var/www/html/emoncms/ewatcher/` y ejecutar `git pull`
+* Situarse en la carpeta `/var/www/html/emoncms/Modules/ewatcher/` y ejecutar `git pull`
 * Descartar los cambios locales en caso de haber discrepancias
 * Visitar `http://IP/emoncms/admin/db` y actualizar la base de datos en caso de ser necesario
 
