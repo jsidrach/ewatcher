@@ -1,0 +1,199 @@
+/* Background/font color */
+body, html {
+  color: #aaa;
+  background-color: #222;
+}
+
+/* Content */
+#wrap {
+  max-width: 1280px;
+  margin: auto;
+}
+.container-fluid {
+  font-weight: bold;
+}
+
+/* Values */
+label {
+  cursor: auto;
+  font-weight: bold;
+}
+
+/* Multiple values container */
+.multiple-values-container {
+  width: 100%;
+}
+.multiple-values {
+  margin: 30px 30px 10px 30px;
+  clear: both;
+}
+
+/* One value */
+.multiple-values .single-value:nth-child(1):nth-last-child(1) {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Two values */
+.multiple-values .single-value:nth-child(1):nth-last-child(2),
+.multiple-values .single-value:nth-child(2):nth-last-child(1) {
+  margin-left: auto;
+  margin-right: auto;
+  width: 49%;
+}
+
+/* Three values */
+.multiple-values .single-value:nth-child(1):nth-last-child(3),
+.multiple-values .single-value:nth-child(2):nth-last-child(2),
+.multiple-values .single-value:nth-child(3):nth-last-child(1) {
+  margin-left: auto;
+  margin-right: auto;
+  width: 33%;
+}
+
+.multiple-2 .single-value:first-child {
+  text-align: left;
+}
+.multiple-2 .single-value:nth-child(2) {
+  text-align: right;
+}
+
+.multiple-3 .single-value:first-child {
+  text-align: left;
+}
+.multiple-3 .single-value:nth-child(2) {
+  text-align: center;
+}
+.multiple-3 .single-value:nth-child(3) {
+  text-align: right;
+}
+
+@media (max-width: 1152px) {
+  .multiple-3 .single-value:nth-child(1) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 49% !important;
+  }
+  .multiple-3 .single-value:nth-child(2) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: right;
+    width: 49% !important;
+  }
+  .multiple-3 .single-value:nth-child(3) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    clear: both !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .single-value {
+    width: 100% !important;
+    text-align: center !important;
+    clear: both !important;
+  }
+  /* Give this ones more priority */
+  .multiple-3 .single-value:nth-child(1) {
+    width: 100% !important;
+    text-align: center !important;
+    clear: both !important;
+  }
+  .multiple-3 .single-value:nth-child(2) {
+    width: 100% !important;
+    text-align: center !important;
+    clear: both !important;
+  }
+}
+
+.single-value {
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.single-value > span {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 4em;
+  color: #0699FA;
+}
+.single-value > label {
+  font-size: 1.6em;
+}
+
+@media (max-width: 478px) {
+  .single-value {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  .single-value > span {
+    margin-top: 0px;
+    font-size: 2em;
+  }
+  .single-value > label {
+    margin-bottom: 1px;
+    font-size: 1.2em;
+  }
+}
+
+/* Charts */
+.fchartbar {
+  margin: 30px 0 5px 30px;
+  float: left;
+  clear: both;
+}
+
+.flinechart {
+  float: left;
+  clear: both;
+}
+
+.fchartbar > span {
+  padding: 5px;
+  margin: 2px;
+  cursor: pointer;
+  color: #0699FA;
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  background-color: #333;
+}
+
+.fchartbar span:hover {
+  border-style: solid;
+  border-width: 1px;
+  margin: 1px;
+  border-color: #0699FA;
+  background-color: #444;
+}
+
+.legendLabel {
+  color: #AAA;
+  font-size: 1.6em;
+}
+
+@media (max-width: 478px) {
+  .legendLabel {
+    font-size: 0.8em;
+  }
+  .fchartbar > span {
+    min-width: 10px;
+    font-size: 0.8em;
+  }
+}
+
+/* Inputs */
+textarea, input {
+  background-color: #DDDDDD !important;
+}
+
+/* Fix footer with darker colors */
+#footer {
+  color: #999999;
+  background-color: #181818;
+}

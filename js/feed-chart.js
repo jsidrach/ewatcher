@@ -247,6 +247,9 @@ function FeedChart(divId, feeds, options) {
     // Number of datapoints
     var npoints = 1500;
     var interval = Math.round(((this.view.end - this.view.start) / npoints) / 1000);
+    if(interval < (this.updateinterval / 1000)) {
+      interval = this.updateinterval / 1000;
+    }
     if(interval < 1) {
       interval = 1;
     }
@@ -330,7 +333,7 @@ function FeedChart(divId, feeds, options) {
       legend: {
         show: true,
         position: "nw",
-        backgroundOpacity: 0.5,
+        backgroundOpacity: 0,
       }
     };
 
@@ -348,9 +351,9 @@ function FeedChart(divId, feeds, options) {
     for(var z = 0; z < npoints; z++) {
       for(var i in this.feeds) {
         var feed = this.feeds[i];
-        // if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
         // Append even null data if no fill option is wanted
-        if(this.datastore["f" + feed].data[z] != undefined) {
+        if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
+        //if(this.datastore["f" + feed].data[z] != undefined) {
           if(plot_data["f" + feed] == undefined) {
             plot_data["f" + feed] = [];
           }
@@ -483,7 +486,7 @@ function FeedChart(divId, feeds, options) {
         legend: {
           show: true,
           position: "nw",
-          backgroundOpacity: 0.5,
+          backgroundOpacity: 0,
         },
       };
 

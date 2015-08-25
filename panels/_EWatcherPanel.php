@@ -66,6 +66,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/cumulative-feed.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/dependent-value.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-daily-table.js"></script>
+      <link href="<?php echo $this->path; ?>Modules/ewatcher/css/style.css" rel="stylesheet">
       <?php
     }
   }
