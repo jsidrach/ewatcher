@@ -34,6 +34,7 @@
                 <input id="testDep1" type="text" value="1" />
                 <input id="testDep2" type="text" value="2" />
                 <label id="testDep3">3</label>
+                <div id="testTable"></div>
                 <script>
                      $(window).ready(function () {
                         $('#startDate').datetimepicker({ pickTime: false });
@@ -42,6 +43,17 @@
                         var testDep = new DependentValue("#testDep", "#testDep1,#testDep2,#testDep3", function(values) {
                           return values["#testDep1"] + values["#testDep2"] + values["#testDep3"];
                         });
+
+                        var testTable = new FeedDailyTable("#testTable", "#startDate", "#endDate", [
+                          {
+                            id: 598,
+                            name: 'Test name 1'
+                          },
+                          {
+                            id: 603,
+                            name: 'Test name 2'
+                          }
+                        ]);
                       });
                 </script>
       <?php

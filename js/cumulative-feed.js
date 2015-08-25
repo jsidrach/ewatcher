@@ -26,7 +26,7 @@ function CumulativeFeed(divId, startDateId, endDateId) {
   // Sets the events
   $(document).ready(function () {
     // On date change
-    $(self.startDateId + ", " + self.endDateId).on('changeDate', function() {
+    $(self.startDateId + ", " + self.endDateId).on("changeDate", function() {
       self.reloadData();
     });
     // Initial data
@@ -103,7 +103,7 @@ function CumulativeFeed(divId, startDateId, endDateId) {
             firstValue = 0;
           }
         }
-        $(self.divId).text(lastValue - firstValue).trigger('change');
+        $(self.divId).text(lastValue - firstValue).trigger("change");
       }
     });
   };

@@ -514,10 +514,7 @@ function FeedChart(divId, feeds, options) {
     return $.ajax({
       url: window.emoncms_path + "/feed/data.json?apikey=" + window.apikey_read,
       data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval="+limitinterval,
-      dataType: "json",
-      success: function(data) {
-        return data;
-      }
+      dataType: "json"
     });
   };
 };

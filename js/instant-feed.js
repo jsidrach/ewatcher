@@ -29,11 +29,11 @@ $(document).ready(function () {
       var feedElement = $(this);
       intervals.push(setInterval(function() {
         InstantFeed.getVal(feedElement.data("feedid"), function(value) {
-          if((typeof value === 'object') && ("success" in value) && (value.success == false)) {
+          if((typeof value === "object") && ("success" in value) && (value.success == false)) {
             //feedElement.text("--");
             // Don't set the text
           } else {
-            feedElement.text(value).trigger('change');
+            feedElement.text(value).trigger("change");
           }
         });
       }, interval));

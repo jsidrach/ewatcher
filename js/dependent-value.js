@@ -1,5 +1,4 @@
 // DependentValue class
-// Variables needed: window.apikey_read, window.emoncms_path
 // Libraries needed: jQuery
 //
 // Parameters:
