@@ -114,6 +114,7 @@ label {
   display: inline-block;
   margin-top: 30px;
   margin-bottom: 10px;
+  cursor: default;
 }
 
 .single-value > span {
@@ -121,9 +122,11 @@ label {
   margin-top: 15px;
   font-size: 4em;
   color: #0699FA;
+  cursor: default;
 }
 .single-value > label {
   font-size: 1.6em;
+  cursor: default;
 }
 
 @media (max-width: 478px) {
@@ -175,6 +178,7 @@ label {
 .legendLabel {
   color: #AAA;
   font-size: 1.6em;
+  cursor: default;
 }
 
 @media (max-width: 478px) {

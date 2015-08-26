@@ -427,6 +427,11 @@ function FeedChart(divId, feeds, options) {
       feed = this.feeds[i];
       requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 1));
     }
+    // Beginning of the end day
+    var beginningEndDay = +new Date(this.view.end);
+    beginningEndDay -= beginningEndDay % (24 * 60 * 60 * 1000);
+    beginningEndDay += ((new Date).getTimezoneOffset() * 60 * 1000);
+
     // Save context before jQuery calls
     var self = this;
     // When all requests finish
@@ -437,7 +442,7 @@ function FeedChart(divId, feeds, options) {
         plot_data["f" + feed] = [];
         for(var z = 0; z < feedData.length; z++) {
           // Do not plot null or future data
-          if((feedData[z][1] != null) && (feedData[z][0] <= now)) {
+          if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
           }
         }
@@ -449,8 +454,8 @@ function FeedChart(divId, feeds, options) {
           var feedId = self.feeds[index];
           plot_data["f" + feedId] = [];
           for(var z = 0; z < feedData.length; z++) {
-            // Do not plot null or future data
-            if((feedData[z][1] != null) && (feedData[z][0] <= now)) {
+            // Do not plot null or the beginning of the end day
+            if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
             }
           }
