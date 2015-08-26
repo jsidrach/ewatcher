@@ -22,8 +22,7 @@ function ChartView() {
     var time_window = this.end - this.start;
     this.start += time_window / 4;
     this.end -= time_window / 4;
-
-    // 60 seconds minimum window
+    // Minimum window
     if((this.end - this.start) < this.minimum_time_window) {
       time_window = this.minimum_time_window;
       var middle = (this.end + this.start) / 2;

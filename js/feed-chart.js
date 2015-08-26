@@ -89,7 +89,7 @@ function FeedChart(divId, feeds, options) {
   }
   // Daily graph (7 days min range)
   else if(this.chartType == "daily") {
-    this.view.minimum_time_window = 60000 * 60 * 24 * 7;
+    this.view.minimum_time_window = 60 * 60 * 24 * 7 * 1000;
   }
   // Set default range
   this.view.timewindow(this.defaultRange);
@@ -352,8 +352,8 @@ function FeedChart(divId, feeds, options) {
       for(var i in this.feeds) {
         var feed = this.feeds[i];
         // Append even null data if no fill option is wanted
-        if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
-        //if(this.datastore["f" + feed].data[z] != undefined) {
+        //if((this.datastore["f" + feed].data[z] != undefined) && (this.datastore["f" + feed].data[z][1] != null)) {
+        if(this.datastore["f" + feed].data[z] != undefined) {
           if(plot_data["f" + feed] == undefined) {
             plot_data["f" + feed] = [];
           }
@@ -392,20 +392,22 @@ function FeedChart(divId, feeds, options) {
   };
 
   // Draw a bar graph
-  this.drawBargraph = function() {
+  this.drawBargraph = function(interval) {
     // Get timezone offset in hours
     var now = +new Date();
     var offset = ((new Date()).getTimezoneOffset()) / (-60);
-    var intervalms = 60 * 60 * 24 * 1000;
+    var intervalms = interval * 1000;
+
+    // No future data
+    if(now < this.view.end) {
+      this.view.start -= (this.view.end - now);
+      this.view.end -= (this.view.end - now);
+    }
 
     // Data adjustment required
     if(((this.view.start + offset * 3600000) % intervalms) != 0) {
       var datastart = Math.floor(this.view.start / intervalms) * intervalms;
-
-      // Minus one and a half day if you don't want to plot the day in progress
-      // var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*36*1000;
-      // Minus half a day if you don't want to plot the next day
-      var dataend = Math.ceil(this.view.end / intervalms) * intervalms - 60*60*12*1000;
+      var dataend = Math.floor(this.view.end / intervalms) * intervalms;
 
       // Start of the day (date - offset in hours)
       datastart -= offset * 3600000;
@@ -423,7 +425,7 @@ function FeedChart(divId, feeds, options) {
     var requests = [];
     for(var i in this.feeds) {
       feed = this.feeds[i];
-      requests.push(this.getData(feed, this.view.start, this.view.end, 60 * 60 * 24, 1));
+      requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 1));
     }
     // Save context before jQuery calls
     var self = this;
@@ -467,8 +469,8 @@ function FeedChart(divId, feeds, options) {
         xaxis: {
           mode: "time",
           timezone: "browser",
-          min: self.view.start,
-          max: self.view.end,
+          min: self.view.start - 60 * 60 * 12 * 1000,
+          max: self.view.end - 60 * 60 * 12 * 1000,
           minTickSize: [1, "day"]
         },
         yaxes: [
