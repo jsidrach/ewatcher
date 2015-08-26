@@ -66,7 +66,7 @@
 
     // Get generic property
     private function getProperty($name) {
-      $result = $mysqli->query("SELECT * FROM ewatcher WHERE userid=$this->userid;");
+      $result = $this->mysqli->query("SELECT * FROM ewatcher WHERE userid=$this->userid;");
       if($result->num_rows == 0) {
         return false;
       }
@@ -85,16 +85,16 @@
 
     // Set units
     public function setunits($value) {
+      $this->mysqli->set_charset("utf8");
       return $this->setProperty("units", "'" . $this->mysqli->real_escape_string($value) . "'");
     }
 
     // Set generic property
     private function setProperty($name, $value) {
-      $this->mysqli->set_charset("utf8");
-      if($this->mysqli->query("UPDATE ewatcher SET $name=$value WHERE userid=$userid;") === FALSE) {
+      if($this->mysqli->query("UPDATE ewatcher SET $name=$value WHERE userid=$this->userid;") === FALSE) {
         return false;
       }
-      return true;
+      return $value;
     }
   }
 ?>

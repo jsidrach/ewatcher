@@ -1,13 +1,10 @@
 <?php
-  // No direct access
-  defined("EMONCMS_EXEC") or die("Restricted access");
-
   // P5 Class
   // PV - Daily values
   class EWatcherP5 extends EWatcherPanel {
     // Constructor
-    function __construct($userid, $mysqli, $path) {
-      parent::__construct($userid, $mysqli, $path);
+    function __construct($userid, $mysqli, $path, $config) {
+      parent::__construct($userid, $mysqli, $path, $config);
     }
 
     // Panel 5 View

@@ -191,13 +191,101 @@ label {
   }
 }
 
+/* Date selection */
+.formDates {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  clear: both;
+  display: block;
+}
+
+.formDates .dateInput:nth-child(1) {
+  text-align: left;
+}
+.formDates .dateInput:nth-child(2) {
+  text-align: right;
+}
+
+.dateInput {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  float: left;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 478px) {
+  .formDates .dateInput:nth-child(2) {
+    text-align: left;
+  }
+  .dateInput {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    clear: both;
+  }
+}
+
+hr {
+  width: 100%;
+  border-top: 1px solid #333;
+  border-bottom: none;
+}
+
+.datepicker {
+  color: #222;
+}
+.input-append > input {
+  font-weight: bold;
+}
+
+/* Tables */
+.daily-values {
+  text-align: center;
+}
+.daily-table {
+  width: 100%;
+}
+.daily-table > table {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.daily-table + input {
+  font-weight: bold;
+}
+.daily-table > table > thead {
+  color: #222;
+  background-color: #CCC;
+}
+.daily-table > table > tbody > tr:nth-child(even) {
+   background-color: #333;
+}
+.daily-table > table tr td:nth-child(n+2){
+  text-align: right;
+  color: #0699FA;
+}
+
 /* Inputs */
 textarea, input {
   background-color: #DDDDDD !important;
+  font-weight: bold;
+  border-radius: 4px;
+  color: #333;
 }
 
 /* Fix footer with darker colors */
 #footer {
   color: #999999;
   background-color: #181818;
+}
+
+/* EWatcher configuration */
+.ewatcher-config i {
+  float: right;
+  cursor: pointer;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }

@@ -1,21 +1,19 @@
 <?php
-  // No direct access
-  defined("EMONCMS_EXEC") or die("Restricted access");
-
-  // Translations
-  require_once("Modules/ewatcher/ewatcher_translations.php");
-
   // P1 Class
   // Consumption
   class EWatcherP1 extends EWatcherPanel {
     // Constructor
-    function __construct($userid, $mysqli, $path) {
-      parent::__construct($userid, $mysqli, $path);
+    function __construct($userid, $mysqli, $path, $config) {
+      parent::__construct($userid, $mysqli, $path, $config);
     }
 
     // Panel 1 View
     public function view() {
       parent::view();
+
+      // Value: sPLoad, sVoltage, eDLoad (intant feeds)
+      // Graphic: sPLoad (last 7 values + interactivity), continuous graph
+      // Graphic: eDLoad (last 7 values + interactivity), daily graph
       ?>
       <div class="multiple-values-container">
         <div class="multiple-values multiple-3">
@@ -45,7 +43,7 @@
       <div id="sPLoad"></div>
       <div id="eDLoad"></div>
       <script>
-        $(window).on('load', function() {
+        $(window).ready(function() {
           // sPLoad graphic
           var sPLoad = [
             {

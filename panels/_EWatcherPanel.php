@@ -2,6 +2,9 @@
   // No direct access
   defined("EMONCMS_EXEC") or die("Restricted access");
 
+  // Translations
+  require_once("Modules/ewatcher/ewatcher_translations.php");
+
   // Panel class
   abstract class EWatcherPanel
   {
@@ -23,11 +26,15 @@
     // Feed ids and last values
     protected $feeds;
 
+    // EWatcher configuration
+    protected $config;
+
     // Class constructor
-    public function __construct($userid, $mysqli, $path) {
+    public function __construct($userid, $mysqli, $path, $config) {
       $this->userid = $userid;
       $this->mysqli = $mysqli;
       $this->path = $path;
+      $this->config = $config;
 
       // Get API keys
       $userid = intval($userid);
@@ -50,6 +57,7 @@
       ?>
       <script>
         window.apikey_read = <?php echo "'" . $this->apikey_read . "'"; ?>;
+        window.apikey_write = <?php echo "'" . $this->apikey_write . "'"; ?>;
         window.emoncms_path = <?php echo "'" . $this->path . "'"; ?>;
       </script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.min.js"></script>
@@ -66,6 +74,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/cumulative-feed.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/dependent-value.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-daily-table.js"></script>
+      <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/ewatcher-config-panel.js"></script>
       <link href="<?php echo $this->path; ?>Modules/ewatcher/css/style.css" rel="stylesheet">
       <?php
     }

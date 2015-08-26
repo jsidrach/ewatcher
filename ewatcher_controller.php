@@ -27,7 +27,7 @@
           require_once("Modules/ewatcher/panels/_EWatcherPanel.php");
           require_once("Modules/ewatcher/panels/" . $panel . ".php");
           $className = "EWatcher" . $panel;
-          $panelObject = new $className((int)$session['userid'], $mysqli, $path);
+          $panelObject = new $className((int)$session['userid'], $mysqli, $path, $ewatcherconfig);
           // Start capturing echo's
           ob_start();
           // Render panel
