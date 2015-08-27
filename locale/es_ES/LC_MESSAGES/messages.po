@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
 "POT-Creation-Date: 2015-08-27 20:22+0100\n"
-"PO-Revision-Date: 2015-08-27 20:24+0100\n"
+"PO-Revision-Date: 2015-08-27 20:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -51,7 +51,7 @@ msgstr "Consumo (W)"
 
 #: ../../../panels/P1.php:61 ../../../panels/P2.php:51
 msgid "Daily energy consumption (kWh)"
-msgstr "Consumo de energía diario(kWh)"
+msgstr "Consumo de energía diario (kWh)"
 
 #: ../../../panels/P2.php:20 ../../../panels/P4.php:48
 msgid "Start date"
@@ -143,7 +143,7 @@ msgstr "Potencia FV exportada a la red (W)"
 
 #: ../../../panels/P4.php:25
 msgid "Import cost (per kWh)"
-msgstr "Coste al importar (per kWh)"
+msgstr "Coste al importar (por kWh)"
 
 #: ../../../panels/P4.php:29
 msgid "Units"
@@ -151,7 +151,7 @@ msgstr "Unidades"
 
 #: ../../../panels/P4.php:33
 msgid "Export cost (per kWh)"
-msgstr "Coste al exportar (per kWh)"
+msgstr "Coste al exportar (por kWh)"
 
 #: ../../../panels/P4.php:67
 msgid "Total consumption"
