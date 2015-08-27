@@ -29,7 +29,18 @@ Se utilizan las siguientes librerías de terceros:
 * [TODO]
 
 ### Tareas pendientes
-* Tabla valores diarios
-* Documentar javascripts (doc o readme)
-* Estilo css
-* Crear paneles
+* Panel 4
+* Página de error (default)
+* Revisar procesos finales
+* Nuevo README.md (inglés)
+  * Qué es
+  * Enlace a gestión-usuarios
+  * Enlace a documentación extensiva
+  * Dependencias librerías externas
+* Documentación más detallada en doc/
+    * Documentación cada uno de los javascripts
+      * Minimum working examples
+    * Inputs/Feeds/Procesos necesarios
+    * Documentación completa de cada panel
+    * Instalación/Configuración/Actualización
+    * Multiidioma

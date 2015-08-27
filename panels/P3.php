@@ -99,10 +99,10 @@
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("Self-consumption"); ?></label>
-          <span class="instant-feed" data-feedid="<?php echo $this->feeds['dPSelf']['id']; ?>">
+          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['dPSelf']['id']; ?>">
             <?php echo $this->feeds['dPSelf']['value']; ?>
           </span>
-          <span>%</span>
+          <span class="ewatcher-green">%</span>
         </span>
       </div>
     </div>

@@ -84,7 +84,7 @@
           ]);
           // Load graphs
           for(var i = 1; i <= 4; i++) {
-            FeedChartFactory.create("DailyGraph" + i, dailyGraphs[i - 1], {chartType: "daily", pWidth: 1, controls: true});
+            FeedChartFactory.create("DailyGraph" + i, dailyGraphs[i - 1], {chartType: "daily"});
           }
         });
       </script>

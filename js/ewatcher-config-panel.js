@@ -30,6 +30,11 @@ function EWatcherConfigPanel(divId, cIn, cOut, units) {
   // units object
   this.units = $(this.unitsId);
 
+  // Last values
+  this.lastcIn = this.cIn.val();
+  this.lastcOut = this.cOut.val();
+  this.lastUnits = this.units.val();
+
   // Events
   // Save context
   var self = this;
@@ -40,12 +45,24 @@ function EWatcherConfigPanel(divId, cIn, cOut, units) {
   });
   // Update configuration
   this.cIn.on("change", function() {
+    if(self.lastcIn == $(this).val()) {
+      return;
+    }
+    self.lastcIn = $(this).val();
     self.saveParameter("cin", $(this).val(), self.cInId, true);
   });
   this.cOut.on("change", function() {
+    if(self.lastcOut == $(this).val()) {
+      return;
+    }
+    self.lastcOut = $(this).val();
     self.saveParameter("cout", $(this).val(), self.cOutId, true);
   });
   this.units.on("change", function() {
+    if(self.lastUnits == $(this).val()) {
+      return;
+    }
+    self.lastUnits = $(this).val();
     self.saveParameter("units", $(this).val(), self.unitsId, false);
   });
 
@@ -71,6 +88,7 @@ function EWatcherConfigPanel(divId, cIn, cOut, units) {
             $(id).val(data.substring(1, data.length - 1)).trigger("change");
           }
         }
+        $(id).val(value);
       },
       error: function() {
         if(numeric) {
