@@ -292,6 +292,14 @@ hr {
   text-align: right;
   color: #0699FA;
 }
+@media (max-width: 1024px) {
+  .several-values thead {
+    font-size: 0.75em;
+  }
+  .several-values .daily-table {
+    overflow-x: overlay;
+  }
+}
 
 /* Inputs */
 textarea, input {

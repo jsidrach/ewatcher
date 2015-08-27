@@ -84,7 +84,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     for(var index in this.col_names) {
       emptyTable += "<th>" + this.col_names[index] + "</th>";
     }
-    emptyTable += "</tr></thead><tbody><tr><td colspan=" + (this.feeds.length+1) + ">" + this.localization.nodata + "</td></tr></tbody>";
+    emptyTable += "</tr></thead><tbody><tr><td colspan='" + (this.feeds.length+1) + "' style='text-align:center;'>" + this.localization.nodata + "</td></tr></tbody>";
     this.table.append($(emptyTable));
   };
 
@@ -96,6 +96,11 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       $(startDateId).addClass("error");
       $(endDateId).addClass("error");
       return;
+    }
+    // If they are both the same
+    if(startDate == endDate) {
+      // + 1 day minus 30 seconds
+      endDate += 24 * 1000 * 60 * 60 - 30000;
     }
     var now = +new Date();
     if(startDate >= endDate) {
@@ -173,7 +178,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   // Insert the new data into the table and replace the old data
   this.replaceTableData = function() {
     var tbody = this.table.find("tbody");
-    var nodatarow = "<tr><td colspan=" + (this.feeds.length+1) + ">" + this.localization.nodata + "</td></tr>";
+    var nodatarow = "<tr><td colspan='" + (this.feeds.length+1) + "' style='text-align:center;'>" + this.localization.nodata + "</td></tr>";
     tbody.empty();
     if($.isEmptyObject(this.feedData)) {
       tbody.html(nodatarow);
@@ -230,8 +235,9 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       return date;
     }
     // If date is today, and it is the end date, set it to now
-    if((endDate) && ((now - date) < 60*60*24*1000)) {
-      date = now - 1000;
+    if((endDate) && ((now - date) < 60 *60 * 24 * 1000)) {
+      // At least 30 seconds so data is available
+      date = now - 30000;
     }
     return date;
   };

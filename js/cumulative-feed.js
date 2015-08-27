@@ -42,6 +42,11 @@ function CumulativeFeed(divId, startDateId, endDateId) {
       $(endDateId).addClass("error");
       return;
     }
+    // If they are both the same
+    if(startDate == endDate) {
+      // + 1 day minus 30 seconds
+      endDate += 24 * 1000 * 60 * 60 - 30000;
+    }
     var now = +new Date();
     if(startDate >= endDate) {
       $(this.startDateId + ", " + this.endDateId).addClass("error");
@@ -68,8 +73,9 @@ function CumulativeFeed(divId, startDateId, endDateId) {
       return date;
     }
     // If date is today, and it is the end date, set it to now
-    if((endDate) && ((now - date) < 60*60*24*1000)) {
-      date = now - 1000;
+    if((endDate) && ((now - date) < 60 * 60 * 24 * 1000)) {
+      // At least 30 seconds so data is available
+      date = now - 30000;
     }
     return date;
   };
@@ -102,8 +108,9 @@ function CumulativeFeed(divId, startDateId, endDateId) {
           if(firstValue == null) {
             firstValue = 0;
           }
+          value = lastValue - firstValue;
         }
-        $(self.divId).text(Math.round(parseFloat(lastValue - firstValue) * 100) / 100).trigger("change");
+        $(self.divId).text(Math.round(parseFloat(value) * 100) / 100).trigger("change");
       }
     });
   };
