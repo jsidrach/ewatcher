@@ -188,6 +188,7 @@ label {
   color: #AAA;
   font-size: 1.6em;
   cursor: default;
+  text-shadow: 0 0 1px #000;
 }
 
 @media (max-width: 478px) {
