@@ -12,7 +12,6 @@
       parent::view();
 
       // Form: two dates (default to one week)
-        // Value: tLoad between the dates (cumulative feed)
         // Table: eDLoad daily between the dates (daily table)
       ?>
       <div class="multiple-values-container">
@@ -37,10 +36,7 @@
       <div class="multiple-values-container">
         <div class="multiple-values multiple-1">
           <span class="single-value">
-            <label><?php echo ewatcher_translate("Energy consumption"); ?></label>
-            <span id="tLoad" data-feedid="<?php echo $this->feeds['tLoad']['id']; ?>">
-            </span>
-            <span>kWh</span>
+            <label><?php echo ewatcher_translate("Daily energy consumption"); ?></label>
           </span>
         </div>
       </div>
@@ -49,13 +45,18 @@
         $(window).ready(function () {
           $('#startDate').datetimepicker({ pickTime: false });
           $('#endDate').datetimepicker({ pickTime: false });
-          var tLoad = new CumulativeFeed("#tLoad", "#startDate", "#endDate");
           var dailyTable = new FeedDailyTable("#eDLoad", "#startDate", "#endDate", [
             {
               id: <?php echo $this->feeds['eDLoad']['id']; ?>,
-              name: 'Daily energy consumption (kWh/d)'
+              name: '<?php echo ewatcher_translate("Daily energy consumption (kWh/d)"); ?>'
             }
-          ]);
+          ],
+          {
+            day: "<?php echo ewatcher_translate('Day'); ?>",
+            nodata: "<?php echo ewatcher_translate('No data available at the selected date range'); ?>",
+            exportcsv: "<?php echo ewatcher_translate('Export to CSV'); ?>",
+            total: "<?php echo ewatcher_translate('Total'); ?>"
+          });
         });
       </script>
       <?php

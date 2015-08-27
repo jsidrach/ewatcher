@@ -13,6 +13,7 @@
 //     day: string for 'day'
 //     nodata: string for no data on the table ('No data available at the selected date range')
 //     exportcsv: string for the export to csv button ('Export to CSV')
+//     total: string for last row (total) ("" to not show the total)
 function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   "use strict";
 
@@ -20,7 +21,8 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   var defaultLocalization = {
     day: "Day",
     nodata: "No data available at the selected date range",
-    exportcsv: "Export to CSV"
+    exportcsv: "Export to CSV",
+    total: "Total"
   };
 
   // Parameter properties
@@ -184,16 +186,33 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       tbody.html(nodatarow);
       return;
     }
+
     // Data array (["d" + date] => [["f" + feedid] => value])
     var tbodyHTML = "";
     for(var index in this.feedData) {
       tbodyHTML += this.buildRow(parseInt(index.substring(1)), this.feedData[index]);
     }
+
     // No data check
     if(tbodyHTML == "") {
       tbodyHTML = nodatarow;
       this.feedData = [];
+      tbody.html(tbodyHTML);
+      return;
     }
+
+    // Last row (total)
+    if(this.localization.total != "") {
+      var total = this.getTotalRow(this.feedData);
+      var totalRow = "<tr><td>" + this.localization.total + "</td>";
+      for(var index in total) {
+        var totalData = Math.round(parseFloat(total[index]) * 100) / 100;
+        totalRow += "<td>" + totalData + "</td>";
+      }
+      totalRow += "</tr>";
+      tbodyHTML += totalRow;
+    }
+
     // Append data
     tbody.html(tbodyHTML);
   };
@@ -208,6 +227,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       var col = this.col_names[index];
       var feedid = this.feed_ids[col];
       var colData = rowData[feedid] == null ? 0 : rowData[feedid];
+      colData = Math.round(colData * 100) / 100;
       row += "<td>" + colData + "</td>";
       // Change flag
       if(rowData[feedid] != null) {
@@ -271,6 +291,10 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       alert(this.localization.nodata);
       return;
     }
+    if(this.localization.total != "") {
+      // Last row
+      csvstring += this.getTotalRowCSV(this.feedData);
+    }
 
     // Download data
     this.downloadCSV((new Date(minDate)).toLocaleDateString() + "---" + (new Date(maxDate)).toLocaleDateString(), csvheader + csvstring);
@@ -300,6 +324,34 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     // Return row
     return (new Date(date)).toLocaleDateString() + "," + row.join(",") + "\r\n";
   };
+
+  // Gets the total row in csv
+  this.getTotalRowCSV = function(feedData) {
+    var row = this.getTotalRow(feedData);
+    var rowCSV = "";
+    for(var index in row) {
+      rowCSV += row[index] + ",";
+    }
+    rowCSV = rowCSV.substring(0, rowCSV.length - 1);
+    return this.localization.total + "," + rowCSV + "\r\n";
+  }
+
+  // Gets the total row
+  this.getTotalRow = function(feedData) {
+    var total = [];
+    for(var date in feedData) {
+      for(var index in this.feeds) {
+        var feedid = this.feeds[index].id;
+        if(total["f" + feedid] === undefined) {
+          total["f" + feedid] = 0;
+        }
+        if(feedData[date]["f" + feedid] != null) {
+          total["f" + feedid] += parseFloat(feedData[date]["f" + feedid]);
+        }
+      }
+    }
+    return total;
+  }
 
   // Download a csv
   this.downloadCSV = function(name, data) {

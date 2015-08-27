@@ -36,7 +36,7 @@
             <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDLoad']['id']; ?>">
               <?php echo $this->feeds['eDLoad']['value']; ?>
             </span>
-            <span>kWh/d</span>
+            <span>kWh</span>
           </span>
         </div>
       </div>
@@ -49,7 +49,7 @@
             {
               id: <?php echo $this->feeds['sPLoad']['id']; ?>,
               color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Energy consumption (W)'); ?>"
+              legend: "<?php echo ewatcher_translate('Power consumption (W)'); ?>"
             }
           ];
           FeedChartFactory.create("sPLoad", sPLoad, {defaultRange: 1});
@@ -58,7 +58,7 @@
             {
               id: <?php echo $this->feeds['eDLoad']['id']; ?>,
               color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Daily consumption (kW/d)'); ?>"
+              legend: "<?php echo ewatcher_translate('Daily energy consumption (kWh)'); ?>"
             }
           ];
           FeedChartFactory.create("eDLoad", eDLoad, {chartType: "daily"});

@@ -108,8 +108,8 @@
             <span class="ewatcher-green">%</span>
           </span>
           <span class="single-value">
-            <label><?php echo ewatcher_translate("PV produced consumption"); ?></label>
-            <span id="pvConsumption" class="ewatcher-yellow" data-feedid="<?php echo 100*$this->feeds['tPvToLoad/tPv']['id']/$this->feeds['tLoad']['id']; ?>">
+            <label><?php echo ewatcher_translate("Self-sufficiency"); ?></label>
+            <span id="selfSufficiency" class="ewatcher-yellow" data-feedid="<?php echo 100*$this->feeds['tPvToLoad/tPv']['id']/$this->feeds['tLoad']['id']; ?>">
             </span>
             <span class="ewatcher-yellow">%</span>
           </span>
@@ -146,7 +146,7 @@
         <div class="multiple-values-container">
           <div class="multiple-values multiple-1">
             <span class="single-value">
-              <label><?php echo ewatcher_translate("Savings"); ?></label>
+              <label><?php echo ewatcher_translate("Estimated savings"); ?></label>
               <span id="savings" class="ewatcher-green"></span>
               <span class="cost-units ewatcher-green"><?php echo $this->config->getUnits(); ?></span>
             </span>
@@ -181,7 +181,7 @@
             }
             return (Math.round(100 * 100 * tPvToLoad / tPv) / 100);
           });
-          var pvConsumption = new DependentValue("#pvConsumption", "#tPvToLoad,#tLoad", function(values) {
+          var selfSufficiency = new DependentValue("#selfSufficiency", "#tPvToLoad,#tLoad", function(values) {
             var tPvToLoad = parseFloat(values["#tPvToLoad"]);
             var tLoad = parseFloat(values["#tLoad"]);
             if(tLoad == 0) {
@@ -220,25 +220,39 @@
           var dailyTable = new FeedDailyTable("#table", "#startDate", "#endDate", [
             {
               id: <?php echo $this->feeds['eDLoad']['id']; ?>,
-              name: 'Consumption (kWh/d)'
+              name: '<?php echo ewatcher_translate("Consumption (kWh)"); ?>'
             },
             {
               id: <?php echo $this->feeds['eDPv']['id']; ?>,
-              name: 'PV energy (kWh/d)'
+              name: '<?php echo ewatcher_translate("PV energy (kWh)"); ?>'
             },
             {
               id: <?php echo $this->feeds['eDLoadFromPv']['id']; ?>,
-              name: 'PV self-consumed energy (kWh/d)'
+              name: '<?php echo ewatcher_translate("PV self-consumed energy (kWh)"); ?>'
             },
             {
               id: <?php echo $this->feeds['eDPvToNet']['id']; ?>,
-              name: 'PV energy exported to the grid (kWh/d)'
+              name: '<?php echo ewatcher_translate("PV energy exported to the grid (kWh)"); ?>'
             },
             {
               id: <?php echo $this->feeds['eDNet']['id']; ?>,
-              name: 'PV energy imported from the grid (kWh/d)'
+              name: '<?php echo ewatcher_translate("PV energy imported from the grid (kWh)"); ?>'
+            },
+            {
+              id: <?php echo $this->feeds['dPSelf']['id']; ?>,
+              name: '<?php echo ewatcher_translate("Self-consumption (%)"); ?>'
+            },
+            {
+              id: <?php echo $this->feeds['dPLoadFromPv']['id']; ?>,
+              name: '<?php echo ewatcher_translate("Self-sufficiency (%)"); ?>'
             }
-          ]);
+          ],
+          {
+            day: "<?php echo ewatcher_translate('Day'); ?>",
+            nodata: "<?php echo ewatcher_translate('No data available at the selected date range'); ?>",
+            exportcsv: "<?php echo ewatcher_translate('Export to CSV'); ?>",
+            total: ""
+          });
         });
       </script>
       <?php
