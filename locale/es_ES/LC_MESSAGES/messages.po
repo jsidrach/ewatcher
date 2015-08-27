@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-08-27 18:26+0100\n"
-"PO-Revision-Date: 2015-08-27 18:26+0100\n"
+"POT-Creation-Date: 2015-08-27 19:42+0100\n"
+"PO-Revision-Date: 2015-08-27 19:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../../..\n"
 "X-Poedit-SearchPath-1: ../../../panels\n"
 
-#: ../../../EWatcherConfig_model.php:28 ../../../panels/P3.php:29
-#: ../../../panels/P3.php:94
+#: ../../../EWatcherConfig_model.php:28 ../../../panels/P1.php:21
+#: ../../../panels/P3.php:29 ../../../panels/P3.php:94
 msgid "Consumption"
 msgstr "Consumo"
 
@@ -37,25 +37,21 @@ msgstr "FV - Consultas"
 msgid "PV - Daily values"
 msgstr "FV - Valores diarios"
 
-#: ../../../panels/P1.php:21
-msgid "Power now"
-msgstr "Potencia de consumo"
-
 #: ../../../panels/P1.php:28
-msgid "Voltage now"
-msgstr "Voltaje de consumo"
+msgid "Voltage"
+msgstr "Voltaje"
 
 #: ../../../panels/P1.php:35
-msgid "Today's consumption"
-msgstr "Consumo hoy"
+msgid "Energy consumed today"
+msgstr "Energía consumida hoy"
 
-#: ../../../panels/P1.php:52
-msgid "Power consumption (W)"
-msgstr "Consumo de potencia (W)"
+#: ../../../panels/P1.php:52 ../../../panels/P3.php:127
+msgid "Consumption (W)"
+msgstr "Consumo (W)"
 
 #: ../../../panels/P1.php:61 ../../../panels/P2.php:51
 msgid "Daily energy consumption (kWh)"
-msgstr "Consumo diario de energía (kWh)"
+msgstr "Consumo de energía diario(kWh)"
 
 #: ../../../panels/P2.php:20 ../../../panels/P4.php:48
 msgid "Start date"
@@ -124,10 +120,6 @@ msgstr "Autosuficiencia"
 #: ../../../panels/P3.php:112 ../../../panels/P4.php:105
 msgid "Self-consumption"
 msgstr "Autoconsumo"
-
-#: ../../../panels/P3.php:127
-msgid "Consumption (W)"
-msgstr "Consumo (W)"
 
 #: ../../../panels/P3.php:134
 msgid "PV produced power (W)"
@@ -248,6 +240,18 @@ msgid "Please contact the administrator to enable/disable the eWatcher panels."
 msgstr ""
 "Contacte con el administrador para habilitar/deshabilitar los paneles "
 "eWatcher."
+
+#~ msgid "Power now"
+#~ msgstr "Potencia de consumo"
+
+#~ msgid "Voltage now"
+#~ msgstr "Voltaje de consumo"
+
+#~ msgid "Today's consumption"
+#~ msgstr "Consumo hoy"
+
+#~ msgid "Power consumption (W)"
+#~ msgstr "Consumo de potencia (W)"
 
 #~ msgid "PW power exported to the grid (W)"
 #~ msgstr "Potencia FV exportada a la red"
