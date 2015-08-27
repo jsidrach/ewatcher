@@ -74,14 +74,12 @@
             {
               id: <?php echo $this->feeds['eDPv']['id']; ?>,
               color: "#DCCC1F",
-              legend: "<?php echo ewatcher_translate('PV energy produced (kWh)'); ?>",
-              fill: 0
+              legend: "<?php echo ewatcher_translate('PV energy produced (kWh)'); ?>"
             },
             {
               id: <?php echo $this->feeds['eDNet']['id']; ?>,
               color: "#D52E2E",
-              legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>",
-              fill: 0
+              legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>"
             }
           ]);
           // Load graphs
