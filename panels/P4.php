@@ -77,9 +77,9 @@
           </span>
           <span class="single-value">
             <label><?php echo ewatcher_translate("PV self-consumed energy"); ?></label>
-            <span id="tPvToLoad"  class="ewatcher-green" data-feedid="<?php echo $this->feeds['tPvToLoad']['id']; ?>">
+            <span id="tPvToLoad"  class="ewatcher-yellow" data-feedid="<?php echo $this->feeds['tPvToLoad']['id']; ?>">
             </span>
-            <span class="ewatcher-green">kWh</span>
+            <span class="ewatcher-yellow">kWh</span>
           </span>
         </div>
       </div>

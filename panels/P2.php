@@ -48,7 +48,7 @@
           var dailyTable = new FeedDailyTable("#eDLoad", "#startDate", "#endDate", [
             {
               id: <?php echo $this->feeds['eDLoad']['id']; ?>,
-              name: '<?php echo ewatcher_translate("Daily energy consumption (kWh/d)"); ?>'
+              name: '<?php echo ewatcher_translate("Daily energy consumption (kWh)"); ?>'
             }
           ],
           {

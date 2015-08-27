@@ -26,29 +26,29 @@
           <span class="ewatcher-yellow">W</span>
         </span>
         <span class="single-value">
-          <label><?php echo ewatcher_translate("Consumption from grid"); ?></label>
-          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['iGridToLoad']['id']; ?>">
-            <?php echo $this->feeds['iGridToLoad']['value']; ?>
+          <label><?php echo ewatcher_translate("Consumption"); ?></label>
+          <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
+            <?php echo $this->feeds['sPLoad']['value']; ?>
           </span>
-          <span class="ewatcher-red">W</span>
+          <span>W</span>
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV power exported to the grid"); ?></label>
-          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['iPvToNet']['id']; ?>">
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['iPvToNet']['id']; ?>">
             <?php echo $this->feeds['iPvToNet']['value']; ?>
           </span>
-          <span class="ewatcher-green">W</span>
+          <span class="ewatcher-yellow">W</span>
         </span>
       </div>
     </div>
     <div class="multiple-values-container">
       <div class="multiple-values multiple-1">
         <span class="single-value">
-          <label><?php echo ewatcher_translate("Consumption"); ?></label>
-          <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
-            <?php echo $this->feeds['sPLoad']['value']; ?>
+          <label><?php echo ewatcher_translate("Consumption from grid"); ?></label>
+          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['iGridToLoad']['id']; ?>">
+            <?php echo $this->feeds['iGridToLoad']['value']; ?>
           </span>
-          <span>W</span>
+          <span class="ewatcher-red">W</span>
         </span>
       </div>
     </div>
@@ -67,10 +67,10 @@
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV self-consumed energy"); ?></label>
-          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['eDLoadFromPv']['id']; ?>">
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDLoadFromPv']['id']; ?>">
             <?php echo $this->feeds['eDLoadFromPv']['value']; ?>
           </span>
-          <span class="ewatcher-green">kWh</span>
+          <span class="ewatcher-yellow">kWh</span>
         </span>
       </div>
     </div>
