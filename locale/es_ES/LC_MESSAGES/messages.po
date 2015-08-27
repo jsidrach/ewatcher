@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-08-27 19:42+0100\n"
-"PO-Revision-Date: 2015-08-27 19:45+0100\n"
+"POT-Creation-Date: 2015-08-27 20:22+0100\n"
+"PO-Revision-Date: 2015-08-27 20:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -113,9 +113,17 @@ msgstr "Energía FV inyectada a la red"
 msgid "Energy imported from the grid"
 msgstr "Energía importada de la red"
 
+#: ../../../panels/P3.php:104 ../../../panels/P4.php:110
+msgid "Self-consumed energy relative to the total load"
+msgstr "Porcentaje de consumo suministrado con energía FV"
+
 #: ../../../panels/P3.php:105 ../../../panels/P4.php:111
 msgid "Self-sufficiency"
 msgstr "Autosuficiencia"
+
+#: ../../../panels/P3.php:111 ../../../panels/P4.php:104
+msgid "Self-consumed energy relative to the total PV energy produced"
+msgstr "Porcentaje de energía FV autoconsumida"
 
 #: ../../../panels/P3.php:112 ../../../panels/P4.php:105
 msgid "Self-consumption"
@@ -231,15 +239,15 @@ msgstr "Energía importada de la red (kWh)"
 msgid "PV energy produced (kWh)"
 msgstr "Energía FV generada (kWh)"
 
-#: ../../../panels/_default.php:9
-msgid "There has been an error. The page is not accessible."
-msgstr "Ha ocurrido un error. La página no es accesible."
+#: ../../../panels/_default.php:15
+msgid "This page is not accessible."
+msgstr "Esta página no es accesible."
 
-#: ../../../panels/_default.php:10
-msgid "Please contact the administrator to enable/disable the eWatcher panels."
+#: ../../../panels/_default.php:18
+msgid "Please contact the administrator to enable/disable the EWatcher panels."
 msgstr ""
-"Contacte con el administrador para habilitar/deshabilitar los paneles "
-"eWatcher."
+"Contacte con el administrador para habilitar/deshabilitar los paneles de "
+"EWatcher."
 
 #~ msgid "Power now"
 #~ msgstr "Potencia de consumo"
