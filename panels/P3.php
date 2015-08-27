@@ -11,7 +11,7 @@
     public function view() {
       parent::view();
 
-    // Value: sPLoad, sPPv, iGridToLoad (instant feeds)
+    // Value: sPLoad, sPPv, iGridToLoad, iPvToNet (instant feeds)
     // Graphic: sPLoad, sPPv, iGridToLoad (continuous graph)
     // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet, eDLoad (instant feeds)
     // Value: dPLoadFromPv, dPSelf (intant feeds)
@@ -119,7 +119,7 @@
     </div>
     <script>
       $(window).ready(function() {
-        // sPLoad graphic
+        // P3 Graph
         var P3Graph = [
           {
             id: <?php echo $this->feeds['sPLoad']['id']; ?>,

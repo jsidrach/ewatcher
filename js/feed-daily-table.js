@@ -12,12 +12,12 @@
 //   localization (optional): localization object
 //     day: string for 'day'
 //     nodata: string for no data on the table ('No data available at the selected date range')
-//     exportcsv: string for the export to csv button ('Export to CSV')
-//     total: string for last row (total) ("" to not show the total)
+//     exportcsv: string for the export to csv button ('Export to CSV') ("" to not show the button)
+//     total: string for last row ('Total') ("" to not show the total)
 function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   "use strict";
 
-  // Default lozalization options
+  // Default localization options
   var defaultLocalization = {
     day: "Day",
     nodata: "No data available at the selected date range",
@@ -57,16 +57,18 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   // Table container
   this.table = $("<div/>", {class: "daily-table"});
   this.div.append(this.table);
-  // Export to CSV button
-  this.button = $("<input/>", {
-    class: "export-table-csv btn",
-    name: "exportcsv",
-    value: self.localization.exportcsv
-  });
-  this.div.append(this.button);
-  this.button.click(function() {
-    self.exportCSV();
-  });
+  if(this.localization.exportcsv != "") {
+    // Export to CSV button
+    this.button = $("<input/>", {
+      class: "export-table-csv btn",
+      name: "exportcsv",
+      value: self.localization.exportcsv
+    });
+    this.div.append(this.button);
+    this.button.click(function() {
+      self.exportCSV();
+    });
+  }
 
   // Sets the events
   $(document).ready(function () {

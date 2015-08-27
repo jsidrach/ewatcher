@@ -313,9 +313,7 @@ hr {
   text-align: right;
   color: #0699FA;
 }
-.daily-table > table > tbody tr:last-child {
-  background: #181818;
-}
+
 @media (max-width: 1024px) {
   .several-values thead {
     font-size: 0.75em;

@@ -15,7 +15,7 @@
       // Form: two dates (default to one week)
         // Value: tLoad, tPv, tPvToLoad, tPvToNet, tLoadFromNet (cumulative feeds), 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad (dependent feeds)
         // Value: cNet, cPvToNet, cLoadNoPv, cLoadPv, savings (dependent feeds)
-        // Table: eDLoad, eDPv, eDLoadFromPv, eDPvToNet, eDNet (daily table)
+        // Table: eDLoad, eDPv, eDLoadFromPv, eDPvToNet, eDNet, dPSelf, dPLoadFromPv (daily table)
       ?>
       <div id="ewatcher-config" class="ewatcher-config">
         <div class="default-hidden-config" style="display:none">
