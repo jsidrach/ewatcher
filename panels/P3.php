@@ -101,14 +101,14 @@
     </div>
     <div class="multiple-values-container">
       <div class="multiple-values multiple-2">
-        <span class="single-value">
+        <span title="<?php echo ewatcher_translate('Self-consumed energy relative to the total load'); ?>" class="single-value">
           <label><?php echo ewatcher_translate("Self-sufficiency"); ?></label>
           <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['dPLoadFromPv']['id']; ?>">
             <?php echo $this->feeds['dPLoadFromPv']['value']; ?>
           </span>
           <span class="ewatcher-yellow">%</span>
         </span>
-        <span class="single-value">
+        <span title="<?php echo ewatcher_translate('Self-consumed energy relative to the total PV energy produced'); ?>" class="single-value">
           <label><?php echo ewatcher_translate("Self-consumption"); ?></label>
           <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['dPSelf']['id']; ?>">
             <?php echo $this->feeds['dPSelf']['value']; ?>

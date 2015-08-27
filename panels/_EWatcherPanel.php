@@ -66,7 +66,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.touch.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/date.format.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min.js"></script>
-      <link href="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+      <link property="stylesheet" type="text/css" href="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/instant-feed.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/timeseries.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/chart-view.js"></script>
@@ -75,7 +75,7 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/dependent-value.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/feed-daily-table.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Modules/ewatcher/js/ewatcher-config-panel.js"></script>
-      <link href="<?php echo $this->path; ?>Modules/ewatcher/css/style.css" rel="stylesheet">
+      <link property="stylesheet" type="text/css" href="<?php echo $this->path; ?>Modules/ewatcher/css/style.css" rel="stylesheet">
       <?php
     }
   }

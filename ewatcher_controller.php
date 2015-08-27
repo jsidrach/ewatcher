@@ -38,7 +38,13 @@
         }
       }
       if(($active === false) || (!$session["write"])) {
-        $result = view("Modules/ewatcher/panels/_default.php", array());
+        // Start capturing echo's
+        ob_start();
+        // Render panel
+        require_once("Modules/ewatcher/panels/_default.php");
+        // Get echo's
+        $result = ob_get_contents();
+        ob_end_clean();
       }
     }
     // Get/Set settings petition
