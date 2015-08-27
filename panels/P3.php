@@ -145,7 +145,7 @@
           {
             id: <?php echo $this->feeds['iPvToNet']['id']; ?>,
             color: "#20CA36",
-            legend: "<?php echo ewatcher_translate('PW power exported to the grid (W)'); ?>",
+            legend: "<?php echo ewatcher_translate('PV power exported to the grid (W)'); ?>",
             fill: 0,
             line: 1
           }
