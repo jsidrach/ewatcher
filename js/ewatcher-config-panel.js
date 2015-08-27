@@ -60,23 +60,23 @@ function EWatcherConfigPanel(divId, cIn, cOut, units) {
       success: function(data) {
         if(data === false) {
           if(numeric) {
-            $(id).val(data);
+            $(id).val(parseFloat(data)).trigger("change");
           } else {
-            $(id).val("");
+            $(id).val("").trigger("change");
           }
         } else {
           if(numeric) {
-            $(id).val(data);
+            $(id).val(parseFloat(data)).trigger("change");
           } else {
-            $(id).val(data.substring(1, data.length - 1));
+            $(id).val(data.substring(1, data.length - 1)).trigger("change");
           }
         }
       },
       error: function() {
         if(numeric) {
-          $(id).val(data);
+          $(id).val(data).trigger("change");
         } else {
-          $(id).val("");
+          $(id).val("").trigger("change");
         }
       }
     });

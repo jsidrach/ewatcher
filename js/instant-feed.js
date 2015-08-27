@@ -33,7 +33,7 @@ $(document).ready(function () {
             //feedElement.text("--");
             // Don't set the text
           } else {
-            feedElement.text(value).trigger("change");
+            feedElement.text(Math.round(parseFloat(value) * 100) / 100).trigger("change");
           }
         });
       }, interval));

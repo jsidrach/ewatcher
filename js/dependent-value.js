@@ -41,7 +41,7 @@ function DependentValue(divId, dependenciesIds, callback) {
       var deptId = this.dependenciesArray[index];
       var deptObject = $(deptId);
       var value = deptObject.is("input") ? deptObject.val() : deptObject.text();
-      dependenciesData[deptId] = parseFloat(value);
+      dependenciesData[deptId] = value;
     }
     return dependenciesData;
   };

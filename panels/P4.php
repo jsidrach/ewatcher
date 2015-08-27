@@ -13,8 +13,8 @@
 
       // (Optional) set: cIn, cOut, units
       // Form: two dates (default to all)
-        // Value: tLoad, tPv, tPvToLoad, tPvToNet, tLoadFromNet, 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad
-        // Value (from retrieved values): cNet, cPvToNet, cLoadNoPv, cLoadPv, savings
+        // Value: tLoad, tPv, tPvToLoad, tPvToNet, tLoadFromNet (cumulative feeds), 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad (dependent feeds)
+        // Value: cNet, cPvToNet, cLoadNoPv, cLoadPv, savings (dependent feeds)
         // Table: eDLoad, eDPv, eDLoadFromPv, eDPvToNet, eDNet (daily between the dates)
       ?>
       <div id="ewatcher-config" class="ewatcher-config">
@@ -125,9 +125,9 @@
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost of the imported energy"); ?></label>
             <span id="tLoad" data-feedid=
-            "<?php 
+            "<?php
             $cNet = 0.1244*$this->feeds['tLoadFromNet']['id'];
-            echo $cNet; 
+            echo $cNet;
             ?>">
             </span>
             <span>€</span>
@@ -135,9 +135,9 @@
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost of the energy injected into the net"); ?></label>
             <span id="tPv" data-feedid=
-            "<?php 
+            "<?php
             $cPvToNet = 0.054*$this->feeds['tPvToNet']['id'];
-            echo $cPvToNet; 
+            echo $cPvToNet;
             ?>">
             </span>
             <span>€</span>
@@ -149,9 +149,9 @@
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost without PV production"); ?></label>
             <span id="tPvToLoad" data-feedid=
-            "<?php 
+            "<?php
             $cLoadNoPv = 0.1244*$this->feeds['tLoad']['id'];
-            echo $cLoadNoPv; 
+            echo $cLoadNoPv;
             ?>">
             </span>
             <span>€</span>
@@ -159,7 +159,7 @@
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost with PV production"); ?></label>
             <span id="tPvToNet" data-feedid=
-            "<?php 
+            "<?php
             $cLoadPv = $cNet - $cPvToNet;
             echo $cLoadPv;
             ?>">
@@ -169,8 +169,8 @@
           <span class="single-value">
             <label><?php echo ewatcher_translate("Savings"); ?></label>
             <span id="tLoadFromNet" data-feedid=
-            "<?php 
-            echo $cLoadNoPv-$cLoadPv; 
+            "<?php
+            echo $cLoadNoPv-$cLoadPv;
             ?>">
             </span>
             <span>€</span>
@@ -212,4 +212,3 @@
     }
   }
 ?>
-// Table: eDLoad, eDPv, eDLoadFromPv, eDPvToNet, eDNet (daily between the dates)

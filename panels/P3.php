@@ -11,161 +11,130 @@
     public function view() {
       parent::view();
 
-      // Value: sPLoad, sPPv, iGridToLoad
-      // Graphic: sPLoad, sPPv, iGridToLoad (last 7 days + interactivity)
-      // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet, eDLoad
-      // Value: dPLoadFromPv, dPSelf
+    // Value: sPLoad, sPPv, iGridToLoad (instant feeds)
+    // Graphic: sPLoad, sPPv, iGridToLoad (continuous graph)
+    // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet, eDLoad (instant feeds)
+    // Value: dPLoadFromPv, dPSelf (intant feeds)
     ?>
-      <!--<div data-feedid="603" id="test">
-      </div>-->
-      <div class="multiple-values-container">
-        <div class="multiple-values multiple-3">
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Consumption"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
-              <?php echo $this->feeds['sPLoad']['value']; ?>
-            </span>
-            <span>W</span>
+    <div class="multiple-values-container">
+      <div class="multiple-values multiple-3">
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("Consumption"); ?></label>
+          <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
+            <?php echo $this->feeds['sPLoad']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Generated PV power"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPPv']['id']; ?>">
-              <?php echo $this->feeds['sPPv']['value']; ?>
-            </span>
-            <span>W</span>
+          <span>W</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("PV produced power"); ?></label>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['sPPv']['id']; ?>">
+            <?php echo $this->feeds['sPPv']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Net consumption"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['iGridToLoad']['id']; ?>">
-              <?php echo $this->feeds['iGridToLoad']['value']; ?>
-            </span>
-            <span>W</span>
+          <span class="ewatcher-yellow">W</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("Consumption from grid"); ?></label>
+          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['iGridToLoad']['id']; ?>">
+            <?php echo $this->feeds['iGridToLoad']['value']; ?>
           </span>
-        </div>
+          <span class="ewatcher-red">W</span>
+        </span>
       </div>
-      <div id="graph"></div>
-      <script>
-        $(window).ready(function() {
-          // sPLoad graphic
-          var graph = [
-            {
-              id: <?php echo $this->feeds['sPLoad']['id']; ?>,
-              color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Consumption (W)'); ?>"
-            },
-            {
-              id: <?php echo $this->feeds['sPPv']['id']; ?>,
-              color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Generated PV power (W)'); ?>"
-            },
-            {
-              id: <?php echo $this->feeds['iGridToLoad']['id']; ?>,
-              color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Net consumption (W)'); ?>"
-            }
-          ];
-          FeedChartFactory.create("graph", graph, {chartType: "daily"});
-        });
-      </script>
-      <div class="multiple-values-container">
-        <div class="multiple-values multiple-2">
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Generated PV energy"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDPv']['id']; ?>">
-              <?php echo $this->feeds['eDPv']['value']; ?>
-            </span>
-            <span>kWh/d</span>
+    </div>
+    <div id="P3Graph"></div>
+    <div class="title-separator">
+      <h3><?php echo ewatcher_translate("Today's statistics"); ?></h3>
+    </div>
+    <div class="multiple-values-container">
+      <div class="multiple-values multiple-2">
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("PV produced energy"); ?></label>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDPv']['id']; ?>">
+            <?php echo $this->feeds['eDPv']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Self-consumed PV energy"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDLoadFromPv']['id']; ?>">
-              <?php echo $this->feeds['eDLoadFromPv']['value']; ?>
-            </span>
-            <span>kWh/d</span>
+          <span class="ewatcher-yellow">kWh/d</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("PV self-consumed energy"); ?></label>
+          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['eDLoadFromPv']['id']; ?>">
+            <?php echo $this->feeds['eDLoadFromPv']['value']; ?>
           </span>
-        </div>
+          <span class="ewatcher-green">kWh/d</span>
+        </span>
       </div>
-      <div class="multiple-values-container">
-        <div class="multiple-values multiple-3">
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("PV energy injected into the net"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDPvToNet']['id']; ?>">
-              <?php echo $this->feeds['eDPvToNet']['value']; ?>
-            </span>
-            <span>kWh/d</span>
+    </div>
+    <div class="multiple-values-container">
+      <div class="multiple-values multiple-3">
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("PV energy exported to the grid"); ?></label>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDPvToNet']['id']; ?>">
+            <?php echo $this->feeds['eDPvToNet']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Energy imported from the net"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDNet']['id']; ?>">
-              <?php echo $this->feeds['eDNet']['value']; ?>
-            </span>
-            <span>kWh/d</span>
+          <span class="ewatcher-yellow">kWh/d</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("Energy imported from the grid"); ?></label>
+          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['eDNet']['id']; ?>">
+            <?php echo $this->feeds['eDNet']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Consumption"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDLoad']['id']; ?>">
-              <?php echo $this->feeds['eDLoad']['value']; ?>
-            </span>
-            <span>kWh/d</span>
+          <span class="ewatcher-red">kWh/d</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("Consumption"); ?></label>
+          <span class="instant-feed" data-feedid="<?php echo $this->feeds['eDLoad']['id']; ?>">
+            <?php echo $this->feeds['eDLoad']['value']; ?>
           </span>
-        </div>
+          <span>kWh/d</span>
+        </span>
       </div>
-      <hr>
-      <div class="multiple-values-container">
-        <div class="multiple-values multiple-2">
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Percentage of consumption generated by PV"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['dPLoadFromPv']['id']; ?>">
-              <?php echo $this->feeds['dPLoadFromPv']['value']; ?>
-            </span>
-            <span>%</span>
+    </div>
+    <div class="multiple-values-container">
+      <div class="multiple-values multiple-2">
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("PV produced consumption"); ?></label>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['dPLoadFromPv']['id']; ?>">
+            <?php echo $this->feeds['dPLoadFromPv']['value']; ?>
           </span>
-          <span class="single-value">
-            <label><?php echo ewatcher_translate("Percentage of self-consumption"); ?></label>
-            <span class="instant-feed" data-feedid="<?php echo $this->feeds['dPSelf']['id']; ?>">
-              <?php echo $this->feeds['dPSelf']['value']; ?>
-            </span>
-            <span>%</span>
+          <span class="ewatcher-yellow">%</span>
+        </span>
+        <span class="single-value">
+          <label><?php echo ewatcher_translate("Self-consumption"); ?></label>
+          <span class="instant-feed" data-feedid="<?php echo $this->feeds['dPSelf']['id']; ?>">
+            <?php echo $this->feeds['dPSelf']['value']; ?>
           </span>
-        </div>
+          <span>%</span>
+        </span>
       </div>
-
-
-
-                <!--<div id="startDate" class="input-append date control-group">
-                    <input data-format="dd/MM/yyyy" value="<?php //echo date("d/m/Y", strtotime('-7 days')); ?>" type="text" />
-                    <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-                </div>
-                <div id="endDate" class="input-append date control-group">
-                    <input data-format="dd/MM/yyyy" value="<?php //echo date("d/m/Y"); ?>" type="text" />
-                    <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-                </div>
-                <label id="testDep"></label>
-                <input id="testDep1" type="text" value="1" />
-                <input id="testDep2" type="text" value="2" />
-                <label id="testDep3">3</label>
-                <div id="testTable"></div>
-                <script>
-                     $(window).ready(function () {
-                        $('#startDate').datetimepicker({ pickTime: false });
-                        $('#endDate').datetimepicker({ pickTime: false });
-                        var test = new CumulativeFeed("#test", "#startDate", "#endDate");
-                        var testDep = new DependentValue("#testDep", "#testDep1,#testDep2,#testDep3", function(values) {
-                          return values["#testDep1"] + values["#testDep2"] + values["#testDep3"];
-                        });
-
-                        var testTable = new FeedDailyTable("#testTable", "#startDate", "#endDate", [
-                          {
-                            id: 598,
-                            name: 'Test name 1'
-                          },
-                          {
-                            id: 603,
-                            name: 'Test name 2'
-                          }
-                        ]);
-                      });
-                </script>-->
+    </div>
+    <script>
+      $(window).ready(function() {
+        // sPLoad graphic
+        var P3Graph = [
+          {
+            id: <?php echo $this->feeds['sPLoad']['id']; ?>,
+            color: "#0699FA",
+            legend: "<?php echo ewatcher_translate('Consumption (W)'); ?>",
+            fill: 0,
+            line: 1
+          },
+          {
+            id: <?php echo $this->feeds['sPPv']['id']; ?>,
+            color: "#DCCC1F",
+            legend: "<?php echo ewatcher_translate('PV produced power (W)'); ?>",
+            fill: 0,
+            line: 1
+          },
+          {
+            id: <?php echo $this->feeds['iGridToLoad']['id']; ?>,
+            color: "#D52E2E",
+            legend: "<?php echo ewatcher_translate('Consumption from grid (W)'); ?>",
+            fill: 0,
+            line: 1
+          }
+        ];
+        FeedChartFactory.create("P3Graph", P3Graph, {defaultRange: 1});
+      });
+    </script>
     <?php
     }
   }

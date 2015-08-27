@@ -191,6 +191,32 @@ label {
   }
 }
 
+/* Multigraphs */
+.multigraphs > div {
+  display: inline-block;
+  clear: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 49%;
+}
+.multigraphs {
+  width: 100%;
+}
+@media (min-width: 1025px) {
+  .multigraphs .legendLabel {
+    font-size: 1.2em;
+  }
+}
+@media (max-width: 1024px) {
+  .multigraphs > div {
+    display: block;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+}
+
 /* Date selection */
 .formDates {
   margin-top: 30px;
@@ -288,4 +314,32 @@ textarea, input {
   margin-right: 30px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+/* Title separator */
+.title-separator {
+  float: left;
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+  border-bottom: 1px solid #CCC;
+}
+@media (max-width: 478px) {
+  .title-separator {
+    margin-bottom: 20px;
+  }
+  .title-separator h3 {
+    font-size: 1.5em;
+  }
+}
+
+/* Colors */
+span .ewatcher-red {
+  color: #D52E2E;
+}
+span .ewatcher-yellow {
+  color: #DCCC1F;
+}
+span .ewatcher-green {
+  color: #20CA36;
 }

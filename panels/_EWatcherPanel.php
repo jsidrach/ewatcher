@@ -47,7 +47,7 @@
       $this->feeds = array();
       $result = $this->mysqli->query("SELECT * FROM feeds WHERE `userid`='$this->userid'");
       while($feedData = $result->fetch_object()) {
-        $this->feeds[$feedData->name] = array("id"=>strval($feedData->id), "value"=>$feedData->value);
+        $this->feeds[$feedData->name] = array("id"=>strval($feedData->id), "value"=>round($feedData->value, 2));
       }
     }
 

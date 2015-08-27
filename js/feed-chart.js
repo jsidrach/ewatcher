@@ -8,7 +8,7 @@
 //     id: id of the feed
 //     color (optional): color of the feed
 //     legend (optional): legend of the feed
-//     line (optional): line width (from 0 to 1)
+//     line (optional): line width
 //     fill (optional): line fill (from 0 to 1)
 //   options: object of configuration options
 //     chartType: type of the graph ("instant"/"daily")
@@ -184,7 +184,7 @@ function FeedChart(divId, feeds, options) {
       for(var feedid in this.feeds) {
         feed = this.feeds[feedid];
         // Let atleast have 11sec, since the data is pushed every 10 seconds
-        requests.push(this.getData(feed, now - 1.5*this.updateinterval, now + 1000, 1, 0));
+        requests.push(this.getData(feed, now - 2*this.updateinterval, now + 5000, 1, 0));
       }
       // Save context before jQuery calls
       var self = this;
@@ -209,6 +209,7 @@ function FeedChart(divId, feeds, options) {
         // For each request
         else {
           $.each(arguments, function(index, responseData) {
+            var feedId = self.feeds[index];
             // Get only the data that is not null
             var filteredFeedData = [];
             $.map(responseData[0], function(eachFeedData) {
@@ -219,8 +220,8 @@ function FeedChart(divId, feeds, options) {
             // If any data to append, append it
             if(filteredFeedData.length >= 1) {
               var feedData = filteredFeedData.pop();
-              self.timeseries.append("f" + feed, feedData[0], parseInt(feedData[1]));
-              self.timeseries.trimstart("f" + feed, self.view.start * 0.001 + 10);
+              self.timeseries.append("f" + feedId, feedData[0], parseInt(feedData[1]));
+              self.timeseries.trimstart("f" + feedId, self.view.start * 0.001 + 10);
             }
           });
         }

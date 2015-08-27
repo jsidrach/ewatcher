@@ -129,10 +129,12 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       // Special case if there is only one request
       if (requests.length == 1) {
         $.map(arguments[0], function(feedData) {
-          if(tmpData["d" + feedData[0]] == undefined) {
-            tmpData["d" + feedData[0]] = [];
+          if(feedData[0] <= endDate) {
+            if(tmpData["d" + feedData[0]] == undefined) {
+              tmpData["d" + feedData[0]] = [];
+            }
+            tmpData["d" + feedData[0]]["f" + feed] = feedData[1];
           }
-          tmpData["d" + feedData[0]]["f" + feed] = feedData[1];
         });
       }
       // For each request
@@ -140,10 +142,12 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
         var index = 0;
         $.each(arguments, function(index, responseData) {
           $.map(responseData[0], function(feedData) {
-            if(tmpData["d" + feedData[0]] == undefined) {
-              tmpData["d" + feedData[0]] = [];
+            if(feedData[0] <= endDate) {
+              if(tmpData["d" + feedData[0]] == undefined) {
+                tmpData["d" + feedData[0]] = [];
+              }
+              tmpData["d" + feedData[0]]["f" + self.feeds[index].id] = feedData[1];
             }
-            tmpData["d" + feedData[0]]["f" + self.feeds[index].id] = feedData[1];
           });
           index++;
         });

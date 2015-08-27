@@ -103,7 +103,7 @@ function CumulativeFeed(divId, startDateId, endDateId) {
             firstValue = 0;
           }
         }
-        $(self.divId).text(lastValue - firstValue).trigger("change");
+        $(self.divId).text(Math.round(parseFloat(lastValue - firstValue) * 100) / 100).trigger("change");
       }
     });
   };
