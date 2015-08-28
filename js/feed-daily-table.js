@@ -186,25 +186,40 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     tbody.empty();
     if($.isEmptyObject(this.feedData)) {
       tbody.html(nodatarow);
+      if(this.localization.nodata != "") {
+        this.button.hide();
+      }
       return;
     }
 
     // Data array (["d" + date] => [["f" + feedid] => value])
     var tbodyHTML = "";
+    var numRows = 0;
     for(var index in this.feedData) {
-      tbodyHTML += this.buildRow(parseInt(index.substring(1)), this.feedData[index]);
+      var rowHTML = this.buildRow(parseInt(index.substring(1)), this.feedData[index]);
+      if(rowHTML != "") {
+        numRows++;
+      }
+      tbodyHTML += rowHTML;
     }
 
     // No data check
-    if(tbodyHTML == "") {
-      tbodyHTML = nodatarow;
+    if(numRows == 0) {
       this.feedData = [];
-      tbody.html(tbodyHTML);
+      tbody.html(nodatarow);
+      if(this.localization.nodata != "") {
+        this.button.hide();
+      }
       return;
     }
 
+    // Show csv button
+    if(this.localization.nodata != "") {
+      this.button.show();
+    }
+
     // Last row (total)
-    if(this.localization.total != "") {
+    if((numRows > 1) && (this.localization.total != "")) {
       var total = this.getTotalRow(this.feedData);
       var totalRow = "<tr><td>" + this.localization.total + "</td>";
       for(var index in total) {
@@ -276,6 +291,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
 
     // Data array (["d" + date] => [["f" + feedid] => value])
     var csvstring = "";
+    var numRows = 0;
     var maxDate = 0;
     var minDate = +new Date();
     for(var index in this.feedData) {
@@ -286,14 +302,18 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       if(date < minDate) {
         minDate = date;
       }
-      csvstring += this.getCSVRow(date, this.feedData[index]);
+      var rowCSV = this.getCSVRow(date, this.feedData[index]);
+      if(rowCSV != "") {
+        numRows++;
+      }
+      csvstring += rowCSV;
     }
     // No data check
-    if(csvstring == "") {
+    if(numRows == 0) {
       alert(this.localization.nodata);
       return;
     }
-    if(this.localization.total != "") {
+    if((numRows > 1) && (this.localization.total != "")) {
       // Last row
       csvstring += this.getTotalRowCSV(this.feedData);
     }
@@ -319,7 +339,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       }
     }
     // No data check
-    if(anydata == false) {
+    if(!anydata) {
       return "";
     }
 

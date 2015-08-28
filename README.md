@@ -34,6 +34,7 @@ Se utilizan las siguientes librerías de terceros:
   * Enlace a gestión-usuarios
   * Enlace a documentación extensiva
   * Dependencias librerías externas
+  * Capturas de pantalla
 * Documentación más detallada en doc/
     * Documentación cada uno de los javascripts
       * Minimum working examples
