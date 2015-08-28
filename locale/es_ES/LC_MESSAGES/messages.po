@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
 "POT-Creation-Date: 2015-08-28 10:57+0100\n"
-"PO-Revision-Date: 2015-08-28 10:57+0100\n"
+"PO-Revision-Date: 2015-08-28 11:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -95,7 +95,7 @@ msgstr "Consumo de la red"
 
 #: ../../../panels/P3.php:57
 msgid "Today's energy values"
-msgstr "Valores energéticos hoy"
+msgstr "Valores energéticos de hoy"
 
 #: ../../../panels/P3.php:62
 msgid "PV produced energy"
