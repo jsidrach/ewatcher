@@ -7,6 +7,8 @@
 * Visit `http://YOUR_EMONCMS_IP/admin/db` and update the database
 * To manage users or create automatically the required input and feeds, use [this tool](https://github.com/jsidrach/ewatcher-users/)
 
+**Note**: the panels won't work until some data is sent to the inputs
+
 # Upgrade
 
 * Change path to the *EWatcher* directory (usually `/var/www/html/emoncms/Modules/EWatcher/`)
