@@ -1,5 +1,5 @@
 # EWatcher
-EWatcher is an *emoncms* module to visualize electric consumption and PV self-consumption facilities.
+*emoncms* module to visualize electric consumption and PV self-consumption facilities.
 It was based on the [app](https://github.com/emoncms/app) module.
 In order to create the necessary input and feeds, please refer to the [ewatcher-users](https://github.com/jsidrach/ewatcher-users/) project.
 
@@ -20,7 +20,7 @@ Developers
 EWatcher is developed and has had contributions from the following people:
 
 * [J. Sid](https://github.com/jsidrach)
-* A. Garriz
+* [A. Garriz Molina](alejandro.garrizmolina@gmail.com)
 * [Llanos Mora](https://sites.google.com/site/llanosmora/home)
 * The original [app](https://github.com/emoncms/app) developers:
   * [Trystan Lea](https://github.com/trystanlea)
