@@ -31,7 +31,7 @@ Se utilizan las siguientes librerías de terceros:
 ### Tareas pendientes
 * Nuevo README.md (inglés)
   * Qué es
-  * Enlace a gestión-usuarios
+  * Enlace a ewatcher-users
   * Enlace a documentación extensiva
   * Dependencias librerías externas
   * Capturas de pantalla

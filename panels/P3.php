@@ -11,9 +11,9 @@
     public function view() {
       parent::view();
 
-    // Value: sPLoad, sPPv, iGridToLoad, iPvToNet (instant feeds)
+    // Value: sPLoad, sPPv, iGridToLoad, iPvToGrid (instant feeds)
     // Graphic: sPLoad, sPPv, iGridToLoad (continuous graph)
-    // Value: eDPv, eDLoadFromPv, eDPvToNet, eDNet, eDLoad (instant feeds)
+    // Value: eDPv, eDLoadFromPv, eDPvToGrid, eDGrid, eDLoad (instant feeds)
     // Value: dPLoadFromPv, dPSelf (intant feeds)
     ?>
     <div class="multiple-values-container">
@@ -34,8 +34,8 @@
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV power exported to the grid"); ?></label>
-          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['iPvToNet']['id']; ?>">
-            <?php echo $this->feeds['iPvToNet']['value']; ?>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['iPvToGrid']['id']; ?>">
+            <?php echo $this->feeds['iPvToGrid']['value']; ?>
           </span>
           <span class="ewatcher-yellow">W</span>
         </span>
@@ -78,15 +78,15 @@
       <div class="multiple-values multiple-3">
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV energy exported to the grid"); ?></label>
-          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDPvToNet']['id']; ?>">
-            <?php echo $this->feeds['eDPvToNet']['value']; ?>
+          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDPvToGrid']['id']; ?>">
+            <?php echo $this->feeds['eDPvToGrid']['value']; ?>
           </span>
           <span class="ewatcher-yellow">kWh</span>
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("Energy imported from the grid"); ?></label>
-          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['eDNet']['id']; ?>">
-            <?php echo $this->feeds['eDNet']['value']; ?>
+          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['eDGrid']['id']; ?>">
+            <?php echo $this->feeds['eDGrid']['value']; ?>
           </span>
           <span class="ewatcher-red">kWh</span>
         </span>
@@ -143,7 +143,7 @@
             line: 1
           },
           {
-            id: <?php echo $this->feeds['iPvToNet']['id']; ?>,
+            id: <?php echo $this->feeds['iPvToGrid']['id']; ?>,
             color: "#20CA36",
             legend: "<?php echo ewatcher_translate('PV power exported to the grid (W)'); ?>",
             fill: 0,

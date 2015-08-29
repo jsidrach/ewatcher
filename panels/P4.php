@@ -13,9 +13,9 @@
 
       // (Optional Configuration) set: cIn, cOut, units
       // Form: two dates (default to one week)
-        // Value: tLoad, tPv, tPvToLoad, tPvToNet, tLoadFromNet (cumulative feeds), 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad (dependent feeds)
-        // Value: cNet, cPvToNet, cLoadNoPv, cLoadPv, savings (dependent feeds)
-        // Table: eDLoad, eDPv, eDLoadFromPv, eDPvToNet, eDNet, dPSelf, dPLoadFromPv (daily table)
+        // Value: tLoad, tPv, tPvToLoad, tPvToGrid, tLoadFromGrid (cumulative feeds), 100*tPvToLoad/tPv, 100*tPvToLoad/tLoad (dependent feeds)
+        // Value: cGrid, cPvToGrid, cLoadNoPv, cLoadPv, savings (dependent feeds)
+        // Table: eDLoad, eDPv, eDLoadFromPv, eDPvToGrid, eDGrid, dPSelf, dPLoadFromPv (daily table)
       ?>
       <div id="ewatcher-config" class="ewatcher-config">
         <div class="default-hidden-config" style="display:none">
@@ -87,13 +87,13 @@
         <div class="multiple-values multiple-2">
           <span class="single-value">
             <label><?php echo ewatcher_translate("Energy imported from the grid"); ?></label>
-            <span id="tLoadFromNet"  class="ewatcher-red" data-feedid="<?php echo $this->feeds['tLoadFromNet']['id']; ?>">
+            <span id="tLoadFromGrid"  class="ewatcher-red" data-feedid="<?php echo $this->feeds['tLoadFromGrid']['id']; ?>">
             </span>
             <span class="ewatcher-red">kWh</span>
           </span>
           <span class="single-value">
             <label><?php echo ewatcher_translate("PV energy exported to the grid"); ?></label>
-            <span id="tPvToNet"  class="ewatcher-yellow" data-feedid="<?php echo $this->feeds['tPvToNet']['id']; ?>">
+            <span id="tPvToGrid"  class="ewatcher-yellow" data-feedid="<?php echo $this->feeds['tPvToGrid']['id']; ?>">
             </span>
             <span class="ewatcher-yellow">kWh</span>
           </span>
@@ -120,12 +120,12 @@
         <div class="multiple-values multiple-2">
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost of the imported energy"); ?></label>
-            <span id="cNet" class="ewatcher-red"></span>
+            <span id="cGrid" class="ewatcher-red"></span>
             <span class="cost-units ewatcher-red"><?php echo $this->config->getUnits(); ?></span>
           </span>
           <span class="single-value">
             <label><?php echo ewatcher_translate("Cost of the exported PV energy"); ?></label>
-            <span id="cPvToNet" class="ewatcher-yellow"></span>
+            <span id="cPvToGrid" class="ewatcher-yellow"></span>
             <span class="cost-units ewatcher-yellow"><?php echo $this->config->getUnits(); ?></span>
           </span>
         </div>
@@ -170,8 +170,8 @@
           var tLoad = new CumulativeFeed("#tLoad", "#startDate", "#endDate");
           var tPv = new CumulativeFeed("#tPv", "#startDate", "#endDate");
           var tPvToLoad = new CumulativeFeed("#tPvToLoad", "#startDate", "#endDate");
-          var tPvToNet = new CumulativeFeed("#tPvToNet", "#startDate", "#endDate");
-          var tLoadFromNet = new CumulativeFeed("#tLoadFromNet", "#startDate", "#endDate");
+          var tPvToGrid = new CumulativeFeed("#tPvToGrid", "#startDate", "#endDate");
+          var tLoadFromGrid = new CumulativeFeed("#tLoadFromGrid", "#startDate", "#endDate");
           // Dependent values
           var selfConsumption = new DependentValue("#selfConsumption", "#tPvToLoad,#tPv", function(values) {
             var tPvToLoad = parseFloat(values["#tPvToLoad"]);
@@ -190,25 +190,25 @@
             return (Math.round(100 * 100 * tPvToLoad / tLoad) / 100);
           });
           // Costs
-          var cNet = new DependentValue("#cNet", "#cIn,#tLoadFromNet", function(values) {
+          var cGrid = new DependentValue("#cGrid", "#cIn,#tLoadFromGrid", function(values) {
             var cIn = parseFloat(values["#cIn"]);
-            var tLoadFromNet = parseFloat(values["#tLoadFromNet"]);
-            return Math.round(cIn * tLoadFromNet * 100) / 100;
+            var tLoadFromGrid = parseFloat(values["#tLoadFromGrid"]);
+            return Math.round(cIn * tLoadFromGrid * 100) / 100;
           });
-          var cPvToNet = new DependentValue("#cPvToNet", "#cOut,#tPvToNet", function(values) {
+          var cPvToGrid = new DependentValue("#cPvToGrid", "#cOut,#tPvToGrid", function(values) {
             var cOut = parseFloat(values["#cOut"]);
-            var tPvToNet = parseFloat(values["#tPvToNet"]);
-            return Math.round(cOut * tPvToNet * 100) / 100;
+            var tPvToGrid = parseFloat(values["#tPvToGrid"]);
+            return Math.round(cOut * tPvToGrid * 100) / 100;
           });
           var cLoadNoPv = new DependentValue("#cLoadNoPv", "#cIn,#tLoad", function(values) {
             var cIn = parseFloat(values["#cIn"]);
             var tLoad = parseFloat(values["#tLoad"]);
             return Math.round(cIn * tLoad * 100) / 100;
           });
-          var cLoadPv = new DependentValue("#cLoadPv", "#cNet,#cPvToNet", function(values) {
-            var cNet = parseFloat(values["#cNet"]);
-            var cPvToNet = parseFloat(values["#cPvToNet"]);
-            return Math.round((cNet - cPvToNet) * 100) / 100;
+          var cLoadPv = new DependentValue("#cLoadPv", "#cGrid,#cPvToGrid", function(values) {
+            var cGrid = parseFloat(values["#cGrid"]);
+            var cPvToGrid = parseFloat(values["#cPvToGrid"]);
+            return Math.round((cGrid - cPvToGrid) * 100) / 100;
           });
           var savings = new DependentValue("#savings", "#cLoadPv,#cLoadNoPv", function(values) {
             var cLoadPv = parseFloat(values["#cLoadPv"]);
@@ -231,11 +231,11 @@
               name: '<?php echo ewatcher_translate("PV self-consumed energy (kWh)"); ?>'
             },
             {
-              id: <?php echo $this->feeds['eDPvToNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
               name: '<?php echo ewatcher_translate("PV energy exported to the grid (kWh)"); ?>'
             },
             {
-              id: <?php echo $this->feeds['eDNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               name: '<?php echo ewatcher_translate("PV energy imported from the grid (kWh)"); ?>'
             },
             {

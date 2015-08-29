@@ -11,10 +11,10 @@
     public function view() {
       parent::view();
 
-      // Graphic: eDPvToNet, eDLoadFromPv (last 7 days + interactivity), daily graph
-      // Graphic: eDPvToNet, eDNet (last 7 days + interactivity), daily graph
-      // Graphic: eDNet, eDLoadFromPv (last 7 days + interactivity), daily graph
-      // Graphic: eDLoad, eDPv, eDNet (last 7 days + interactivity), daily graph
+      // Graphic: eDPvToGrid, eDLoadFromPv (last 7 days + interactivity), daily graph
+      // Graphic: eDPvToGrid, eDGrid (last 7 days + interactivity), daily graph
+      // Graphic: eDGrid, eDLoadFromPv (last 7 days + interactivity), daily graph
+      // Graphic: eDLoad, eDPv, eDGrid (last 7 days + interactivity), daily graph
       ?>
       <div class="multigraphs">
         <div id="DailyGraph1"><label><?php echo ewatcher_translate("PV energy generated"); ?><label></div>
@@ -28,7 +28,7 @@
           // Graphic 1
           dailyGraphs.push([
             {
-              id: <?php echo $this->feeds['eDPvToNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
               color: "#DCCC1F",
               legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
             },
@@ -41,12 +41,12 @@
           // Graphic 2
           dailyGraphs.push([
             {
-              id: <?php echo $this->feeds['eDPvToNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
               color: "#DCCC1F",
               legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
             },
             {
-              id: <?php echo $this->feeds['eDNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               color: "#D52E2E",
               legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>"
             }
@@ -54,7 +54,7 @@
           // Graphic 3
           dailyGraphs.push([
             {
-              id: <?php echo $this->feeds['eDNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               color: "#D52E2E",
               legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>"
             },
@@ -77,7 +77,7 @@
               legend: "<?php echo ewatcher_translate('PV energy produced (kWh)'); ?>"
             },
             {
-              id: <?php echo $this->feeds['eDNet']['id']; ?>,
+              id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               color: "#D52E2E",
               legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>"
             }
