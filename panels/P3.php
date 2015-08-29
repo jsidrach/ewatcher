@@ -20,34 +20,32 @@
       <div class="multiple-values multiple-3">
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV produced power"); ?></label>
-          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['sPPv']['id']; ?>">
+          <span id="sPPv" class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['sPPv']['id']; ?>">
             <?php echo $this->feeds['sPPv']['value']; ?>
           </span>
           <span class="ewatcher-yellow">W</span>
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("Consumption"); ?></label>
-          <span class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
+          <span id="sPLoad" class="instant-feed" data-feedid="<?php echo $this->feeds['sPLoad']['id']; ?>">
             <?php echo $this->feeds['sPLoad']['value']; ?>
           </span>
           <span>W</span>
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV power exported to the grid"); ?></label>
-          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['iPvToGrid']['id']; ?>">
+          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['iPvToGrid']['id']; ?>">
             <?php echo $this->feeds['iPvToGrid']['value']; ?>
           </span>
-          <span class="ewatcher-yellow">W</span>
+          <span class="ewatcher-green">W</span>
         </span>
       </div>
     </div>
     <div class="multiple-values-container">
       <div class="multiple-values multiple-1">
         <span class="single-value">
-          <label><?php echo ewatcher_translate("Consumption from grid"); ?></label>
-          <span class="ewatcher-red instant-feed" data-feedid="<?php echo $this->feeds['iGridToLoad']['id']; ?>">
-            <?php echo $this->feeds['iGridToLoad']['value']; ?>
-          </span>
+          <label><?php echo ewatcher_translate("Consumption from the grid"); ?></label>
+          <span id="iGridToLoad" class="ewatcher-red"></span>
           <span class="ewatcher-red">W</span>
         </span>
       </div>
@@ -78,10 +76,10 @@
       <div class="multiple-values multiple-3">
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV energy exported to the grid"); ?></label>
-          <span class="ewatcher-yellow instant-feed" data-feedid="<?php echo $this->feeds['eDPvToGrid']['id']; ?>">
+          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['eDPvToGrid']['id']; ?>">
             <?php echo $this->feeds['eDPvToGrid']['value']; ?>
           </span>
-          <span class="ewatcher-yellow">kWh</span>
+          <span class="ewatcher-green">kWh</span>
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("Energy imported from the grid"); ?></label>
@@ -119,6 +117,16 @@
     </div>
     <script>
       $(window).ready(function() {
+        // iGridToLoad value
+        var iGridToLoad = new DependentValue("#iGridToLoad", "#sPPv,#sPLoad", function(values) {
+          var sPPv = parseFloat(values["#sPPv"]);
+          var sPLoad = parseFloat(values["#sPLoad"]);
+          var res = sPLoad - sPPv;
+          if(res < 0) {
+            res = 0;
+          }
+          return Math.round(res * 100) / 100;
+        });
         // P3 Graph
         var P3Graph = [
           {
@@ -138,7 +146,7 @@
           {
             id: <?php echo $this->feeds['iGridToLoad']['id']; ?>,
             color: "#D52E2E",
-            legend: "<?php echo ewatcher_translate('Consumption from grid (W)'); ?>",
+            legend: "<?php echo ewatcher_translate('Consumption from the grid (W)'); ?>",
             fill: 0,
             line: 1
           },
@@ -150,7 +158,7 @@
             line: 1
           }
         ];
-        FeedChartFactory.create("P3Graph", P3Graph, {defaultRange: 1});
+        FeedChartFactory.create("P3Graph", P3Graph, {defaultRange: 1, steps: false});
       });
     </script>
     <?php

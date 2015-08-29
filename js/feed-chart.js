@@ -17,6 +17,7 @@
 //     pHeight: percentaje of screen height (from 0 to 1)
 //     updateinterval: time between updates in live mode (in ms)
 //     selectable: chart can be selected and zoomed in (boolean)
+//     steps: draw rectangles (true) or lines (false) (boolean)
 function FeedChart(divId, feeds, options) {
   "use strict";
 
@@ -36,6 +37,8 @@ function FeedChart(divId, feeds, options) {
   this.chartType = options.chartType;
   // Chart can be selected and zoomed in
   this.selectable = options.selectable;
+  // Draw rectangles or lines
+  this.steps = options.steps;
   // Feed ids, colors, legends, lines and fills
   this.feeds = [];
   this.feed_colors = [];
@@ -310,7 +313,7 @@ function FeedChart(divId, feeds, options) {
     var options = {
       lines: {
         fill: false,
-        steps: true
+        steps: this.steps
       },
       xaxis: {
         mode: "time",
@@ -554,6 +557,7 @@ function FeedChart(divId, feeds, options) {
   //     updateinterval: time between updates in live mode (in ms)
   //     selectable: chart can be selected and zoomed in (boolean)
   //     controls: append controls to the chart (boolean)
+  //     steps: draw rectangles (true) or lines (false) (boolean)
   FeedChartFactory.create = function (containerId, feeds, options) {
     // Default options
     var defaultOptions = {
@@ -563,7 +567,8 @@ function FeedChart(divId, feeds, options) {
       pHeight: 0.5,
       updateinterval: 10000,
       selectable: true,
-      controls: true
+      controls: true,
+      steps: true
     };
     // Merge defaultOptions and options, without modifying defaultOptions
     var chartOptions = $.extend({}, defaultOptions, options);

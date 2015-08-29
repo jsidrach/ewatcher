@@ -86,6 +86,7 @@ How to use: create a new `FeedChart` object via the `FeedChartFactory`, with the
   * `pHeight` (optional): percentaje of screen height (from 0 to 1) - default: `0.55`
   * `updateinterval` (optional): time between updates in live mode (in ms) - default: `10000`
   * `selectable` (optional): chart can be selected and zoomed in (boolean) - default: `true`
+  * `steps` (optional): draw rectangles (true) or lines (false) (boolean) - default: `true`
   * `controls` (optional): append controls to the chart (boolean) - default: `true`
 
 Example code:
