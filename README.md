@@ -1,24 +1,11 @@
 # EWatcher
 EWatcher is an *emoncms* module to visualize electric consumption and PV self-consumption facilities.
 It was based on the [app](https://github.com/emoncms/app) module.
-[TODO] ewatcher-users
+In order to create the necessary input and feeds, please refer to the [ewatcher-users](https://github.com/jsidrach/ewatcher-users/) project.
 
 Screenshots
 -----------
-Panel 1 - Consumption
-![](docs/screenshots/P1.png)
-
-Panel 2 - Consumption - Queries
-![](docs/screenshots/P2.png)
-
-Panel 3 - PV
-![](docs/screenshots/P3.png)
-
-Panel 4 - PV - Queries
-![](docs/screenshots/P4.png)
-
-Panel 5 - PV - Daily values
-![](docs/screenshots/P5.png)
+[See here](docs/screenshots/).
 
 Documentation
 -------------
@@ -60,6 +47,6 @@ EWatcher uses the following libraries included in *emoncms*:
 * Bootstrap
   * Bootstrap-datetimepicker
 
-  TODO
-  ----
-  * Screenshots
+TODO
+----
+* New screenshots
