@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 //
 // InstantFeed module
-//   Reloads every X second the value of every instant-feed in the page
+//   Automatic update of a feed value every X seconds
 //
 // Variables needed: window.apikey_read, window.emoncms_path
 // Libraries needed: jQuery

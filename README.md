@@ -1,47 +1,65 @@
 # EWatcher
-Paneles de Autoconsumo FV y Consumo Eléctrico
+EWatcher is an *emoncms* module to visualize electric consumption and PV self-consumption facilities.
+It was based on the [app](https://github.com/emoncms/app) module.
+[TODO] ewatcher-users
 
-### Instalación y Configuración
-* **NOTA**: es necesario haber instalado *emoncms* previamente
-* Situarse en la carpeta de los módulos de *emoncms* (`/var/www/html/emoncms/Modules/`)
-* Clonar el repositorio mediante `git clone https://USUARIO@bitbucket.org/ismsolar/ewatcher.git`, sustituyendo `USUARIO` por tu nombre de usuario
-* Visitar `http://IP/emoncms/admin/db` y actualizar la base de datos en caso de ser necesario
+Screenshots
+-----------
+Panel 1 - Consumption
+![](docs/screenshots/P1.png)
 
-### Utilización
-Crear usuarios y asignarles paneles mediante el [sistema de gestión de usuarios](https://bitbucket.org/ismsolar/gestion-usuarios/). Una vez un usuario tenga al menos un panel asignado, al entrar en la plataforma *emoncms* verá un menú de *EWatcher* con todos los paneles disponibles.
+Panel 2 - Consumption - Queries
+![](docs/screenshots/P2.png)
 
-### Actualización
-* Situarse en la carpeta `/var/www/html/emoncms/Modules/ewatcher/` y ejecutar `git pull`
-* Descartar los cambios locales en caso de haber discrepancias
-* Visitar `http://IP/emoncms/admin/db` y actualizar la base de datos en caso de ser necesario
+Panel 3 - PV
+![](docs/screenshots/P3.png)
 
-### Multiidioma
-Este proyecto tiene soporte para multiidioma mediante *gettext*. Para traducir a más idiomas (o actualizar los ya existentes):
+Panel 4 - PV - Queries
+![](docs/screenshots/P4.png)
 
-* Crear una carpeta en `./locale/`, con nombre el código de la región ([ver lista aquí](https://gist.github.com/jacobbubu/1836273)), y dentro una carpeta llamada `LC_MESSAGES`
-* Copiar el archivo `messages.po` de una traducción ya existente (por ejemplo `./locale/es_ES/LC_MESSAGES/messages.po`) a la nueva carpeta `LC_MESSAGES`
-* Editar el archivo con [POEdit](http://poedit.net)), escogiendo el nuevo idioma para el catálogo
-* Traducir las cadenas de texto y guardar el catálogo
+Panel 5 - PV - Daily values
+![](docs/screenshots/P5.png)
 
-### Librerías externas
-Se utilizan las siguientes librerías de terceros:
+Documentation
+-------------
+Documentation about the project, including [how to install it](docs/Install-Upgrade.md), can be found in the [project's docs](docs/).
 
-* [TODO]
+License
+-------
+[MIT](LICENSE) - Feel free to use and edit.
 
-### Tareas pendientes
-* Nuevo README.md (inglés)
-  * Qué es
-  * Enlace a ewatcher-users
-  * Enlace a documentación extensiva
-  * Dependencias librerías externas
-  * Capturas de pantalla
-  * Contributors
-  * LICENSE.md
-* Documentación más detallada en doc/
-    * Documentación cada uno de los javascripts
-      * Minimum working examples
-    * Inputs/Feeds/Procesos necesarios
-    * Documentación completa de cada panel
-    * Instalación/Configuración/Actualización
-    * Multiidioma
-* Liberar proyecto en GitHub
+Developers
+----------
+EWatcher is developed and has had contributions from the following people:
+
+* [J. Sid](https://github.com/jsidrach)
+* A. Garriz
+* [Llanos Mora](https://sites.google.com/site/llanosmora/home)
+* The original [app](https://github.com/emoncms/app) developers:
+  * [Trystan Lea](https://github.com/trystanlea)
+  * [Paul Reed](https://github.com/Paul-Reed)
+  * [Chaveiro](https://github.com/chaveiro)
+
+Special thanks to [ISM Solar](http://www.ismsolar.com/) for funding this project.
+
+Contribute
+----------
+Submit an Issue if you encounter a bug, have any suggestion for improvements or to request new features.
+Open a Pull Request for **tested** bugfixes and new features, documenting any relevant change under the [docs](docs/) folder.
+
+Tech
+----
+EWatcher uses the following libraries included in *emoncms*:
+
+* jQuery 1.11
+  * Flot
+    * Flot Time
+    * Flot Selection
+    * Flot Touch
+    * Date Format
+* Bootstrap
+  * Bootstrap-datetimepicker
+
+  TODO
+  ----
+  * Screenshots

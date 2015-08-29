@@ -1,6 +1,6 @@
 // FeedDailyTable class
 // Variables needed: window.apikey_read, window.emoncms_path
-// Libraries needed: jQuery
+// Libraries needed: jQuery, bootstrap-datetimepicker
 //
 // Parameters:
 //   divId: id of the table container
