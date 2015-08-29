@@ -1,6 +1,6 @@
 <?php
   // Global variables
-  global $session,$mysqli;
+  global $session, $mysqli;
 
   // Configuration model
   require_once("Modules/ewatcher/EWatcherConfig_model.php");
@@ -11,12 +11,13 @@
 
   // Panels available
   $dropdown = array();
-  for($i = 1; $i <= $ewatcherconfig->numPanels; $i++) {
-    $panel = "P" . $i;
+  for($indexEWatcher = 1; $indexEWatcher <= $ewatcherconfig->numPanels; $indexEWatcher++) {
+    $panel = "P" . $indexEWatcher;
     if($ewatcherconfig->panels[$panel]) {
-      $dropdown[] = array(ewatcher_translate($ewatcherconfig->panelsNames[$panel]), "ewatcher/" . $panel);
+      $dropdown[] = array("ewatcher_translate($ewatcherconfig->panelsNames[$panel])", "ewatcher/" . $panel);
     }
   }
+
   // If no panel is active, hide menu
   if(count($dropdown) > 0) {
     $menu_left[] = array(
