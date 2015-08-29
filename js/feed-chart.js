@@ -1,6 +1,6 @@
 // FeedChart class
 // Variables needed: window.apikey_read, window.emoncms_path
-// Libraries needed: jQuery, flot, flot.touch, flot.time, flot.selection, date.format, chart-view, timeseries
+// Libraries needed: jQuery, flot, flot.time, flot.selection, date.format, chart-view, timeseries
 //
 // Parameters:
 //   divId: id of the graph container

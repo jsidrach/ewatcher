@@ -320,7 +320,7 @@ hr {
     font-size: 0.75em;
   }
   .several-values .daily-table {
-    overflow-x: overlay;
+    overflow-x: scroll;
   }
 }
 
@@ -339,12 +339,15 @@ textarea, input {
 }
 
 /* EWatcher configuration */
-.ewatcher-config i {
+.ewatcher-config .click-open, .ewatcher-config .click-close {
   float: right;
   cursor: pointer;
   margin-right: 30px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+.ewatcher-config i {
+  margin-left: 5px;
 }
 
 /* Title separator */

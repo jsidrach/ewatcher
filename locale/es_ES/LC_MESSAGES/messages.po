@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-08-29 12:46+0100\n"
-"PO-Revision-Date: 2015-08-29 12:47+0100\n"
+"POT-Creation-Date: 2015-08-29 19:00+0100\n"
+"PO-Revision-Date: 2015-08-29 19:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -142,16 +142,20 @@ msgid "PV power exported to the grid (W)"
 msgstr "Potencia FV exportada a la red (W)"
 
 #: ../../../panels/P4.php:25
-msgid "Import cost (per kWh)"
-msgstr "Coste al importar (por kWh)"
+msgid "Energy imported cost (per kWh)"
+msgstr "Precio energía comprada (por kWh)"
 
 #: ../../../panels/P4.php:29
-msgid "Units"
-msgstr "Unidades"
+msgid "Currency"
+msgstr "Moneda"
 
 #: ../../../panels/P4.php:33
-msgid "Export cost (per kWh)"
-msgstr "Coste al exportar (por kWh)"
+msgid "Energy exported cost (per kWh)"
+msgstr "Precio energía vendida (por kWh)"
+
+#: ../../../panels/P4.php:41
+msgid "Energy costs"
+msgstr "Precios de la energía"
 
 #: ../../../panels/P4.php:67
 msgid "Total consumption"
@@ -248,6 +252,15 @@ msgid "Please contact the administrator to enable/disable the EWatcher panels."
 msgstr ""
 "Contacte con el administrador para habilitar/deshabilitar los paneles de "
 "EWatcher."
+
+#~ msgid "Import cost (per kWh)"
+#~ msgstr "Coste al importar (por kWh)"
+
+#~ msgid "Units"
+#~ msgstr "Unidades"
+
+#~ msgid "Export cost (per kWh)"
+#~ msgstr "Coste al exportar (por kWh)"
 
 #~ msgid "Power now"
 #~ msgstr "Potencia de consumo"

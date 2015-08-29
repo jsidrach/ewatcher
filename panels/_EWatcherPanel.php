@@ -63,7 +63,6 @@
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.min.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.time.min.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.selection.min.js"></script>
-      <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/jquery.flot.touch.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/flot/date.format.js"></script>
       <script type="text/javascript" src="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min.js"></script>
       <link property="stylesheet" type="text/css" href="<?php echo $this->path; ?>Lib/bootstrap-datetimepicker-0.0.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">

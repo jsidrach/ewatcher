@@ -22,23 +22,23 @@
           <div class="multiple-values-container">
             <div class="multiple-values multiple-3">
               <span class="single-value">
-                <label><?php echo ewatcher_translate("Import cost (per kWh)"); ?></label>
+                <label><?php echo ewatcher_translate("Energy imported cost (per kWh)"); ?></label>
                 <input id="cIn" type="number" value="<?php echo $this->config->getcin(); ?>" step="any">
               </span>
               <span class="single-value">
-                <label><?php echo ewatcher_translate("Units"); ?></label>
+                <label><?php echo ewatcher_translate("Currency"); ?></label>
                 <input id="units" type="text" value="<?php echo $this->config->getunits(); ?>">
               </span>
                 <span class="single-value">
-                <label><?php echo ewatcher_translate("Export cost (per kWh)"); ?></label>
+                <label><?php echo ewatcher_translate("Energy exported cost (per kWh)"); ?></label>
                 <input id="cOut" type="number" value="<?php echo $this->config->getcout(); ?>" step="any">
               </span>
             </div>
           </div>
-          <i class="icon-arrow-up icon-white click-close"></i>
+          <span class="click-close"><i class="icon-arrow-up icon-white"></i></span>
         </div>
         <div class="default-shown-config">
-          <i class="icon-wrench icon-white click-open"></i>
+          <span class="click-open"><?php echo ewatcher_translate("Energy costs"); ?><i class="icon-wrench icon-white"></i></span>
         </div>
         <hr>
       </div>

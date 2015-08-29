@@ -111,7 +111,7 @@ Example code:
 Dependencies:
 
 * Variables: `window.apikey_read`, `window.emoncms_path`
-* Libraries: jQuery, flot, flot.touch, flot.time, flot.selection, date.format, chart-view, timeseries
+* Libraries: jQuery, flot, flot.time, flot.selection, date.format, chart-view, timeseries
 
 ## <a name="feed-daily-table"> </a>feed-daily-table.js
 Creates a table displaying the daily value of feeds.
