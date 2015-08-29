@@ -34,9 +34,7 @@
         </span>
         <span class="single-value">
           <label><?php echo ewatcher_translate("PV power exported to the grid"); ?></label>
-          <span class="ewatcher-green instant-feed" data-feedid="<?php echo $this->feeds['iPvToGrid']['id']; ?>">
-            <?php echo $this->feeds['iPvToGrid']['value']; ?>
-          </span>
+          <span id="iPvToGrid" class="ewatcher-green"></span>
           <span class="ewatcher-green">W</span>
         </span>
       </div>
@@ -122,6 +120,16 @@
           var sPPv = parseFloat(values["#sPPv"]);
           var sPLoad = parseFloat(values["#sPLoad"]);
           var res = sPLoad - sPPv;
+          if(res < 0) {
+            res = 0;
+          }
+          return Math.round(res * 100) / 100;
+        });
+        // iPvToGrid value
+        var iPvToGrid = new DependentValue("#iPvToGrid", "#sPPv,#sPLoad", function(values) {
+          var sPPv = parseFloat(values["#sPPv"]);
+          var sPLoad = parseFloat(values["#sPLoad"]);
+          var res = sPPv - sPLoad;
           if(res < 0) {
             res = 0;
           }
