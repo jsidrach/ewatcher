@@ -14,7 +14,7 @@
   for($indexEWatcher = 1; $indexEWatcher <= $ewatcherconfig->numPanels; $indexEWatcher++) {
     $panel = "P" . $indexEWatcher;
     if($ewatcherconfig->panels[$panel]) {
-      $dropdown[] = array("ewatcher_translate($ewatcherconfig->panelsNames[$panel])", "ewatcher/" . $panel);
+      $dropdown[] = array(ewatcher_translate($ewatcherconfig->panelsNames[$panel]), "ewatcher/" . $panel);
     }
   }
 
