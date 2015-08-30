@@ -140,7 +140,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
           var offset = (feedData[0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
           feedData[0] -= offset;
           // Between dates (and do not include today's data)
-          if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] < beginningDayNow)) {
+          if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
             if(tmpData["d" + feedData[0]] == undefined) {
               tmpData["d" + feedData[0]] = [];
             }
@@ -157,7 +157,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
             feedData[0] -= offset;
             var feed = self.feeds[index].id;
             // Between dates (and do not include today's data)
-            if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] < beginningDayNow)) {
+            if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
               if(tmpData["d" + feedData[0]] == undefined) {
                 tmpData["d" + feedData[0]] = [];
               }

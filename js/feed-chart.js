@@ -410,14 +410,18 @@ function FeedChart(divId, feeds, options) {
 
     // Data adjustment required
     if(((this.view.start + offset * 3600000) % intervalms) != 0) {
-      var datastart = Math.floor(this.view.start / intervalms) * intervalms;
-      var dataend = Math.floor(this.view.end / intervalms) * intervalms;
-
-      // Start of the day (date - offset in hours)
-      datastart -= offset * 3600000;
-      dataend -= offset * 3600000;
-      this.view.start = datastart;
-      this.view.end = dataend;
+      var newStart = new Date(this.view.start);
+      newStart.setHours(0);
+      newStart.setMinutes(0);
+      newStart.setSeconds(0);
+      newStart.setMilliseconds(0);
+      this.view.start = newStart.getTime();
+      var newEnd = new Date(this.view.end);
+      newEnd.setHours(0);
+      newEnd.setMinutes(0);
+      newEnd.setSeconds(0);
+      newEnd.setMilliseconds(0);
+      this.view.end = newEnd.getTime();
     }
 
     // Get data
@@ -431,10 +435,6 @@ function FeedChart(divId, feeds, options) {
       feed = this.feeds[i];
       requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 0));
     }
-    // Beginning of the end day
-    var beginningEndDay = +new Date(this.view.end);
-    beginningEndDay -= beginningEndDay % (24 * 60 * 60 * 1000);
-    beginningEndDay += ((new Date).getTimezoneOffset() * 60 * 1000);
 
     // Save context before jQuery calls
     var self = this;
@@ -446,7 +446,7 @@ function FeedChart(divId, feeds, options) {
         plot_data["f" + feed] = [];
         for(var z = 0; z < feedData.length; z++) {
           // Do not plot null or future data
-          if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
+          if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
             var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
             feedData[z][0] -= offset;
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
@@ -463,7 +463,7 @@ function FeedChart(divId, feeds, options) {
             var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
             feedData[z][0] -= offset;
             // Do not plot null or the beginning of the end day
-            if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
+            if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
             }
           }
