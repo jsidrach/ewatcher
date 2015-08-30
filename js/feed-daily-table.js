@@ -227,19 +227,28 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     }
 
     // Last row (total)
-    if((numRows > 1) && (this.localization.total != "")) {
-      var total = this.getTotalRow(this.feedData);
-      var totalRow = "<tr><td>" + this.localization.total + "</td>";
-      for(var index in total) {
-        var totalData = Math.round(parseFloat(total[index]) * 100) / 100;
-        totalRow += "<td>" + totalData + "</td>";
-      }
-      totalRow += "</tr>";
-      tbodyHTML += totalRow;
+    var total = this.getTotalRow(this.feedData);
+    var display = ((numRows > 1) && (this.localization.total != ""));
+    var totalRow;
+    if(display) {
+      totalRow = "<tr><td>" + this.localization.total + "</td>";
+    } else {
+      totalRow = "<tr style='display: none;'><td>" + this.localization.total + "</td>";
     }
+    for(var index in total) {
+      var totalData = Math.round(parseFloat(total[index]) * 100) / 100;
+      totalRow += "<td id='total_" + index + "'>" + totalData + "</td>";
+    }
+    totalRow += "</tr>";
+    tbodyHTML += totalRow;
 
     // Append data
     tbody.html(tbodyHTML);
+
+    // Trigger changes
+    for(var index in total) {
+      $("#total_" + index).trigger("change");
+    }
   };
 
   // Builds an html row

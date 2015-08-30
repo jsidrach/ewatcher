@@ -173,6 +173,8 @@ Example code:
 </script>
 ```
 
+**Note**: the table has a final total row (may be hidden) with the sum of each column, and the id of each column total is `#total_f<feedid>`
+
 Dependencies:
 
 * Variables: `window.apikey_read`, `window.emoncms_path`

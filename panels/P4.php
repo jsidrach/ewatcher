@@ -164,12 +164,28 @@
           var costUnits = new DependentValue(".cost-units", "#units", function(values) {
             return values["#units"];
           });
-          // Cumulative feeds
-          var tLoad = new CumulativeFeed("#tLoad", "#startDate", "#endDate");
-          var tPv = new CumulativeFeed("#tPv", "#startDate", "#endDate");
-          var tPvToGrid = new CumulativeFeed("#tPvToGrid", "#startDate", "#endDate");
-          var tLoadFromGrid = new CumulativeFeed("#tLoadFromGrid", "#startDate", "#endDate");
-          var tPvToLoad = new CumulativeFeed("#tPvToLoad", "#startDate", "#endDate");
+          // Dependent values (get it from the tables)
+          // The table has a final total row (may be hidden) with the sum of each column, and the id of each column total is #total_f<feedid>
+          var tLoad = new DependentValue("#tLoad", "#total_f<?php echo $this->feeds['eDLoad']['id']; ?>", function(values) {
+            return parseFloat(values["#total_f<?php echo $this->feeds['eDLoad']['id']; ?>"]);
+          });
+          var tPv = new DependentValue("#tPv", "#total_f<?php echo $this->feeds['eDPv']['id']; ?>", function(values) {
+            return parseFloat(values["#total_f<?php echo $this->feeds['eDPv']['id']; ?>"]);
+          });
+          var tLoadFromGrid = new DependentValue("#tLoadFromGrid", "#total_f<?php echo $this->feeds['eDGrid']['id']; ?>", function(values) {
+            return parseFloat(values["#total_f<?php echo $this->feeds['eDGrid']['id']; ?>"]);
+          });
+          // Dependent values from the total values
+          var tPvToLoad = new DependentValue("#tPvToLoad", "#tLoad,#tLoadFromGrid", function(values) {
+            var tLoad = parseFloat(values["#tLoad"]);
+            var tLoadFromGrid = parseFloat(values["#tLoadFromGrid"]);
+            return (Math.round((tLoad - tLoadFromGrid) * 100) / 100);
+          });
+          var tPvToGrid = new DependentValue("#tPvToGrid", "#tPv,#tPvToLoad", function(values) {
+            var tPv = parseFloat(values["#tPv"]);
+            var tPvToLoad = parseFloat(values["#tPvToLoad"]);
+            return (Math.round((tPv - tPvToLoad) * 100) / 100);
+          });
           // Dependent values
           var selfConsumption = new DependentValue("#selfConsumption", "#tPvToLoad,#tPv", function(values) {
             var tPvToLoad = parseFloat(values["#tPvToLoad"]);
@@ -213,7 +229,6 @@
             var cLoadNoPv = parseFloat(values["#cLoadNoPv"]);
             return Math.round((cLoadNoPv - cLoadPv) * 100) / 100;
           });
-
           // Table
           var dailyTable = new FeedDailyTable("#table", "#startDate", "#endDate", [
             {
@@ -235,14 +250,6 @@
             {
               id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               name: '<?php echo ewatcher_translate("PV energy imported from the grid (kWh)"); ?>'
-            },
-            {
-              id: <?php echo $this->feeds['dPSelf']['id']; ?>,
-              name: '<?php echo ewatcher_translate("Self-consumption (%)"); ?>'
-            },
-            {
-              id: <?php echo $this->feeds['dPLoadFromPv']['id']; ?>,
-              name: '<?php echo ewatcher_translate("Self-sufficiency (%)"); ?>'
             }
           ],
           {

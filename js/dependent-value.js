@@ -17,8 +17,6 @@ function DependentValue(divId, dependenciesIds, callback) {
   this.callback = callback;
 
   // Object properties
-  // Container object
-  this.div = $(divId);
   // Dependencies array
   this.dependenciesArray = this.dependenciesIds.split(",");
 
@@ -27,11 +25,11 @@ function DependentValue(divId, dependenciesIds, callback) {
   // Sets the events
   $(document).ready(function () {
     // On dependency change
-    $(self.dependenciesIds).on("change", function() {
-      self.div.text(self.callback(self.getDependenciesData())).trigger("change");
+    $(document).on("change", self.dependenciesIds, function() {
+      $(self.divId).text(self.callback(self.getDependenciesData())).trigger("change");
     });
     // Initial data
-    self.div.text(self.callback(self.getDependenciesData())).trigger("change");
+    $(self.divId).text(self.callback(self.getDependenciesData())).trigger("change");
   });
 
   // Get dependencies data
