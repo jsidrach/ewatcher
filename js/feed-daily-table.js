@@ -127,11 +127,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       requests.push(this.getFeedData(feed, startDate, endDate));
     }
     // Now
-    var beginningDayNow = new Date();
-    beginningDayNow.setHours(0);
-    beginningDayNow.setMinutes(0);
-    beginningDayNow.setSeconds(0);
-    beginningDayNow.setMilliseconds(0);
+    var beginningDayNow = this.getBeginningOfDay(new Date());
 
     // Save context before jQuery calls
     var self = this;
@@ -141,12 +137,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       if (requests.length == 1) {
         $.map(arguments[0], function(feedData) {
           // Normalize date
-          var feedDate = new Date(feedData[0]);
-          feedDate.setHours(0);
-          feedDate.setMinutes(0);
-          feedDate.setSeconds(0);
-          feedDate.setMilliseconds(0);
-          feedData[0] = feedDate.getTime();
+          feedData[0] = self.getBeginningOfDay(feedData[0]);
           // Between dates (and do not include today's data)
           if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
             if(tmpData["d" + feedData[0]] == undefined) {
@@ -162,12 +153,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
         $.each(arguments, function(index, responseData) {
           $.map(responseData[0], function(feedData) {
             // Normalize date
-            var feedDate = new Date(feedData[0]);
-            feedDate.setHours(0);
-            feedDate.setMinutes(0);
-            feedDate.setSeconds(0);
-            feedDate.setMilliseconds(0);
-            feedData[0] = feedDate.getTime();
+            feedData[0] = self.getBeginningOfDay(feedData[0]);
             var feed = self.feeds[index].id;
             // Between dates (and do not include today's data)
             if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
@@ -186,6 +172,16 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       self.replaceTableData();
     });
   };
+
+  // Get the beggining of the day of a date
+  this.getBeginningOfDay = function(date) {
+    var newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    return newDate.getTime();
+  }
 
   // Get feed data (async)
   this.getFeedData = function(id, start, end) {

@@ -407,18 +407,8 @@ function FeedChart(divId, feeds, options) {
     }
 
     // Date adjustment
-    var newStart = new Date(this.view.start);
-    newStart.setHours(0);
-    newStart.setMinutes(0);
-    newStart.setSeconds(0);
-    newStart.setMilliseconds(0);
-    this.view.start = newStart.getTime();
-    var newEnd = new Date(this.view.end);
-    newEnd.setHours(0);
-    newEnd.setMinutes(0);
-    newEnd.setSeconds(0);
-    newEnd.setMilliseconds(0);
-    this.view.end = newEnd.getTime();
+    this.view.start = this.getBeginningOfDay(this.view.start);
+    this.view.end = this.getBeginningOfDay(this.view.end);
 
     // Get data
     // Plot data
@@ -442,12 +432,7 @@ function FeedChart(divId, feeds, options) {
         plot_data["f" + feed] = [];
         for(var z = 0; z < feedData.length; z++) {
           // Normalize date
-          var feedDate = new Date(feedData[z][0]);
-          feedDate.setHours(0);
-          feedDate.setMinutes(0);
-          feedDate.setSeconds(0);
-          feedDate.setMilliseconds(0);
-          feedData[z][0] = feedDate.getTime();
+          feedData[z][0] = self.getBeginningOfDay(feedData[z][0]);
           // Do not plot null or future data
           if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
@@ -462,12 +447,7 @@ function FeedChart(divId, feeds, options) {
           plot_data["f" + feedId] = [];
           for(var z = 0; z < feedData.length; z++) {
             // Normalize date
-            var feedDate = new Date(feedData[z][0]);
-            feedDate.setHours(0);
-            feedDate.setMinutes(0);
-            feedDate.setSeconds(0);
-            feedDate.setMilliseconds(0);
-            feedData[z][0] = feedDate.getTime();
+            feedData[z][0] = self.getBeginningOfDay(feedData[z][0]);
             // Do not plot null or the beginning of the end day
             if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
@@ -532,6 +512,16 @@ function FeedChart(divId, feeds, options) {
       $.plot(self.placeholder, series, options);
     });
   };
+
+  // Get the beggining of the day of a date
+  this.getBeginningOfDay = function(date) {
+    var newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    return newDate.getTime();
+  }
 
   // Get feed data (async)
   this.getData = function(id, start, end, interval, limitinterval) {
