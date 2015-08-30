@@ -399,8 +399,6 @@ function FeedChart(divId, feeds, options) {
   this.drawBargraph = function(interval) {
     // Get timezone offset in hours
     var now = +new Date();
-    var offset = ((new Date()).getTimezoneOffset()) / (-60);
-    var intervalms = interval * 1000;
 
     // No future data
     if(now < this.view.end) {
@@ -408,21 +406,19 @@ function FeedChart(divId, feeds, options) {
       this.view.end -= (this.view.end - now);
     }
 
-    // Data adjustment required
-    if(((this.view.start + offset * 3600000) % intervalms) != 0) {
-      var newStart = new Date(this.view.start);
-      newStart.setHours(0);
-      newStart.setMinutes(0);
-      newStart.setSeconds(0);
-      newStart.setMilliseconds(0);
-      this.view.start = newStart.getTime();
-      var newEnd = new Date(this.view.end);
-      newEnd.setHours(0);
-      newEnd.setMinutes(0);
-      newEnd.setSeconds(0);
-      newEnd.setMilliseconds(0);
-      this.view.end = newEnd.getTime();
-    }
+    // Date adjustment
+    var newStart = new Date(this.view.start);
+    newStart.setHours(0);
+    newStart.setMinutes(0);
+    newStart.setSeconds(0);
+    newStart.setMilliseconds(0);
+    this.view.start = newStart.getTime();
+    var newEnd = new Date(this.view.end);
+    newEnd.setHours(0);
+    newEnd.setMinutes(0);
+    newEnd.setSeconds(0);
+    newEnd.setMilliseconds(0);
+    this.view.end = newEnd.getTime();
 
     // Get data
     // Plot data
@@ -445,10 +441,15 @@ function FeedChart(divId, feeds, options) {
         var feedData = arguments[0];
         plot_data["f" + feed] = [];
         for(var z = 0; z < feedData.length; z++) {
+          // Normalize date
+          var feedDate = new Date(feedData[z][0]);
+          feedDate.setHours(0);
+          feedDate.setMinutes(0);
+          feedDate.setSeconds(0);
+          feedDate.setMilliseconds(0);
+          feedData[z][0] = feedDate.getTime();
           // Do not plot null or future data
           if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
-            var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
-            feedData[z][0] -= offset;
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
           }
         }
@@ -460,8 +461,13 @@ function FeedChart(divId, feeds, options) {
           var feedId = self.feeds[index];
           plot_data["f" + feedId] = [];
           for(var z = 0; z < feedData.length; z++) {
-            var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
-            feedData[z][0] -= offset;
+            // Normalize date
+            var feedDate = new Date(feedData[z][0]);
+            feedDate.setHours(0);
+            feedDate.setMinutes(0);
+            feedDate.setSeconds(0);
+            feedDate.setMilliseconds(0);
+            feedData[z][0] = feedDate.getTime();
             // Do not plot null or the beginning of the end day
             if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);

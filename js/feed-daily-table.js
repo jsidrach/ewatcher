@@ -127,9 +127,12 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       requests.push(this.getFeedData(feed, startDate, endDate));
     }
     // Now
-    var now = +new Date();
-    var beginningDayNow = now - (now % (24 * 60 * 60 * 1000));
-    beginningDayNow += ((new Date).getTimezoneOffset() * 60 * 1000);
+    var beginningDayNow = new Date();
+    beginningDayNow.setHours(0);
+    beginningDayNow.setMinutes(0);
+    beginningDayNow.setSeconds(0);
+    beginningDayNow.setMilliseconds(0);
+
     // Save context before jQuery calls
     var self = this;
     // When all requests finish
@@ -137,8 +140,13 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       // Special case if there is only one request
       if (requests.length == 1) {
         $.map(arguments[0], function(feedData) {
-          var offset = (feedData[0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
-          feedData[0] -= offset;
+          // Normalize date
+          var feedDate = new Date(feedData[0]);
+          feedDate.setHours(0);
+          feedDate.setMinutes(0);
+          feedDate.setSeconds(0);
+          feedDate.setMilliseconds(0);
+          feedData[0] = feedDate.getTime();
           // Between dates (and do not include today's data)
           if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
             if(tmpData["d" + feedData[0]] == undefined) {
@@ -153,8 +161,13 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
         var index = 0;
         $.each(arguments, function(index, responseData) {
           $.map(responseData[0], function(feedData) {
-            var offset = (feedData[0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
-            feedData[0] -= offset;
+            // Normalize date
+            var feedDate = new Date(feedData[0]);
+            feedDate.setHours(0);
+            feedDate.setMinutes(0);
+            feedDate.setSeconds(0);
+            feedDate.setMilliseconds(0);
+            feedData[0] = feedDate.getTime();
             var feed = self.feeds[index].id;
             // Between dates (and do not include today's data)
             if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] <= beginningDayNow)) {
@@ -178,6 +191,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   this.getFeedData = function(id, start, end) {
     // 1 Day interval
     var interval = 60 * 60 * 24;
+    // 2 days more of margin (will discard later on the data outside the selected range)
     start -= 60 * 60 * 24 * 1000;
     end += 60 * 60 * 24 * 1000;
     return $.ajax({
