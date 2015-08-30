@@ -429,7 +429,7 @@ function FeedChart(divId, feeds, options) {
     var requests = [];
     for(var i in this.feeds) {
       feed = this.feeds[i];
-      requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 1));
+      requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 0));
     }
     // Beginning of the end day
     var beginningEndDay = +new Date(this.view.end);
@@ -447,6 +447,8 @@ function FeedChart(divId, feeds, options) {
         for(var z = 0; z < feedData.length; z++) {
           // Do not plot null or future data
           if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
+            var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
+            feedData[z][0] -= offset;
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
           }
         }
@@ -458,6 +460,8 @@ function FeedChart(divId, feeds, options) {
           var feedId = self.feeds[index];
           plot_data["f" + feedId] = [];
           for(var z = 0; z < feedData.length; z++) {
+            var offset = (feedData[z][0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
+            feedData[z][0] -= offset;
             // Do not plot null or the beginning of the end day
             if((feedData[z][1] != null) && (feedData[z][0] <= beginningEndDay)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);

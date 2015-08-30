@@ -101,11 +101,6 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       $(endDateId).addClass("error");
       return;
     }
-    // If they are both the same
-    if(startDate == endDate) {
-      // + 1 day minus 30 seconds
-      endDate += 24 * 1000 * 60 * 60 - 30000;
-    }
     var now = +new Date();
     if(startDate >= endDate) {
       $(this.startDateId + ", " + this.endDateId).addClass("error");
@@ -131,6 +126,10 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       feed = this.feeds[index].id;
       requests.push(this.getFeedData(feed, startDate, endDate));
     }
+    // Now
+    var now = +new Date();
+    var beginningDayNow = now - (now % (24 * 60 * 60 * 1000));
+    beginningDayNow += ((new Date).getTimezoneOffset() * 60 * 1000);
     // Save context before jQuery calls
     var self = this;
     // When all requests finish
@@ -138,7 +137,10 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       // Special case if there is only one request
       if (requests.length == 1) {
         $.map(arguments[0], function(feedData) {
-          if(feedData[0] <= endDate) {
+          var offset = (feedData[0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
+          feedData[0] -= offset;
+          // Between dates (and do not include today's data)
+          if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] < beginningDayNow)) {
             if(tmpData["d" + feedData[0]] == undefined) {
               tmpData["d" + feedData[0]] = [];
             }
@@ -151,11 +153,15 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
         var index = 0;
         $.each(arguments, function(index, responseData) {
           $.map(responseData[0], function(feedData) {
-            if(feedData[0] <= endDate) {
+            var offset = (feedData[0] - ((new Date).getTimezoneOffset() * 60 * 1000)) % (24 * 60 * 60 * 1000);
+            feedData[0] -= offset;
+            var feed = self.feeds[index].id;
+            // Between dates (and do not include today's data)
+            if((feedData[0] >= (startDate + 60 * 1000)) && (feedData[0] < (endDate - 60 * 1000)) && (feedData[0] < beginningDayNow)) {
               if(tmpData["d" + feedData[0]] == undefined) {
                 tmpData["d" + feedData[0]] = [];
               }
-              tmpData["d" + feedData[0]]["f" + self.feeds[index].id] = feedData[1];
+              tmpData["d" + feedData[0]]["f" + feed] = feedData[1];
             }
           });
           index++;
@@ -172,9 +178,11 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   this.getFeedData = function(id, start, end) {
     // 1 Day interval
     var interval = 60 * 60 * 24;
+    start -= 60 * 60 * 24 * 1000;
+    end += 60 * 60 * 24 * 1000;
     return $.ajax({
       url: window.emoncms_path + "/feed/data.json?apikey=" + window.apikey_read,
-      data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=1",
+      data: "id="+id+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=0",
       dataType: "json"
     });
   };
@@ -266,15 +274,13 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       return false;
     }
     var date = (+new Date(dateArray[2], dateArray[1] - 1, dateArray[0]));
-    var now = +new Date();
-    // Date >= now (error check in the parent call)
-    if(date >= now) {
-      return date;
-    }
     // If date is today, and it is the end date, set it to now
-    if((endDate) && ((now - date) < 60 *60 * 24 * 1000)) {
-      // At least 30 seconds so data is available
-      date = now - 30000;
+    if(endDate) {
+      // End of the day plus one minute
+      date += 60 * 60 * 24 * 1000 + 60 * 1000;
+    } else {
+      // Start of the day minus one minute
+      date -= 60 * 1000;
     }
     return date;
   };

@@ -22,6 +22,9 @@
       $this->mysqli = $mysqli;
       $this->userid = (int) $userid;
 
+      // Set numeric format (dots instead of commas)
+      setlocale(LC_NUMERIC, 'C');
+
       // Set configuration
       $this->numPanels = 5;
       $this->panelsNames = array(

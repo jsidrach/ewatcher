@@ -42,11 +42,6 @@ function CumulativeFeed(divId, startDateId, endDateId) {
       $(endDateId).addClass("error");
       return;
     }
-    // If they are both the same
-    if(startDate == endDate) {
-      // + 1 day minus 30 seconds
-      endDate += 24 * 1000 * 60 * 60 - 30000;
-    }
     var now = +new Date();
     if(startDate >= endDate) {
       $(this.startDateId + ", " + this.endDateId).addClass("error");
@@ -68,14 +63,15 @@ function CumulativeFeed(divId, startDateId, endDateId) {
     }
     var date = (+new Date(dateArray[2], dateArray[1] - 1, dateArray[0]));
     var now = +new Date();
-    // Date >= now (error check in the parent call)
-    if(date >= now) {
-      return date;
+    if(endDate) {
+      // End of the day plus one minute
+      date += 60 * 60 * 24 * 1000 + 60 * 1000;
+    } else {
+      // Start of the day minus one minute
+      date -= 60 * 1000;
     }
-    // If date is today, and it is the end date, set it to now
-    if((endDate) && ((now - date) < 60 * 60 * 24 * 1000)) {
-      // At least 30 seconds so data is available
-      date = now - 30000;
+    if(endDate >= now) {
+      return false;
     }
     return date;
   };
@@ -86,10 +82,13 @@ function CumulativeFeed(divId, startDateId, endDateId) {
     var interval = (end - start) * 0.001 + 1;
     $.ajax({
       url: window.emoncms_path + "/feed/data.json?apikey=" + window.apikey_read,
-      data: "id="+self.feedId+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=1",
+      data: "id="+self.feedId+"&start="+start+"&end="+end+"&interval="+interval+"&skipmissing=0&limitinterval=0",
       dataType: "json",
       success: function(data) {
         var value;
+        if(data.length == 0) {
+          return;
+        }
         // Special case
         if((data.length == 1)) {
           if(data[0][1] == null) {

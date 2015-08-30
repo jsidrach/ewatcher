@@ -54,7 +54,7 @@
           <div class="dateInput">
             <label><?php echo ewatcher_translate("End date"); ?></label>
             <div id="endDate" class="input-append date control-group">
-              <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y"); ?>" type="text" />
+              <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y", strtotime('-1 days')); ?>" type="text" />
               <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
             </div>
           </div>
@@ -103,14 +103,12 @@
         <div class="multiple-values multiple-2">
           <span title="<?php echo ewatcher_translate('Self-consumed energy relative to the total PV energy produced'); ?>" class="single-value">
             <label><?php echo ewatcher_translate("Self-consumption"); ?></label>
-            <span id="selfConsumption" class="ewatcher-green" data-feedid="<?php echo 100*$this->feeds['tPvToLoad/tPv']['id']/$this->feeds['tPv']['id']; ?>">
-            </span>
+            <span id="selfConsumption" class="ewatcher-green"></span>
             <span class="ewatcher-green">%</span>
           </span>
           <span title="<?php echo ewatcher_translate('Self-consumed energy relative to the total load'); ?>" class="single-value">
             <label><?php echo ewatcher_translate("Self-sufficiency"); ?></label>
-            <span id="selfSufficiency" class="ewatcher-yellow" data-feedid="<?php echo 100*$this->feeds['tPvToLoad/tPv']['id']/$this->feeds['tLoad']['id']; ?>">
-            </span>
+            <span id="selfSufficiency" class="ewatcher-yellow"></span>
             <span class="ewatcher-yellow">%</span>
           </span>
         </div>
@@ -169,9 +167,9 @@
           // Cumulative feeds
           var tLoad = new CumulativeFeed("#tLoad", "#startDate", "#endDate");
           var tPv = new CumulativeFeed("#tPv", "#startDate", "#endDate");
-          var tPvToLoad = new CumulativeFeed("#tPvToLoad", "#startDate", "#endDate");
           var tPvToGrid = new CumulativeFeed("#tPvToGrid", "#startDate", "#endDate");
           var tLoadFromGrid = new CumulativeFeed("#tLoadFromGrid", "#startDate", "#endDate");
+          var tPvToLoad = new CumulativeFeed("#tPvToLoad", "#startDate", "#endDate");
           // Dependent values
           var selfConsumption = new DependentValue("#selfConsumption", "#tPvToLoad,#tPv", function(values) {
             var tPvToLoad = parseFloat(values["#tPvToLoad"]);

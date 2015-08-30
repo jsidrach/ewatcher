@@ -28,27 +28,27 @@
           // Graphic 1
           dailyGraphs.push([
             {
-              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
-              color: "#DCCC1F",
-              legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
-            },
-            {
               id: <?php echo $this->feeds['eDLoadFromPv']['id']; ?>,
               color: "#20CA36",
               legend: "<?php echo ewatcher_translate('PV energy self-consumed (kWh)'); ?>"
+            },
+            {
+              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
+              color: "#DCCC1F",
+              legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
             }
           ]);
           // Graphic 2
           dailyGraphs.push([
             {
-              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
-              color: "#DCCC1F",
-              legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
-            },
-            {
               id: <?php echo $this->feeds['eDGrid']['id']; ?>,
               color: "#D52E2E",
               legend: "<?php echo ewatcher_translate('Energy imported from the grid (kWh)'); ?>"
+            },
+            {
+              id: <?php echo $this->feeds['eDPvToGrid']['id']; ?>,
+              color: "#DCCC1F",
+              legend: "<?php echo ewatcher_translate('PV energy exported to the grid (kWh)'); ?>"
             }
           ]);
           // Graphic 3

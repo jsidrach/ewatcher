@@ -26,7 +26,7 @@
           <div class="dateInput">
             <label><?php echo ewatcher_translate("End date"); ?></label>
             <div id="endDate" class="input-append date control-group">
-              <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y"); ?>" type="text" />
+              <input data-format="dd/MM/yyyy" value="<?php echo date("d/m/Y", strtotime('-1 days')); ?>" type="text" />
               <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
             </div>
           </div>
