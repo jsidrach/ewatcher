@@ -24,13 +24,13 @@ programmer. It communicates using the protocol AVR109.
 
 ### Aditional services. Linino Configuration
 
-1. **Servicio SFTP:** We need to install first SFTP in Linino for the exchange of files between the computer and the Arduino. Using SSH we do the following:
+* **Servicio SFTP:** We need to install first SFTP in Linino for the exchange of files between the computer and the Arduino. Using SSH we do the following:
 
 >>opkg update
 
 >>opkg install openssh-sftp-server
 
-2. **PHP support:** The web server in Linino needs it for the configuration web in the monitoring system:
+* **PHP support:** The web server in Linino needs it for the configuration web in the monitoring system:
 
 >>opkg update
 
@@ -40,7 +40,7 @@ We need also to access to the configuration file in the web server /etc/config/u
 
 >>list interpreter “.php=/usr/bin/phpcgi”
 
-3. **Configuration web for the device:** The web-app created for the configuration of the clien device (calibration coefficients, apikey, server, etc) has to be installed in the device copying the content of the directory *Web de configuración*
+* **Configuration web for the device:** The web-app created for the configuration of the clien device (calibration coefficients, apikey, server, etc) has to be installed in the device copying the content of the directory *Web de configuración*
 in Arduino Yún in the directory /www.
 
 ## Web Configuration
