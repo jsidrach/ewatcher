@@ -46,7 +46,3 @@ EWatcher uses the following libraries included in *emoncms*:
     * Date Format
 * Bootstrap
   * Bootstrap-datetimepicker
-
-TODO
-----
-* New screenshots
