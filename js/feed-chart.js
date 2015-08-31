@@ -622,7 +622,7 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "M", click: function() {
         fchart.view.timewindow(31);
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
+        if(chartOptions.chartType == "instant") {
           fchart.autoupdate = true;
         }
         fchart.draw();
@@ -631,7 +631,7 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "Y", click: function() {
         fchart.view.timewindow(365);
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
+        if(chartOptions.chartType == "instant") {
           fchart.autoupdate = true;
         }
         fchart.draw();
@@ -640,8 +640,8 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "+", click: function() {
         fchart.view.zoomin();
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
-          fchart.autoupdate = true;
+        if(chartOptions.chartType == "instant") {
+          fchart.autoupdate = false;
         }
         fchart.draw();
       }}).appendTo(controlbar);
@@ -649,8 +649,8 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "-", click: function() {
         fchart.view.zoomout();
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
-          fchart.autoupdate = true;
+        if(chartOptions.chartType == "instant") {
+          fchart.autoupdate = false;
         }
         fchart.draw();
       }}).appendTo(controlbar);
@@ -658,8 +658,8 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: "<", click: function() {
         fchart.view.panleft();
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
-          fchart.autoupdate = true;
+        if(chartOptions.chartType == "instant") {
+          fchart.autoupdate = false;
         }
         fchart.draw();
       }}).appendTo(controlbar);
@@ -667,8 +667,8 @@ function FeedChart(divId, feeds, options) {
       $("<span/>", {text: ">", click: function() {
         fchart.view.panright();
         fchart.reload = true;
-        if(chartOptions.chartTypefchart == "instant") {
-          fchart.autoupdate = true;
+        if(chartOptions.chartType == "instant") {
+          fchart.autoupdate = false;
         }
         fchart.draw();
       }}).appendTo(controlbar);
