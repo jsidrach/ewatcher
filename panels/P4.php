@@ -165,15 +165,15 @@
             return values["#units"];
           });
           // Dependent values (get it from the tables)
-          // The table has a final total row (may be hidden) with the sum of each column, and the id of each column total is #total_f<feedid>
-          var tLoad = new DependentValue("#tLoad", "#total_f<?php echo $this->feeds['eDLoad']['id']; ?>", function(values) {
-            return parseFloat(values["#total_f<?php echo $this->feeds['eDLoad']['id']; ?>"]);
+          // The table has a final total row (may be hidden) with the sum of each column, and the id of each column total is #<table_id>_total_f<feedid>
+          var tLoad = new DependentValue("#tLoad", "#table_total_f<?php echo $this->feeds['eDLoad']['id']; ?>", function(values) {
+            return parseFloat(values["#table_total_f<?php echo $this->feeds['eDLoad']['id']; ?>"]);
           });
-          var tPv = new DependentValue("#tPv", "#total_f<?php echo $this->feeds['eDPv']['id']; ?>", function(values) {
-            return parseFloat(values["#total_f<?php echo $this->feeds['eDPv']['id']; ?>"]);
+          var tPv = new DependentValue("#tPv", "#table_total_f<?php echo $this->feeds['eDPv']['id']; ?>", function(values) {
+            return parseFloat(values["#table_total_f<?php echo $this->feeds['eDPv']['id']; ?>"]);
           });
-          var tLoadFromGrid = new DependentValue("#tLoadFromGrid", "#total_f<?php echo $this->feeds['eDGrid']['id']; ?>", function(values) {
-            return parseFloat(values["#total_f<?php echo $this->feeds['eDGrid']['id']; ?>"]);
+          var tLoadFromGrid = new DependentValue("#tLoadFromGrid", "#table_total_f<?php echo $this->feeds['eDGrid']['id']; ?>", function(values) {
+            return parseFloat(values["#table_total_f<?php echo $this->feeds['eDGrid']['id']; ?>"]);
           });
           // Dependent values from the total values
           var tPvToLoad = new DependentValue("#tPvToLoad", "#tLoad,#tLoadFromGrid", function(values) {

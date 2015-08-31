@@ -245,9 +245,10 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     } else {
       totalRow = "<tr style='display: none;'><td>" + this.localization.total + "</td>";
     }
+    var divIdNoHash = this.divId.substring(1);
     for(var index in total) {
       var totalData = Math.round(parseFloat(total[index]) * 100) / 100;
-      totalRow += "<td id='total_" + index + "'>" + totalData + "</td>";
+      totalRow += "<td id='" + divIdNoHash + "_total_" + index + "'>" + totalData + "</td>";
     }
     totalRow += "</tr>";
     tbodyHTML += totalRow;
@@ -257,7 +258,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
 
     // Trigger changes
     for(var index in total) {
-      $("#total_" + index).trigger("change");
+      $(this.divId + "_total_" + index).trigger("change");
     }
   };
 

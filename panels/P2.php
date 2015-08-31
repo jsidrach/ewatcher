@@ -36,7 +36,9 @@
       <div class="multiple-values-container">
         <div class="multiple-values multiple-1">
           <span class="single-value">
-            <label><?php echo ewatcher_translate("Daily energy consumption"); ?></label>
+            <label><?php echo ewatcher_translate("Energy consumption"); ?></label>
+            <span id="tLoad"></span>
+            <span>kWh</span>
           </span>
         </div>
       </div>
@@ -45,6 +47,9 @@
         $(window).ready(function () {
           $('#startDate').datetimepicker({ pickTime: false });
           $('#endDate').datetimepicker({ pickTime: false });
+          var tLoad = new DependentValue("#tLoad", "#eDLoad_total_f<?php echo $this->feeds['eDLoad']['id']; ?>", function(values) {
+            return parseFloat(values["#eDLoad_total_f<?php echo $this->feeds['eDLoad']['id']; ?>"]);
+          });
           var dailyTable = new FeedDailyTable("#eDLoad", "#startDate", "#endDate", [
             {
               id: <?php echo $this->feeds['eDLoad']['id']; ?>,
@@ -55,7 +60,7 @@
             day: "<?php echo ewatcher_translate('Day'); ?>",
             nodata: "<?php echo ewatcher_translate('No data available at the selected date range'); ?>",
             exportcsv: "<?php echo ewatcher_translate('Export to CSV'); ?>",
-            total: "<?php echo ewatcher_translate('Total'); ?>"
+            total: ""
           });
         });
       </script>

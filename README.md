@@ -49,6 +49,4 @@ EWatcher uses the following libraries included in *emoncms*:
 
 TODO
 ----
-* Better JS docs
-  * Limitations of each module
 * New screenshots

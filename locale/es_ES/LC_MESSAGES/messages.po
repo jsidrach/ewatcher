@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-08-29 20:06+0100\n"
-"PO-Revision-Date: 2015-08-29 20:06+0100\n"
+"POT-Creation-Date: 2015-08-31 10:23+0100\n"
+"PO-Revision-Date: 2015-08-31 10:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,24 +16,24 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../../..\n"
 "X-Poedit-SearchPath-1: ../../../panels\n"
 
-#: ../../../EWatcherConfig_model.php:28 ../../../panels/P1.php:21
+#: ../../../EWatcherConfig_model.php:31 ../../../panels/P1.php:21
 #: ../../../panels/P3.php:29 ../../../panels/P3.php:90
 msgid "Consumption"
 msgstr "Consumo"
 
-#: ../../../EWatcherConfig_model.php:29
+#: ../../../EWatcherConfig_model.php:32
 msgid "Consumption - Queries"
 msgstr "Consumo - Consultas"
 
-#: ../../../EWatcherConfig_model.php:30
+#: ../../../EWatcherConfig_model.php:33
 msgid "PV"
 msgstr "FV"
 
-#: ../../../EWatcherConfig_model.php:31
+#: ../../../EWatcherConfig_model.php:34
 msgid "PV - Queries"
 msgstr "FV - Consultas"
 
-#: ../../../EWatcherConfig_model.php:32
+#: ../../../EWatcherConfig_model.php:35
 msgid "PV - Daily values"
 msgstr "FV - Valores diarios"
 
@@ -49,7 +49,7 @@ msgstr "Energía consumida hoy"
 msgid "Consumption (W)"
 msgstr "Consumo (W)"
 
-#: ../../../panels/P1.php:61 ../../../panels/P2.php:51
+#: ../../../panels/P1.php:61 ../../../panels/P2.php:56
 msgid "Daily energy consumption (kWh)"
 msgstr "Consumo de energía diario (kWh)"
 
@@ -62,24 +62,20 @@ msgid "End date"
 msgstr "Fecha de fin"
 
 #: ../../../panels/P2.php:39
-msgid "Daily energy consumption"
-msgstr "Consumo de energía diario"
+msgid "Energy consumption"
+msgstr "Consumo de energía"
 
-#: ../../../panels/P2.php:55 ../../../panels/P4.php:251
+#: ../../../panels/P2.php:60 ../../../panels/P4.php:256
 msgid "Day"
 msgstr "Día"
 
-#: ../../../panels/P2.php:56 ../../../panels/P4.php:252
+#: ../../../panels/P2.php:61 ../../../panels/P4.php:257
 msgid "No data available at the selected date range"
 msgstr "No hay datos disponibles en el rango de fechas seleccionado"
 
-#: ../../../panels/P2.php:57 ../../../panels/P4.php:253
+#: ../../../panels/P2.php:62 ../../../panels/P4.php:258
 msgid "Export to CSV"
 msgstr "Exportar a CSV"
-
-#: ../../../panels/P2.php:58
-msgid "Total"
-msgstr "Total"
 
 #: ../../../panels/P3.php:22
 msgid "PV produced power"
@@ -113,11 +109,11 @@ msgstr "Energía FV exportada a la red"
 msgid "Energy imported from the grid"
 msgstr "Energía importada de la red"
 
-#: ../../../panels/P3.php:100 ../../../panels/P4.php:110
+#: ../../../panels/P3.php:100 ../../../panels/P4.php:109
 msgid "Self-consumed energy relative to the total load"
 msgstr "Porcentaje de consumo suministrado con energía FV"
 
-#: ../../../panels/P3.php:101 ../../../panels/P4.php:111
+#: ../../../panels/P3.php:101 ../../../panels/P4.php:110
 msgid "Self-sufficiency"
 msgstr "Autosuficiencia"
 
@@ -165,54 +161,46 @@ msgstr "Consumo total"
 msgid "PV energy produced"
 msgstr "Energía FV generada"
 
-#: ../../../panels/P4.php:122
+#: ../../../panels/P4.php:120
 msgid "Cost of the imported energy"
 msgstr "Coste de la energía importada"
 
-#: ../../../panels/P4.php:127
+#: ../../../panels/P4.php:125
 msgid "Cost of the exported PV energy"
 msgstr "Coste de la energía FV exportada"
 
-#: ../../../panels/P4.php:136
+#: ../../../panels/P4.php:134
 msgid "Cost without PV production"
 msgstr "Coste sin producción FV"
 
-#: ../../../panels/P4.php:141
+#: ../../../panels/P4.php:139
 msgid "Cost with PV production"
 msgstr "Coste con producción FV"
 
-#: ../../../panels/P4.php:149
+#: ../../../panels/P4.php:147
 msgid "Estimated savings"
 msgstr "Ahorro estimado"
 
-#: ../../../panels/P4.php:223 ../../../panels/P5.php:72
+#: ../../../panels/P4.php:236 ../../../panels/P5.php:72
 msgid "Consumption (kWh)"
 msgstr "Consumo (kWh)"
 
-#: ../../../panels/P4.php:227
+#: ../../../panels/P4.php:240
 msgid "PV energy (kWh)"
 msgstr "Energía FV (kWh)"
 
-#: ../../../panels/P4.php:231
+#: ../../../panels/P4.php:244
 msgid "PV self-consumed energy (kWh)"
 msgstr "Energía FV autoconsumida (kWh)"
 
-#: ../../../panels/P4.php:235 ../../../panels/P5.php:33
-#: ../../../panels/P5.php:46
+#: ../../../panels/P4.php:248 ../../../panels/P5.php:38
+#: ../../../panels/P5.php:51
 msgid "PV energy exported to the grid (kWh)"
 msgstr "Energía FV exportada a la red (kWh)"
 
-#: ../../../panels/P4.php:239
+#: ../../../panels/P4.php:252
 msgid "PV energy imported from the grid (kWh)"
 msgstr "Energía importada de la red (kWh)"
-
-#: ../../../panels/P4.php:243
-msgid "Self-consumption (%)"
-msgstr "Autoconsumo (%)"
-
-#: ../../../panels/P4.php:247
-msgid "Self-sufficiency (%)"
-msgstr "Autosuficiencia (%)"
 
 #: ../../../panels/P5.php:20
 msgid "PV energy generated"
@@ -230,11 +218,11 @@ msgstr "Fuente de la energía consumida"
 msgid "Global summary"
 msgstr "Sumario global"
 
-#: ../../../panels/P5.php:38 ../../../panels/P5.php:64
+#: ../../../panels/P5.php:33 ../../../panels/P5.php:64
 msgid "PV energy self-consumed (kWh)"
 msgstr "Energía FV autoconsumida (kWh)"
 
-#: ../../../panels/P5.php:51 ../../../panels/P5.php:59
+#: ../../../panels/P5.php:46 ../../../panels/P5.php:59
 #: ../../../panels/P5.php:82
 msgid "Energy imported from the grid (kWh)"
 msgstr "Energía importada de la red (kWh)"
@@ -252,6 +240,18 @@ msgid "Please contact the administrator to enable/disable the EWatcher panels."
 msgstr ""
 "Contacte con el administrador para habilitar/deshabilitar los paneles de "
 "EWatcher."
+
+#~ msgid "Daily energy consumption"
+#~ msgstr "Consumo de energía diario"
+
+#~ msgid "Total"
+#~ msgstr "Total"
+
+#~ msgid "Self-consumption (%)"
+#~ msgstr "Autoconsumo (%)"
+
+#~ msgid "Self-sufficiency (%)"
+#~ msgstr "Autosuficiencia (%)"
 
 #~ msgid "Consumption from grid"
 #~ msgstr "Consumo de la red"
@@ -288,9 +288,6 @@ msgstr ""
 
 #~ msgid "Daily consumption (kW/d)"
 #~ msgstr "Consumo diario (kW/d)"
-
-#~ msgid "Energy consumption"
-#~ msgstr "Consumo de energía"
 
 #~ msgid "Generated PV power"
 #~ msgstr "Potencia FV generada"

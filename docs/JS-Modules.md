@@ -22,6 +22,11 @@ Example code:
 
 To set the refresh interval, call `InstantFeed.setInterval(ms)`, where `ms` is the number of milliseconds between each update.
 
+Limitations:
+
+* The user must have its *emoncms* timezone region correctly selected, as it must be the same as the browser local time
+* If the `daily` chart type is selected, the latest data for the visualization will be the last day
+
 Dependencies:
 
 * Variables: `window.apikey_read`, `window.emoncms_path`
@@ -61,6 +66,12 @@ Example code:
   });
 </script>
 ```
+
+Limitations
+
+* The user must have its *emoncms* timezone region correctly selected, as it must be the same as the browser local time
+* It is necessary that the start and end date have the datetimepicker option `pickTime` set to `false`
+* Cumulative feeds may not work properly if there is the feeds have missing data or gaps between the dates selected
 
 Dependencies:
 
@@ -108,6 +119,10 @@ Example code:
   FeedChartFactory.create("ExampleGraphic", feeds, {chartType: "daily", defaultRange: 1});
 </script>
 ```
+
+Limitations:
+
+* The user must have its *emoncms* timezone region correctly selected, as it must be the same as the browser local time
 
 Dependencies:
 
@@ -173,7 +188,12 @@ Example code:
 </script>
 ```
 
-**Note**: the table has a final total row (may be hidden) with the sum of each column, and the id of each column total is `#total_f<feedid>`
+**Note**: the table has a final total row (may be hidden) with the sum of each column, and the id of each column total is `#<table_id>_total_f<feedid>`
+
+Limitations:
+
+* The user must have its *emoncms* timezone region correctly selected, as it must be the same as the browser local time
+* It is necessary that the start and end date have the datetimepicker option `pickTime` set to `false`
 
 Dependencies:
 
