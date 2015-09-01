@@ -417,9 +417,12 @@ function FeedChart(divId, feeds, options) {
     var feed;
     // Requests array
     var requests = [];
+    var margin = 60 * 60 * 24 * 1000 + 60 * 1000;
     for(var i in this.feeds) {
       feed = this.feeds[i];
-      requests.push(this.getData(feed, this.view.start - 60 * 60 * 24 * 1000, this.view.end, 60 * 60 * 24, 0));
+      // 1 day more margin for each extreme
+      // Minus 1 minute and plus 1 minute (start/end)
+      requests.push(this.getData(feed, this.view.start - margin, this.view.end + margin, interval, 0));
     }
 
     // Save context before jQuery calls
@@ -433,8 +436,8 @@ function FeedChart(divId, feeds, options) {
         for(var z = 0; z < feedData.length; z++) {
           // Normalize date
           feedData[z][0] = self.getBeginningOfDay(feedData[z][0]);
-          // Do not plot null or future data
-          if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
+          // Do not plot null or data out of range
+          if((feedData[z][1] != null) && (feedData[z][0] >= self.view.start) && (feedData[z][0] <= self.view.end)) {
             plot_data["f" + feed].push([feedData[z][0], feedData[z][1]]);
           }
         }
@@ -448,8 +451,8 @@ function FeedChart(divId, feeds, options) {
           for(var z = 0; z < feedData.length; z++) {
             // Normalize date
             feedData[z][0] = self.getBeginningOfDay(feedData[z][0]);
-            // Do not plot null or the beginning of the end day
-            if((feedData[z][1] != null) && (feedData[z][0] <= self.view.end)) {
+            // Do not plot null or data out of range
+            if((feedData[z][1] != null) && (feedData[z][0] >= self.view.start) && (feedData[z][0] <= self.view.end)) {
               plot_data["f" + feedId].push([feedData[z][0], feedData[z][1]]);
             }
           }
