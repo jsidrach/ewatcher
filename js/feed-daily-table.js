@@ -246,9 +246,11 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
       totalRow = "<tr style='display: none;'><td>" + this.localization.total + "</td>";
     }
     var divIdNoHash = this.divId.substring(1);
+    var triggerChanges = "";
     for(var index in total) {
       var totalData = Math.round(parseFloat(total[index]) * 100) / 100;
       totalRow += "<td id='" + divIdNoHash + "_total_" + index + "'>" + totalData + "</td>";
+      triggerChanges += this.divId + "_total_" + index + ",";
     }
     totalRow += "</tr>";
     tbodyHTML += totalRow;
@@ -257,9 +259,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
     tbody.html(tbodyHTML);
 
     // Trigger changes
-    for(var index in total) {
-      $(this.divId + "_total_" + index).trigger("change");
-    }
+    $(triggerChanges.substring(0, triggerChanges.length - 1)).trigger("change");
   };
 
   // Builds an html row
