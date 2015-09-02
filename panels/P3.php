@@ -148,9 +148,9 @@
             line: 1.5
           },
           {
-            id: <?php echo $this->feeds['iPvToGrid']['id']; ?>,
-            color: "#20CA36",
-            legend: "<?php echo ewatcher_translate('PV power exported to the grid (W)'); ?>",
+            id: <?php echo $this->feeds['sPPv']['id']; ?>,
+            color: "#DCCC1F",
+            legend: "<?php echo ewatcher_translate('PV produced power (W)'); ?>",
             fill: 0,
             line: 1.5
           }
@@ -158,17 +158,18 @@
         FeedChartFactory.create("P3Graph1", P3Graph1, {defaultRange: 1, steps: false});
         // P3 Graph 2
         var P3Graph2 = [
-          {
-            id: <?php echo $this->feeds['sPPv']['id']; ?>,
-            color: "#DCCC1F",
-            legend: "<?php echo ewatcher_translate('PV produced power (W)'); ?>",
-            fill: 0,
-            line: 1.5
-          },
+          ,
           {
             id: <?php echo $this->feeds['iGridToLoad']['id']; ?>,
             color: "#D52E2E",
             legend: "<?php echo ewatcher_translate('Consumption from the grid (W)'); ?>",
+            fill: 0,
+            line: 1.5
+          },
+          {
+            id: <?php echo $this->feeds['iPvToGrid']['id']; ?>,
+            color: "#20CA36",
+            legend: "<?php echo ewatcher_translate('PV power exported to the grid (W)'); ?>",
             fill: 0,
             line: 1.5
           }
