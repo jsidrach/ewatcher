@@ -49,10 +49,12 @@
             {
               id: <?php echo $this->feeds['sPLoad']['id']; ?>,
               color: "#0699FA",
-              legend: "<?php echo ewatcher_translate('Consumption (W)'); ?>"
+              legend: "<?php echo ewatcher_translate('Consumption (W)'); ?>",
+              fill: 0.7,
+              line: 1
             }
           ];
-          FeedChartFactory.create("sPLoad", sPLoad, {defaultRange: 1});
+          FeedChartFactory.create("sPLoad", sPLoad, {defaultRange: 1, steps: false});
           // eDLoad graphic
           var eDLoad = [
             {
