@@ -22,7 +22,7 @@
       $active = false;
       for($i = 1; (($i <= $ewatcherconfig->numPanels) && ($active === false)); $i++) {
         $panel = "P" . $i;
-        if(($route->action == $panel) && ($ewatcherconfig->panels[$panel])) {
+        if((($route->action == $panel) && ($ewatcherconfig->panels[$panel])) || (($route->action == "") && ($ewatcherconfig->panels[$panel]))) {
           $active = true;
           require_once("Modules/ewatcher/panels/_EWatcherPanel.php");
           require_once("Modules/ewatcher/panels/" . $panel . ".php");
