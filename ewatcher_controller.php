@@ -8,9 +8,13 @@
     // Global variables
     global $session,$route,$mysqli,$path;
 
+    // Return if not logged in
+    if (!$session['write']) {
+      return array('content'=>false);
+    }
+
     // Output for the call
     $result = false;
-
     // Configuration model
     require_once("Modules/ewatcher/EWatcherConfig_model.php");
     $ewatcherconfig = new EWatcherConfig($mysqli, $session["userid"]);
