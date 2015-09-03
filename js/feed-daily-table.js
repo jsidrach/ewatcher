@@ -131,7 +131,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
 
     // Save context before jQuery calls
     var self = this;
-    // When all requests finish
+    // When all requests finish¡
     $.when.apply($, requests).done(function() {
       // Special case if there is only one request
       if (requests.length == 1) {
@@ -201,38 +201,31 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   this.replaceTableData = function() {
     var tbody = this.table.find("tbody");
     var nodatarow = "<tr><td colspan='" + (this.feeds.length+1) + "' style='text-align:center;'>" + this.localization.nodata + "</td></tr>";
-    tbody.empty();
-    if($.isEmptyObject(this.feedData)) {
-      tbody.html(nodatarow);
-      if(this.localization.nodata != "") {
-        this.button.hide();
-      }
-      return;
-    }
-
-    // Data array (["d" + date] => [["f" + feedid] => value])
     var tbodyHTML = "";
+    tbody.empty();
     var numRows = 0;
-    for(var index in this.feedData) {
-      var rowHTML = this.buildRow(parseInt(index.substring(1)), this.feedData[index]);
-      if(rowHTML != "") {
-        numRows++;
+    if(!$.isEmptyObject(this.feedData)) {
+      // Data array (["d" + date] => [["f" + feedid] => value])
+      for(var index in this.feedData) {
+        var rowHTML = this.buildRow(parseInt(index.substring(1)), this.feedData[index]);
+        if(rowHTML != "") {
+          numRows++;
+        }
+        tbodyHTML += rowHTML;
       }
-      tbodyHTML += rowHTML;
     }
 
     // No data check
     if(numRows == 0) {
       this.feedData = [];
-      tbody.html(nodatarow);
       if(this.localization.nodata != "") {
         this.button.hide();
       }
-      return;
+      tbodyHTML += nodatarow;
     }
 
     // Show csv button
-    if(this.localization.nodata != "") {
+    if((this.localization.nodata != "") && (numRows != 0)) {
       this.button.show();
     }
 
@@ -387,6 +380,13 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   // Gets the total row
   this.getTotalRow = function(feedData) {
     var total = [];
+    if(feedData.length == 0) {
+      for(var index in this.feeds) {
+        var feedid = this.feeds[index].id;
+        total["f" + feedid] = 0;
+      }
+      return total;
+    }
     for(var date in feedData) {
       for(var index in this.feeds) {
         var feedid = this.feeds[index].id;
