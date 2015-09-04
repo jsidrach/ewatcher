@@ -11,6 +11,6 @@
 
 # Upgrade
 
-* Change path to the *EWatcher* directory (usually `/var/www/html/emoncms/Modules/EWatcher/`)
+* Change path to the *EWatcher* directory (usually `/var/www/html/emoncms/Modules/ewatcher/`)
 * Get the newer version via `git pull`
 * Visit `http://YOUR_EMONCMS_IP/admin/db` and update the database if necessary
