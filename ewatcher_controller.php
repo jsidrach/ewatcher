@@ -41,7 +41,7 @@
           ob_end_clean();
         }
       }
-      if(($active === false) || (!$session["write"])) {
+      if($active === false) {
         // Start capturing echo's
         ob_start();
         // Render panel
