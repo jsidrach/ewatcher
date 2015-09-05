@@ -2,6 +2,7 @@
 Documentation of the JavaScript modules developed for this project.
 
 * [instant-feed.js](#instant-feed)
+* [instant-led.js](#instant-led)
 * [cumulative-feed.js](#cumulative-feed)
 * [feed-chart.js](#feed-chart)
 * [feed-daily-table.js](#feed-daily-table)
@@ -22,10 +23,22 @@ Example code:
 
 To set the refresh interval, call `InstantFeed.setInterval(ms)`, where `ms` is the number of milliseconds between each update.
 
-Limitations:
+Dependencies:
 
-* The user must have its *emoncms* timezone region correctly selected, as it must be the same as the browser local time
-* If the `daily` chart type is selected, the latest data for the visualization will be the last day
+* Variables: `window.apikey_read`, `window.emoncms_path`
+* Libraries: jQuery
+
+## <a name="instant-led"> </a>instant-led.js
+Automatic update of a element background color based on a feed value (0: green, not 0: red), refreshing itself every X seconds.
+
+How to use: add the class `instant-led` to the element, and the tag `data-feedid` with the id of the feed.
+
+Example code:
+```html
+<span class="instant-led" data-feedid="31"></span>
+```
+
+To set the refresh interval, call `InstantFeed.setInterval(ms)`, where `ms` is the number of milliseconds between each update.
 
 Dependencies:
 

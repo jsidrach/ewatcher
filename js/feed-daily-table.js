@@ -131,7 +131,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
 
     // Save context before jQuery calls
     var self = this;
-    // When all requests finish¡
+    // When all requests finish
     $.when.apply($, requests).done(function() {
       // Special case if there is only one request
       if (requests.length == 1) {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EWatcher\n"
-"POT-Creation-Date: 2015-09-02 10:30+0100\n"
-"PO-Revision-Date: 2015-09-02 10:30+0100\n"
+"POT-Creation-Date: 2015-09-05 19:50+0100\n"
+"PO-Revision-Date: 2015-09-05 19:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -126,16 +126,16 @@ msgid "Self-consumption"
 msgstr "Autoconsumo"
 
 #: ../../../panels/P3.php:153
-msgid "PV power exported to the grid (W)"
-msgstr "Potencia FV exportada a la red (W)"
-
-#: ../../../panels/P3.php:164
 msgid "PV produced power (W)"
 msgstr "Potencia FV generada (W)"
 
-#: ../../../panels/P3.php:171
+#: ../../../panels/P3.php:165
 msgid "Consumption from the grid (W)"
 msgstr "Consumo de la red (W)"
+
+#: ../../../panels/P3.php:172
+msgid "PV power exported to the grid (W)"
+msgstr "Potencia FV exportada a la red (W)"
 
 #: ../../../panels/P4.php:25
 msgid "Energy imported cost (per kWh)"
