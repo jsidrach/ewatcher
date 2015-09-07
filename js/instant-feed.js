@@ -18,6 +18,12 @@ $(document).ready(function () {
   // Intervals (return of setInterval)
   var intervals = [];
 
+  // Defaults
+  // Multiply the retrieved value
+  var scale = 1;
+  // Precision (1 = no decimals, 10 = one decimal, etc.)
+  var precision = 100;
+
   // Initializes the module
   InstantFeed.init = function () {
     // Refresh feed
@@ -29,11 +35,13 @@ $(document).ready(function () {
       var feedElement = $(this);
       intervals.push(setInterval(function() {
         InstantFeed.getVal(feedElement.data("feedid"), function(value) {
+          var feedScale = parseFloat(feedElement.data("scale") == undefined ? scale : feedElement.data("scale"));
+          var feedPrecision = parseFloat(feedElement.data("precision") == undefined ? precision : feedElement.data("precision"));
           if((typeof value === "object") && ("success" in value) && (value.success == false)) {
             //feedElement.text("--");
             // Don't set the text
           } else {
-            feedElement.text(Math.round(parseFloat(value) * 100) / 100).trigger("change");
+            feedElement.text(Math.round(parseFloat(value) * feedScale * feedPrecision) / feedPrecision).trigger("change");
           }
         });
       }, interval));

@@ -15,10 +15,12 @@ Documentation of the JavaScript modules developed for this project.
 Automatic update of a feed value in the page every X seconds.
 
 How to use: add the class `instant-feed` to the element, and the tag `data-feedid` with the id of the feed.
+Additionally, use the tag `data-precision` to set the number of decimals (`1` means no decimal, `10` means two decimals, etc.), and the tag `data-scale` multiply the retrieved value.
+The default precision is `100` and the defalt scale is `1`.
 
 Example code:
 ```html
-<span class="instant-feed" data-feedid="31"></span>
+<span class="instant-feed" data-precision="10" data-scale="0.001" data-feedid="31"></span>
 ```
 
 To set the refresh interval, call `InstantFeed.setInterval(ms)`, where `ms` is the number of milliseconds between each update.
