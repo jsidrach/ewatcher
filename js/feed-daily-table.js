@@ -380,7 +380,7 @@ function FeedDailyTable(divId, startDateId, endDateId, feeds, localization) {
   // Gets the total row
   this.getTotalRow = function(feedData) {
     var total = [];
-    if(feedData.length == 0) {
+    if(Object.keys(feedData).length == 0) {
       for(var index in this.feeds) {
         var feedid = this.feeds[index].id;
         total["f" + feedid] = 0;
