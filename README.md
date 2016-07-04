@@ -1,6 +1,7 @@
 # EWatcher
-*emoncms* module to visualize electric consumption and PV self-consumption facilities.
-It was based on the [app](https://github.com/emoncms/app) module.
+Module for the [emoncms](https://github.com/emoncms/emoncms/) platform to monitor photovoltaic facilities.
+Visually displays the generation and consumption of energy in real time, as well as statistics about historical data.
+Enables a quick detection of any possible issue with the electricity production.
 In order to create the necessary input and feeds, please refer to the [ewatcher-users](https://github.com/jsidrach/ewatcher-users/) project.
 
 Screenshots
