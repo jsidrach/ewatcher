@@ -1,4 +1,4 @@
-# EWatcher
+# EWatcher [Archived]
 Module for the [emoncms](https://github.com/emoncms/emoncms/) platform to monitor photovoltaic facilities.
 Visually displays the generation and consumption of energy in real time, as well as statistics about historical data.
 Enables a quick detection of any possible issue with the electricity production.
